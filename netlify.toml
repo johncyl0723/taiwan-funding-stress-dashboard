@@ -1,0 +1,15 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/"
+  status = 200
+  conditions = { Role = ["admin"] }
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/"
+  status = 302
