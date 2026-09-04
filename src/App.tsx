@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import type { User } from '@netlify/identity'
 import { getDashboard, requestRefresh } from './api'
-import { initialiseIdentity, login, logout } from './auth'
+import { acceptInvite, initialiseIdentity, login, logout } from './auth'
 import { Card, Stats, StatusBadge, TrendChart } from './components'
 import type { DashboardPayload } from './types'
 
@@ -18,10 +18,14 @@ export default function App() {
   const [password, setPassword] = useState('')
   const [loginError, setLoginError] = useState('')
   const [loggingIn, setLoggingIn] = useState(false)
+  const [inviteToken, setInviteToken] = useState<string | null>(null)
+  const [invitePassword, setInvitePassword] = useState('')
+  const [inviteError, setInviteError] = useState('')
+  const [acceptingInvite, setAcceptingInvite] = useState(false)
   const identityRoles = Object.values(user?.appMetadata?.roles ?? {})
   const isAdmin = identityRoles.includes('admin')
   const load = async () => { setLoading(true); try { setData(await getDashboard()) } catch (error) { setMessage(error instanceof Error ? error.message : '資料載入失敗') } finally { setLoading(false) } }
-  useEffect(() => { void load(); let unsubscribe: () => void = () => {}; void initialiseIdentity(setUser).then(fn => { unsubscribe = fn }); return () => unsubscribe() }, [])
+  useEffect(() => { void load(); let unsubscribe: () => void = () => {}; void initialiseIdentity(setUser, setInviteToken).then(fn => { unsubscribe = fn }); return () => unsubscribe() }, [])
   const refresh = async () => { setMessage('正在排入背景更新…'); try { await requestRefresh(); window.setTimeout(() => void load(), 2500); setMessage('更新工作已啟動，資料完成後會自動載入。') } catch (error) { setMessage(error instanceof Error ? error.message : '更新失敗') } }
   const submitLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -37,6 +41,23 @@ export default function App() {
       setLoginError(error instanceof Error ? error.message : '登入失敗，請確認 Email 與密碼。')
     } finally {
       setLoggingIn(false)
+    }
+  }
+  const submitInvite = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (!inviteToken) return
+    setAcceptingInvite(true)
+    setInviteError('')
+    try {
+      const currentUser = await acceptInvite(inviteToken, invitePassword)
+      setUser(currentUser)
+      setInvitePassword('')
+      setInviteToken(null)
+      setMessage('帳號已啟用並登入。若尚未看到「立即更新」，請確認 Netlify Identity 已為此帳號指派 admin 角色。')
+    } catch (error) {
+      setInviteError(error instanceof Error ? error.message : '無法完成邀請。請確認連結尚未失效，或請管理者重新寄送邀請信。')
+    } finally {
+      setAcceptingInvite(false)
     }
   }
   const market = data?.market
@@ -62,6 +83,19 @@ export default function App() {
           <button className="login-submit" type="submit" disabled={loggingIn}>{loggingIn ? '登入中…' : '登入並繼續'}</button>
         </form>
         <p className="auth-help">尚未完成邀請？請先開啟 Netlify 寄到你信箱的邀請信，設定密碼後再登入。</p>
+      </section>
+    </div>}
+    {inviteToken && <div className="auth-backdrop" role="presentation">
+      <section className="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="invite-title">
+        <p className="section-label">ADMIN INVITATION</p>
+        <h2 id="invite-title">設定管理者密碼</h2>
+        <p className="auth-description">請設定此 Netlify Identity 帳號的密碼，完成啟用後會自動登入。</p>
+        <form onSubmit={submitInvite}>
+          <label htmlFor="invite-password">新密碼</label>
+          <input id="invite-password" type="password" autoComplete="new-password" minLength={8} value={invitePassword} onChange={event => setInvitePassword(event.target.value)} required />
+          {inviteError && <p className="login-error" role="alert">{inviteError}</p>}
+          <button className="login-submit" type="submit" disabled={acceptingInvite}>{acceptingInvite ? '啟用中…' : '設定密碼並啟用帳號'}</button>
+        </form>
       </section>
     </div>}
     {message && <p className="notice">{message}</p>}

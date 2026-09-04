@@ -1,8 +1,12 @@
-import { getUser, handleAuthCallback, login, logout, onAuthChange, type User } from '@netlify/identity'
+import { acceptInvite, getUser, handleAuthCallback, login, logout, onAuthChange, type User } from '@netlify/identity'
 
-export async function initialiseIdentity(onUser: (user: User | null) => void) {
+export async function initialiseIdentity(
+  onUser: (user: User | null) => void,
+  onInvite: (token: string) => void,
+) {
   try {
-    await handleAuthCallback()
+    const callback = await handleAuthCallback()
+    if (callback?.type === 'invite' && callback.token) onInvite(callback.token)
     onUser(await getUser())
     return onAuthChange((_event, user) => onUser(user))
   } catch {
@@ -11,4 +15,4 @@ export async function initialiseIdentity(onUser: (user: User | null) => void) {
   }
 }
 
-export { login, logout }
+export { acceptInvite, login, logout }
