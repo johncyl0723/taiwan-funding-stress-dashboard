@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import type { User } from '@netlify/identity'
 import { getDashboard, requestRefresh } from './api'
-import { acceptInvite, initialiseIdentity, login, logout } from './auth'
+import { acceptInvite, initialiseIdentity, login, logout, updateUser } from './auth'
 import { Card, Stats, StatusBadge, TrendChart } from './components'
 import type { DashboardPayload } from './types'
 
@@ -22,10 +22,14 @@ export default function App() {
   const [invitePassword, setInvitePassword] = useState('')
   const [inviteError, setInviteError] = useState('')
   const [acceptingInvite, setAcceptingInvite] = useState(false)
+  const [recoveryOpen, setRecoveryOpen] = useState(false)
+  const [recoveryPassword, setRecoveryPassword] = useState('')
+  const [recoveryError, setRecoveryError] = useState('')
+  const [resettingPassword, setResettingPassword] = useState(false)
   const identityRoles = Object.values(user?.appMetadata?.roles ?? {})
   const isAdmin = identityRoles.includes('admin')
   const load = async () => { setLoading(true); try { setData(await getDashboard()) } catch (error) { setMessage(error instanceof Error ? error.message : '資料載入失敗') } finally { setLoading(false) } }
-  useEffect(() => { void load(); let unsubscribe: () => void = () => {}; void initialiseIdentity(setUser, setInviteToken).then(fn => { unsubscribe = fn }); return () => unsubscribe() }, [])
+  useEffect(() => { void load(); let unsubscribe: () => void = () => {}; void initialiseIdentity(setUser, setInviteToken, () => setRecoveryOpen(true)).then(fn => { unsubscribe = fn }); return () => unsubscribe() }, [])
   const refresh = async () => { setMessage('正在排入背景更新…'); try { await requestRefresh(); window.setTimeout(() => void load(), 2500); setMessage('更新工作已啟動，資料完成後會自動載入。') } catch (error) { setMessage(error instanceof Error ? error.message : '更新失敗') } }
   const submitLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -58,6 +62,22 @@ export default function App() {
       setInviteError(error instanceof Error ? error.message : '無法完成邀請。請確認連結尚未失效，或請管理者重新寄送邀請信。')
     } finally {
       setAcceptingInvite(false)
+    }
+  }
+  const submitRecovery = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setResettingPassword(true)
+    setRecoveryError('')
+    try {
+      const currentUser = await updateUser({ password: recoveryPassword })
+      setUser(currentUser)
+      setRecoveryPassword('')
+      setRecoveryOpen(false)
+      setMessage('密碼已重設並登入。請重新載入頁面後再使用「立即更新」。')
+    } catch (error) {
+      setRecoveryError(error instanceof Error ? error.message : '無法重設密碼。請確認連結尚未失效，或重新寄送重設信。')
+    } finally {
+      setResettingPassword(false)
     }
   }
   const market = data?.market
@@ -95,6 +115,19 @@ export default function App() {
           <input id="invite-password" type="password" autoComplete="new-password" minLength={8} value={invitePassword} onChange={event => setInvitePassword(event.target.value)} required />
           {inviteError && <p className="login-error" role="alert">{inviteError}</p>}
           <button className="login-submit" type="submit" disabled={acceptingInvite}>{acceptingInvite ? '啟用中…' : '設定密碼並啟用帳號'}</button>
+        </form>
+      </section>
+    </div>}
+    {recoveryOpen && <div className="auth-backdrop" role="presentation">
+      <section className="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="recovery-title">
+        <p className="section-label">PASSWORD RESET</p>
+        <h2 id="recovery-title">設定新密碼</h2>
+        <p className="auth-description">請設定 Netlify Identity 帳號的新密碼，完成後會自動登入。</p>
+        <form onSubmit={submitRecovery}>
+          <label htmlFor="recovery-password">新密碼</label>
+          <input id="recovery-password" type="password" autoComplete="new-password" minLength={8} value={recoveryPassword} onChange={event => setRecoveryPassword(event.target.value)} required />
+          {recoveryError && <p className="login-error" role="alert">{recoveryError}</p>}
+          <button className="login-submit" type="submit" disabled={resettingPassword}>{resettingPassword ? '重設中…' : '設定新密碼並登入'}</button>
         </form>
       </section>
     </div>}
