@@ -61,7 +61,11 @@ export async function fetchMarketSources(): Promise<RawMarketValues> {
     raw[key] = result.value; status[key] = `${key} 已讀取`; return result.value
   }
   const primaryHtml = read('TDCC 初級', primary), secondaryHtml = read('TDCC 次級', secondary), taiborHtml = read('TAIBOR', taibor), overnightHtml = read('央行 O/N', overnight), ncdHtml = read('央行 NCD', ncd)
-  const p = primaryHtml && fixing90(primaryHtml), s = secondaryHtml && fixing90(secondaryHtml), t = taiborHtml && taibor3m(taiborHtml), o = overnightHtml && overnightRate(overnightHtml), n = ncdHtml && ncdNetIssuance(ncdHtml)
+  const p = primaryHtml ? fixing90(primaryHtml) : null
+  const s = secondaryHtml ? fixing90(secondaryHtml) : null
+  const t = taiborHtml ? taibor3m(taiborHtml) : null
+  const o = overnightHtml ? overnightRate(overnightHtml) : null
+  const n = ncdHtml ? ncdNetIssuance(ncdHtml) : null
   const date = primaryHtml && dateInPage(primaryHtml)
   if (!date || p === null || s === null || t === null || o === null || n === null) throw new Error(`資料尚未完整定盤：${JSON.stringify(status)}`)
   const sources: SourceRef[] = [
