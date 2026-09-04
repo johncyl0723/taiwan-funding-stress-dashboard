@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import type { User } from '@netlify/identity'
 import { getDashboard, requestRefresh } from './api'
 import { initialiseIdentity, login, logout } from './auth'
@@ -13,19 +13,57 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
+  const [loginOpen, setLoginOpen] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loginError, setLoginError] = useState('')
+  const [loggingIn, setLoggingIn] = useState(false)
   const identityRoles = Object.values(user?.appMetadata?.roles ?? {})
   const isAdmin = identityRoles.includes('admin')
   const load = async () => { setLoading(true); try { setData(await getDashboard()) } catch (error) { setMessage(error instanceof Error ? error.message : '資料載入失敗') } finally { setLoading(false) } }
   useEffect(() => { void load(); let unsubscribe: () => void = () => {}; void initialiseIdentity(setUser).then(fn => { unsubscribe = fn }); return () => unsubscribe() }, [])
   const refresh = async () => { setMessage('正在排入背景更新…'); try { await requestRefresh(); window.setTimeout(() => void load(), 2500); setMessage('更新工作已啟動，資料完成後會自動載入。') } catch (error) { setMessage(error instanceof Error ? error.message : '更新失敗') } }
+  const submitLogin = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setLoggingIn(true)
+    setLoginError('')
+    try {
+      const currentUser = await login(email.trim(), password)
+      setUser(currentUser)
+      setPassword('')
+      setLoginOpen(false)
+      setMessage('已登入管理者帳號。')
+    } catch (error) {
+      setLoginError(error instanceof Error ? error.message : '登入失敗，請確認 Email 與密碼。')
+    } finally {
+      setLoggingIn(false)
+    }
+  }
   const market = data?.market
   return <main>
     <header className="topbar">
       <div><p className="eyebrow">PUBLIC MARKET RESEARCH · TAIWAN</p><h1>台灣資金緊俏每日儀表板</h1></div>
       <div className="actions">
-        {isAdmin ? <><button className="secondary" onClick={() => void logout()}>登出</button><button onClick={() => void refresh()}>立即更新</button></> : user ? <button className="secondary" onClick={() => void logout()}>登出</button> : <button className="secondary" onClick={() => void login(prompt('管理者 Email') ?? '', prompt('密碼') ?? '')}>管理者登入</button>}
+        {isAdmin ? <><button className="secondary" onClick={() => void logout()}>登出</button><button onClick={() => void refresh()}>立即更新</button></> : user ? <button className="secondary" onClick={() => void logout()}>登出</button> : <button className="secondary" onClick={() => { setLoginError(''); setLoginOpen(true) }}>管理者登入</button>}
       </div>
     </header>
+    {loginOpen && <div className="auth-backdrop" role="presentation">
+      <section className="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="login-title">
+        <button className="close-button" type="button" aria-label="關閉登入視窗" onClick={() => { setLoginOpen(false); setPassword(''); setLoginError('') }}>×</button>
+        <p className="section-label">ADMIN ACCESS</p>
+        <h2 id="login-title">管理者登入</h2>
+        <p className="auth-description">登入後可執行即時更新；公開訪客僅能閱讀市場研究內容。</p>
+        <form onSubmit={submitLogin}>
+          <label htmlFor="admin-email">Email</label>
+          <input id="admin-email" type="email" autoComplete="email" value={email} onChange={event => setEmail(event.target.value)} required />
+          <label htmlFor="admin-password">密碼</label>
+          <input id="admin-password" type="password" autoComplete="current-password" value={password} onChange={event => setPassword(event.target.value)} required />
+          {loginError && <p className="login-error" role="alert">{loginError}</p>}
+          <button className="login-submit" type="submit" disabled={loggingIn}>{loggingIn ? '登入中…' : '登入並繼續'}</button>
+        </form>
+        <p className="auth-help">尚未完成邀請？請先開啟 Netlify 寄到你信箱的邀請信，設定密碼後再登入。</p>
+      </section>
+    </div>}
     {message && <p className="notice">{message}</p>}
     {loading ? <p className="loading">載入市場資料中…</p> : !market ? <section className="empty-state"><h2>尚無可發布的有效快照</h2><p>請等待平日 12:00 自動更新，或由管理者登入後按「立即更新」。</p></section> : <>
       <section className="hero">
