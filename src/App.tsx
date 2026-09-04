@@ -13,7 +13,8 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
-  const isAdmin = Boolean(user?.appMetadata?.roles?.includes('admin'))
+  const identityRoles = user?.appMetadata?.roles
+  const isAdmin = Array.isArray(identityRoles) && identityRoles.includes('admin')
   const load = async () => { setLoading(true); try { setData(await getDashboard()) } catch (error) { setMessage(error instanceof Error ? error.message : '資料載入失敗') } finally { setLoading(false) } }
   useEffect(() => { void load(); let unsubscribe: () => void = () => {}; void initialiseIdentity(setUser).then(fn => { unsubscribe = fn }); return () => unsubscribe() }, [])
   const refresh = async () => { setMessage('正在排入背景更新…'); try { await requestRefresh(); window.setTimeout(() => void load(), 2500); setMessage('更新工作已啟動，資料完成後會自動載入。') } catch (error) { setMessage(error instanceof Error ? error.message : '更新失敗') } }
