@@ -6,7 +6,7 @@ import {
 import type { Definition } from './definitions'
 import type {
   AiCommentary, CompositeInputs, EventFlag, HistoryPoint, MonthlySeries,
-  NcdAuction, NewsItem, Status, StressStats, WeeklyBillPoint
+  NcdAuction, NewsDigest, NewsItem, Status, StressStats, WeeklyBillPoint
 } from './types'
 
 const STATUS_NAMES: Record<Status, string> = {
@@ -163,7 +163,7 @@ export function AiCommentaryBlock({ commentary }: { commentary: AiCommentary | n
   </div>
 }
 
-export function NewsList({ items }: { items: NewsItem[] }) {
+export function NewsList({ items, digest }: { items: NewsItem[]; digest: NewsDigest | null }) {
   if (!items.length) return <p className="empty-chart">目前沒有取得相關新聞</p>
   const official = items.filter(item => item.official)
   const media = items.filter(item => !item.official)
@@ -179,16 +179,37 @@ export function NewsList({ items }: { items: NewsItem[] }) {
 
   return <div className="news-wrap">
     {official.length > 0 && <div>
-      <p className="news-group">央行官方新聞稿</p>
-      {render(official)}
+      <div className="news-head">
+        <p className="news-group">央行官方新聞稿</p>
+        <span className="news-basis">摘要依據新聞稿全文</span>
+      </div>
+      {digest?.official && <p className="news-digest">{digest.official}</p>}
+      <details className="news-detail">
+        <summary>{official.length} 則原始公告</summary>
+        {render(official)}
+      </details>
     </div>}
+
     {media.length > 0 && <div>
-      <p className="news-group">財經媒體報導</p>
-      {render(media)}
+      <div className="news-head">
+        <p className="news-group">財經媒體報導</p>
+        <span className="news-basis warn">摘要僅依據標題</span>
+      </div>
+      {digest?.media && <p className="news-digest">{digest.media}</p>}
+      <details className="news-detail">
+        <summary>{media.length} 則原始標題</summary>
+        {render(media)}
+      </details>
       <p className="muted small">
-        媒體標題為第三方內容，僅列出標題與連結供查閱，未經查證，也未被納入任何指標計算。
+        媒體全文未被讀取 —— 有版權與付費牆限制，外部網頁內容也是提示詞注入的常見載體。
+        因此媒體摘要只是依標題歸納主題，實際內容請點連結查閱。標題與摘要皆未納入任何指標計算。
       </p>
     </div>}
+
+    {digest && <p className="news-foot">
+      本節摘要由 OpenAI {digest.model} 生成於 {new Date(digest.generatedAt).toLocaleString('zh-TW')}，未經人工審閱。
+    </p>}
+    {!digest && <p className="muted small">AI 摘要未產生，以下為原始標題列表。</p>}
   </div>
 }
 

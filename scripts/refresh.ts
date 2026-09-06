@@ -7,7 +7,7 @@ import { fetchMarketSeries } from './lib/sources/index.js'
 import { fetchNcdAuctions } from './lib/sources/cbc.js'
 import { fetchMonthlySeries, fetchWeeklyBills } from './lib/sources/background.js'
 import { fetchNews } from './lib/sources/news.js'
-import { buildAiCommentary } from './lib/commentary.js'
+import { buildAiCommentary, buildNewsDigest } from './lib/commentary.js'
 import type { BackgroundPayload, DashboardPayload, HistoryPoint, NewsItem, SourceRef } from '../src/types.js'
 
 const root = path.dirname(fileURLToPath(import.meta.url))
@@ -76,8 +76,13 @@ async function main() {
     error => { sourceStatus['新聞'] = `新聞 讀取失敗：${error instanceof Error ? error.message : String(error)}`; return [] }
   )
 
-  const ai = await buildAiCommentary(latest, history.at(-2), news)
+  // 兩個 AI 呼叫各自獨立：任一失敗都不影響另一個，也不影響資料更新
+  const [ai, digest] = await Promise.all([
+    buildAiCommentary(latest, history.at(-2), news),
+    buildNewsDigest(news)
+  ])
   sourceStatus['AI 評論'] = ai.status
+  sourceStatus['新聞摘要'] = digest.status
 
   const payload: DashboardPayload = {
     market: {
@@ -89,7 +94,8 @@ async function main() {
     },
     insight: buildInsight(latest, history, fetched.policyRate),
     aiCommentary: ai.commentary,
-    news
+    news,
+    newsDigest: digest.digest
   }
 
   await mkdir(dataDir, { recursive: true })

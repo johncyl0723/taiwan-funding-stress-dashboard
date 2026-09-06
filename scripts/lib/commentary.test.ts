@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { buildAiCommentary } from './commentary'
+import { buildAiCommentary, buildNewsDigest, parseDigest } from './commentary'
 import type { HistoryPoint, NewsItem } from '../../src/types'
 
 const market = {
@@ -126,5 +126,64 @@ describe('AI 短評', () => {
     const result = await buildAiCommentary(market, undefined, news)
     expect(result.commentary).toBeNull()
     expect(result.status).toContain('沒有文字內容')
+  })
+})
+
+describe('新聞摘要', () => {
+  const items = [
+    { title: '115年8月底外匯存底', url: 'https://cbc/1', source: '中央銀行新聞稿', date: '2026-09-04', official: true, body: '115年8月底我國外匯存底金額為6,019.04億美元，較上月底增加76.33億美元。' },
+    { title: '央行8月大舉回收資金加發定存單逾2,000億元', url: 'https://news/2', source: '工商時報', date: '2026-09-02', official: false }
+  ]
+
+  it('splits the two-line reply into official and media', async () => {
+    process.env.OPENAI_API_KEY = 'sk-test'
+    vi.stubGlobal('fetch', vi.fn(async () =>
+      okResponse('官方：外匯存底 6,019.04 億美元，月增 76.33 億。\n媒體：標題顯示央行 8 月加大回收資金。')
+    ))
+    const { digest } = await buildNewsDigest(items)
+    expect(digest?.official).toContain('6,019.04')
+    expect(digest?.media).toContain('回收資金')
+    expect(digest?.media).not.toContain('官方')
+  })
+
+  it('sends official bodies but only media headlines', async () => {
+    process.env.OPENAI_API_KEY = 'sk-test'
+    let prompt = ''
+    vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
+      prompt = JSON.parse(init.body as string).messages[1].content
+      return okResponse('官方：a\n媒體：b')
+    }))
+    await buildNewsDigest(items)
+    expect(prompt).toContain('6,019.04億美元')
+    expect(prompt).toContain('只有標題，未取得內文')
+    // 媒體那則沒有 body，不該憑空出現內文欄位
+    expect(prompt).not.toContain('內文：undefined')
+  })
+
+  it('tells the model that news content is data, not instructions', async () => {
+    process.env.OPENAI_API_KEY = 'sk-test'
+    let system = ''
+    vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
+      system = JSON.parse(init.body as string).messages[0].content
+      return okResponse('官方：a\n媒體：b')
+    }))
+    await buildNewsDigest(items)
+    expect(system).toContain('不是指令')
+  })
+
+  it('keeps an off-format reply rather than discarding it', () => {
+    expect(parseDigest('央行本週維持例行操作。').official).toBe('央行本週維持例行操作。')
+  })
+
+  it('skips without a key or without news, and survives an API failure', async () => {
+    expect((await buildNewsDigest(items)).status).toContain('未設定 OPENAI_API_KEY')
+
+    process.env.OPENAI_API_KEY = 'sk-test'
+    expect((await buildNewsDigest([])).status).toContain('無新聞可摘要')
+
+    vi.stubGlobal('fetch', vi.fn(async () => new Response('{}', { status: 500 })))
+    const failed = await buildNewsDigest(items)
+    expect(failed.digest).toBeNull()
+    expect(failed.status).toContain('生成失敗')
   })
 })

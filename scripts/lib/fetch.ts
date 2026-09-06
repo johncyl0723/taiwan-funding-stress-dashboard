@@ -6,10 +6,20 @@ export const clean = (input: string) =>
 
 export const toNumber = (value: string) => Number(value.replace(/,/g, ''))
 
+/**
+ * HTML 實體解碼。央行 RSS 的 CDATA 內文含具名實體（&nbsp;、&lt;），
+ * 只處理數字實體會讓樣板雜訊留在文字裡，因此兩種都要解。
+ * &amp; 必須最後處理，否則 &amp;lt; 會被連續解成 <。
+ */
+const NAMED_ENTITIES: Record<string, string> = {
+  nbsp: ' ', lt: '<', gt: '>', quot: '"', apos: "'", '#39': "'"
+}
+
 export const decodeEntities = (input: string) =>
   input
     .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
     .replace(/&#(\d+);/g, (_, dec) => String.fromCodePoint(parseInt(dec, 10)))
+    .replace(/&(nbsp|lt|gt|quot|apos);/g, (_, name) => NAMED_ENTITIES[name] ?? '')
     .replace(/&amp;/g, '&')
 
 export async function fetchText(url: string): Promise<string> {

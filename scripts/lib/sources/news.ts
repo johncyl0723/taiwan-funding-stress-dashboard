@@ -48,14 +48,34 @@ function isoDate(pubDate: string | null): string | null {
   return Number.isFinite(time) ? new Date(time).toISOString().slice(0, 10) : null
 }
 
-function parseFeed(xml: string): { title: string; link: string; date: string | null; source: string | null }[] {
+/**
+ * 央行新聞稿內文前後都有樣板：抬頭、網址、新聞發布編號、分隔線、聯絡電話。
+ * 摘要前先切掉，否則會佔掉大半的 prompt 額度。
+ */
+const BODY_LIMIT = 700
+function cleanBody(raw: string | null): string | undefined {
+  if (!raw) return undefined
+  let text = raw.split(/﹋{3,}/)[0]
+  // 正文從「新聞發布第N號」之後開始；沒有這個標記就從頭取
+  const marker = text.match(/新聞發布第\d+號/)
+  if (marker?.index !== undefined) text = text.slice(marker.index + marker[0].length)
+  const trimmed = text
+    .replace(/<網址[:：][^>]*>/g, '')
+    .replace(/業務聯繫單位[\s\S]*$/, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+  return trimmed.length > 20 ? trimmed.slice(0, BODY_LIMIT) : undefined
+}
+
+function parseFeed(xml: string): { title: string; link: string; date: string | null; source: string | null; body?: string }[] {
   return [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map(match => {
     const item = match[1]
     return {
       title: tag(item, 'title') ?? '',
       link: (item.match(/<link>([\s\S]*?)<\/link>/)?.[1] ?? '').trim(),
       date: isoDate(item.match(/<pubDate>([\s\S]*?)<\/pubDate>/)?.[1] ?? null),
-      source: tag(item, 'source')
+      source: tag(item, 'source'),
+      body: cleanBody(tag(item, 'description'))
     }
   }).filter(entry => entry.title && entry.link)
 }
@@ -80,7 +100,8 @@ export async function fetchNews(): Promise<{ items: NewsItem[]; status: string }
         url: entry.link,
         source: '中央銀行新聞稿',
         date: entry.date!,
-        official: true
+        official: true,
+        body: entry.body
       }))
     items.push(...official)
     notes.push(`央行 ${official.length} 則`)

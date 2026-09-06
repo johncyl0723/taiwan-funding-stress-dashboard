@@ -132,7 +132,11 @@ export interface HistoryPoint {
   guardApplied: string | null
 }
 
-/** 外部新聞：第三方標題屬不可信內容，只存標題與連結，不做摘要或引用 */
+/**
+ * 外部新聞。央行 RSS 附完整新聞稿內文（政府公開資訊），可作摘要素材；
+ * 第三方媒體只取標題，不抓內文 —— 內文有版權與付費牆問題，
+ * 且外部網頁內容是提示詞注入的典型載體。
+ */
 export interface NewsItem {
   title: string
   url: string
@@ -140,6 +144,16 @@ export interface NewsItem {
   date: string
   /** true = 央行官方新聞稿；false = 第三方媒體 */
   official: boolean
+  /** 僅官方新聞稿有；第三方媒體恆為 undefined */
+  body?: string
+}
+
+/** 新聞區塊的 AI 摘要，與 AiCommentary 分開存放，可各自失敗 */
+export interface NewsDigest {
+  official: string
+  media: string
+  model: string
+  generatedAt: string
 }
 
 /** 由 OpenAI 生成的每日短評，與規則式摘要分開存放並在畫面上分開標示 */
@@ -209,6 +223,8 @@ export interface DashboardPayload {
   /** AI 生成短評，未設金鑰或生成失敗時為 null */
   aiCommentary: AiCommentary | null
   news: NewsItem[]
+  /** 新聞區塊的 AI 摘要，未設金鑰或生成失敗時為 null */
+  newsDigest: NewsDigest | null
 }
 
 export interface MarketFetchResult {

@@ -130,7 +130,7 @@ export default function App() {
         <article className="panel">
           <p className="section-label">相關新聞</p>
           <h3>近兩週的官方公告與媒體報導</h3>
-          <NewsList items={data.news ?? []} />
+          <NewsList items={data.news ?? []} digest={data.newsDigest ?? null} />
         </article>
       </section>
 
