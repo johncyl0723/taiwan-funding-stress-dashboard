@@ -1,0 +1,57 @@
+[
+  {
+    "date": "2026-09-04",
+    "updatedAt": "2026-09-06T02:11:49.281Z",
+    "status": "unavailable",
+    "tfssBp": 41.11,
+    "tfssChange5dBp": null,
+    "taibir90Primary": 2.0943,
+    "taibir90Secondary": 1.8515,
+    "primarySecondaryBp": 24.28,
+    "taibor3m": 1.68322,
+    "overnightRate": 0.822,
+    "ncdNetIssuance5d": null,
+    "stats": {
+      "percentile60": null,
+      "percentile120": null,
+      "zScore60": null,
+      "zScore120": null,
+      "sample60": 1,
+      "sample120": 1
+    },
+    "sourceStatus": {
+      "TDCC 次級": "TDCC 次級 已讀取",
+      "TDCC 初級": "TDCC 初級 已讀取",
+      "央行 NCD": "央行 NCD 已讀取",
+      "央行 O/N": "央行 O/N 已讀取",
+      "TAIBOR": "TAIBOR 已讀取"
+    },
+    "sources": [
+      {
+        "label": "TDCC TAIBIR 初級（歷史查詢）",
+        "url": "https://www.tdcc.com.tw/portal/zh/tcWeb/tc_05sat_main03_5",
+        "asOf": "2026-09-04"
+      },
+      {
+        "label": "TDCC TAIBIR 次級（歷史查詢）",
+        "url": "https://www.tdcc.com.tw/portal/zh/tcWeb/tc_05sat_main03_6",
+        "asOf": "2026-09-04"
+      },
+      {
+        "label": "銀行公會 TAIBOR（歷史資料 CSV）",
+        "url": "https://www.ba.org.tw/taiborDaily/index",
+        "asOf": "2026-09-04"
+      },
+      {
+        "label": "中央銀行金融業隔夜拆款",
+        "url": "https://www.cbc.gov.tw/tw/lp-641-1.html",
+        "asOf": "2026-09-04"
+      },
+      {
+        "label": "中央銀行公開市場操作",
+        "url": "https://www.cbc.gov.tw/tw/lp-1163-1.html",
+        "asOf": "2026-09-04"
+      }
+    ]
+  }
+]
