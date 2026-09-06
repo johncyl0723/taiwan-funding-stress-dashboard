@@ -6,7 +6,9 @@ import { buildHistory } from './lib/history.js'
 import { fetchMarketSeries } from './lib/sources/index.js'
 import { fetchNcdAuctions } from './lib/sources/cbc.js'
 import { fetchMonthlySeries, fetchWeeklyBills } from './lib/sources/background.js'
-import type { BackgroundPayload, DashboardPayload, HistoryPoint, SourceRef } from '../src/types.js'
+import { fetchNews } from './lib/sources/news.js'
+import { buildAiCommentary } from './lib/commentary.js'
+import type { BackgroundPayload, DashboardPayload, HistoryPoint, NewsItem, SourceRef } from '../src/types.js'
 
 const root = path.dirname(fileURLToPath(import.meta.url))
 const dataDir = path.join(root, '../public/data')
@@ -68,6 +70,15 @@ async function main() {
   const background = await buildBackground(previousBackground)
   const sourceStatus = { ...fetched.sourceStatus, ...background.status }
 
+  // 新聞失敗不影響資料發布
+  const news: NewsItem[] = await fetchNews().then(
+    result => { sourceStatus['新聞'] = `新聞 已讀取（${result.status}）`; return result.items },
+    error => { sourceStatus['新聞'] = `新聞 讀取失敗：${error instanceof Error ? error.message : String(error)}`; return [] }
+  )
+
+  const ai = await buildAiCommentary(latest, history.at(-2), news)
+  sourceStatus['AI 評論'] = ai.status
+
   const payload: DashboardPayload = {
     market: {
       ...latest,
@@ -76,7 +87,9 @@ async function main() {
       sourceStatus,
       policyRate: fetched.policyRate
     },
-    insight: buildInsight(latest)
+    insight: buildInsight(latest, history, fetched.policyRate),
+    aiCommentary: ai.commentary,
+    news
   }
 
   await mkdir(dataDir, { recursive: true })

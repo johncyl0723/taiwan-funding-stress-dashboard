@@ -132,12 +132,31 @@ export interface HistoryPoint {
   guardApplied: string | null
 }
 
+/** 外部新聞：第三方標題屬不可信內容，只存標題與連結，不做摘要或引用 */
+export interface NewsItem {
+  title: string
+  url: string
+  source: string
+  date: string
+  /** true = 央行官方新聞稿；false = 第三方媒體 */
+  official: boolean
+}
+
+/** 由 OpenAI 生成的每日短評，與規則式摘要分開存放並在畫面上分開標示 */
+export interface AiCommentary {
+  text: string
+  model: string
+  generatedAt: string
+}
+
 export interface Insight {
   marketState: string
   pressureSource: string
   policyObservation: string
   researchView: string
   fxView: string
+  /** 每個指標「現在的數字說什麼」，key 對應 src/definitions.ts */
+  readings: Record<string, string>
   risksAndLimits: string[]
   generatedAt: string
 }
@@ -185,7 +204,11 @@ export interface DashboardPayload {
     sourceStatus: Record<string, string>
     policyRate: PolicyRate | null
   }
+  /** 規則式模板摘要，永遠存在 */
   insight: Insight | null
+  /** AI 生成短評，未設金鑰或生成失敗時為 null */
+  aiCommentary: AiCommentary | null
+  news: NewsItem[]
 }
 
 export interface MarketFetchResult {

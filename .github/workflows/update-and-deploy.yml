@@ -27,7 +27,11 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm test
+      # 未設定 OPENAI_API_KEY 時 AI 短評整段跳過，其餘資料照常更新
       - run: npm run refresh
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: '資料更新 [skip ci]'
