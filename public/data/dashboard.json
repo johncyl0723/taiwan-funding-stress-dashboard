@@ -1,30 +1,32 @@
 {
   "market": {
     "date": "2026-09-04",
-    "updatedAt": "2026-09-06T02:11:49.281Z",
-    "status": "unavailable",
+    "status": "tight",
     "tfssBp": 41.11,
-    "tfssChange5dBp": null,
+    "tfssChange5dBp": 0.31,
     "taibir90Primary": 2.0943,
     "taibir90Secondary": 1.8515,
     "primarySecondaryBp": 24.28,
     "taibor3m": 1.68322,
     "overnightRate": 0.822,
-    "ncdNetIssuance5d": null,
+    "ncdNetIssuance": -30650,
+    "ncdNetIssuance5d": 114800,
     "stats": {
-      "percentile60": null,
-      "percentile120": null,
-      "zScore60": null,
-      "zScore120": null,
-      "sample60": 1,
-      "sample120": 1
+      "percentile60": 70.83333333333334,
+      "percentile120": 85.41666666666666,
+      "zScore60": 0.5113122171945517,
+      "zScore120": 1.0282042846189647,
+      "sample60": 60,
+      "sample120": 120,
+      "provisional": false
     },
+    "updatedAt": "2026-09-06T02:39:37.941Z",
     "sourceStatus": {
-      "TDCC 次級": "TDCC 次級 已讀取",
-      "TDCC 初級": "TDCC 初級 已讀取",
-      "央行 NCD": "央行 NCD 已讀取",
-      "央行 O/N": "央行 O/N 已讀取",
-      "TAIBOR": "TAIBOR 已讀取"
+      "央行 NCD": "央行 NCD 已讀取（12 筆）",
+      "TAIBOR": "TAIBOR 已讀取（144 筆）",
+      "央行 O/N": "央行 O/N 已讀取（160 筆）",
+      "TDCC 次級": "TDCC 次級 已讀取（134 筆）",
+      "TDCC 初級": "TDCC 初級 已讀取（134 筆）"
     },
     "sources": [
       {
@@ -38,7 +40,7 @@
         "asOf": "2026-09-04"
       },
       {
-        "label": "銀行公會 TAIBOR（歷史資料 CSV）",
+        "label": "銀行公會 TAIBOR（每日＋月報 CSV）",
         "url": "https://www.ba.org.tw/taiborDaily/index",
         "asOf": "2026-09-04"
       },
@@ -55,15 +57,17 @@
     ]
   },
   "insight": {
-    "marketState": "樣本數尚不足以判斷資金面狀態。",
-    "pressureSource": "統計窗格（60/120 日）尚未累積足夠交易日資料。",
-    "policyObservation": "待資料持續累積後，燈號判讀將趨於穩定。",
-    "researchView": "5 日變化尚無足夠資料比較。本觀點為規則式模板依 TFSS 百分位與 5 日變化自動產生，僅供公開市場研究參考。",
+    "marketState": "資金面明顯緊俏，TFSS 落在近期高檔區間（85–95 百分位）。",
+    "pressureSource": "中期資金供給吃緊，初級市場定價明顯高於次級市場。90 天期初級較次級高 24.3 bp，反映新資金供給的相對定價壓力。",
+    "policyObservation": "若持續數日未收斂，需留意央行是否調整 NCD 發行或附買回操作節奏。央行近 5 個交易日 NCD 淨吸收 114,800 百萬元。",
+    "researchView": "TFSS 較 5 個交易日前擴大 0.3 bp，壓力持續累積。本觀點為規則式模板依 TFSS 百分位與 5 日變化自動產生，僅供公開市場研究參考。",
     "risksAndLimits": [
       "本摘要為規則式模板文字，非 AI 或人工分析生成。",
+      "TFSS 以票券初級市場利率減銀行間定盤利率，價差同時含信用溢酬與流動性溢酬，非純粹的資金鬆緊指標。",
+      "燈號為相對百分位，利率趨勢性走升期間可能同時推高分位，判讀需併看絕對水準與初級／次級利差。",
       "公開資料可能有發布與擷取延遲，指標判讀不構成投資、融資或交易建議。"
     ],
-    "generatedAt": "2026-09-06T02:11:49.281Z"
+    "generatedAt": "2026-09-06T02:39:37.945Z"
   },
   "bankMetrics": []
 }

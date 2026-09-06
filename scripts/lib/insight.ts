@@ -8,8 +8,8 @@ const STATUS_TEXT: Record<Status, { marketState: string; pressureSource: string;
   },
   tightening: {
     marketState: '資金面轉緊，TFSS 站上近期偏高區間（60–85 百分位）。',
-    pressureSource: '1–3 個月企業資金成本相對隔夜利率走升，供給端出現初步壓力。',
-    policyObservation: '建議留意後續 NCD 發行量與初級/次級利差是否持續擴大。'
+    pressureSource: '1–3 個月企業資金成本相對銀行間報價走升，供給端出現初步壓力。',
+    policyObservation: '建議留意後續 NCD 淨發行與初級／次級利差是否持續擴大。'
   },
   tight: {
     marketState: '資金面明顯緊俏，TFSS 落在近期高檔區間（85–95 百分位）。',
@@ -23,27 +23,48 @@ const STATUS_TEXT: Record<Status, { marketState: string; pressureSource: string;
   },
   unavailable: {
     marketState: '樣本數尚不足以判斷資金面狀態。',
-    pressureSource: '統計窗格（60/120 日）尚未累積足夠交易日資料。',
+    pressureSource: '統計窗格尚未累積足夠交易日資料，或當日 TAIBIR 與 TAIBOR 未同步定盤。',
     policyObservation: '待資料持續累積後，燈號判讀將趨於穩定。'
   }
 }
 
 function trendLine(change: number | null): string {
   if (change === null) return '5 日變化尚無足夠資料比較。'
-  if (change > 0) return `TFSS 較 5 日前擴大 ${change.toFixed(1)} bp，壓力持續累積。`
-  if (change < 0) return `TFSS 較 5 日前收斂 ${Math.abs(change).toFixed(1)} bp，壓力略為緩解。`
-  return 'TFSS 與 5 日前持平。'
+  if (change > 0) return `TFSS 較 5 個交易日前擴大 ${change.toFixed(1)} bp，壓力持續累積。`
+  if (change < 0) return `TFSS 較 5 個交易日前收斂 ${Math.abs(change).toFixed(1)} bp，壓力略為緩解。`
+  return 'TFSS 與 5 個交易日前持平。'
+}
+
+function spreadLine(market: MarketSnapshot): string {
+  if (market.primarySecondaryBp === null) return '初級／次級利差當日無有效報價，供給壓力方向待確認。'
+  return `90 天期初級較次級高 ${market.primarySecondaryBp.toFixed(1)} bp，反映新資金供給的相對定價壓力。`
+}
+
+function ncdLine(market: MarketSnapshot): string {
+  if (market.ncdNetIssuance5d === null) return '央行近 5 個交易日 NCD 淨發行資料尚不完整。'
+  const value = market.ncdNetIssuance5d
+  const direction = value > 0 ? '淨吸收' : value < 0 ? '淨釋出' : '大致持平'
+  return `央行近 5 個交易日 NCD ${direction} ${Math.abs(value).toLocaleString('zh-TW')} 百萬元。`
+}
+
+function sampleLine(market: MarketSnapshot): string {
+  if (market.status === 'unavailable') return `目前僅累積 ${market.stats.sample60} 個有效交易日，尚未達判讀門檻。`
+  if (market.stats.provisional) return `統計窗格尚未填滿（目前 ${market.stats.sample60} 個交易日），燈號為暫定值。`
+  return ''
 }
 
 export function buildInsight(market: MarketSnapshot): Insight {
   const base = STATUS_TEXT[market.status]
+  const sample = sampleLine(market)
   return {
     marketState: base.marketState,
-    pressureSource: base.pressureSource,
-    policyObservation: base.policyObservation,
-    researchView: `${trendLine(market.tfssChange5dBp)}本觀點為規則式模板依 TFSS 百分位與 5 日變化自動產生，僅供公開市場研究參考。`,
+    pressureSource: `${base.pressureSource}${spreadLine(market)}`,
+    policyObservation: `${base.policyObservation}${ncdLine(market)}`,
+    researchView: `${trendLine(market.tfssChange5dBp)}${sample}本觀點為規則式模板依 TFSS 百分位與 5 日變化自動產生，僅供公開市場研究參考。`,
     risksAndLimits: [
       '本摘要為規則式模板文字，非 AI 或人工分析生成。',
+      'TFSS 以票券初級市場利率減銀行間定盤利率，價差同時含信用溢酬與流動性溢酬，非純粹的資金鬆緊指標。',
+      '燈號為相對百分位，利率趨勢性走升期間可能同時推高分位，判讀需併看絕對水準與初級／次級利差。',
       '公開資料可能有發布與擷取延遲，指標判讀不構成投資、融資或交易建議。'
     ],
     generatedAt: new Date().toISOString()

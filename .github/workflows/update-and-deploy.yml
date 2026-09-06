@@ -26,6 +26,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
+      - run: npm test
       - run: npm run refresh
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
