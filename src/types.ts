@@ -32,15 +32,13 @@ export interface MarketSnapshot {
   sources: SourceRef[]
 }
 
-export interface AiInsight {
+export interface Insight {
   marketState: string
-  indicatorInterpretations: Array<{ indicator: string; interpretation: string }>
   pressureSource: string
   policyObservation: string
   researchView: string
   risksAndLimits: string[]
   generatedAt: string
-  isFallback?: boolean
 }
 
 export interface BankQuarterlyMetric {
@@ -57,7 +55,17 @@ export interface BankQuarterlyMetric {
 
 export interface DashboardPayload {
   market: MarketSnapshot
-  insight: AiInsight | null
+  insight: Insight | null
   bankMetrics: BankQuarterlyMetric[]
-  isSeedData?: boolean
+}
+
+export interface RawMarketValues {
+  date: string
+  taibir90Primary: number
+  taibir90Secondary: number
+  taibor3m: number
+  overnightRate: number
+  ncdNetIssuance: number
+  sources: SourceRef[]
+  sourceStatus: Record<string, string>
 }

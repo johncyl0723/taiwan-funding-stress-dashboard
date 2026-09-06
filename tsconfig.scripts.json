@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM"],
+    "lib": ["ES2022"],
     "strict": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -10,5 +10,5 @@
     "allowSyntheticDefaultImports": true,
     "types": ["node"]
   },
-  "include": ["netlify/functions"]
+  "include": ["scripts", "src/types.ts"]
 }

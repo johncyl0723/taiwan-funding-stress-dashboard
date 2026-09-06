@@ -1,7 +1,5 @@
-import { useEffect, useState, type FormEvent } from 'react'
-import type { User } from '@netlify/identity'
-import { getDashboard, requestRefresh } from './api'
-import { acceptInvite, initialiseIdentity, login, logout, updateUser } from './auth'
+import { useEffect, useState } from 'react'
+import { getDashboard } from './api'
 import { Card, Stats, StatusBadge, TrendChart } from './components'
 import type { DashboardPayload } from './types'
 
@@ -10,129 +8,17 @@ const bp = (value: number | null) => value === null ? '—' : value.toFixed(1)
 
 export default function App() {
   const [data, setData] = useState<DashboardPayload | null>(null)
-  const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
-  const [loginOpen, setLoginOpen] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loginError, setLoginError] = useState('')
-  const [loggingIn, setLoggingIn] = useState(false)
-  const [inviteToken, setInviteToken] = useState<string | null>(null)
-  const [invitePassword, setInvitePassword] = useState('')
-  const [inviteError, setInviteError] = useState('')
-  const [acceptingInvite, setAcceptingInvite] = useState(false)
-  const [recoveryOpen, setRecoveryOpen] = useState(false)
-  const [recoveryPassword, setRecoveryPassword] = useState('')
-  const [recoveryError, setRecoveryError] = useState('')
-  const [resettingPassword, setResettingPassword] = useState(false)
-  const identityRoles = Object.values(user?.appMetadata?.roles ?? {})
-  const isAdmin = identityRoles.includes('admin')
   const load = async () => { setLoading(true); try { setData(await getDashboard()) } catch (error) { setMessage(error instanceof Error ? error.message : '資料載入失敗') } finally { setLoading(false) } }
-  useEffect(() => { void load(); let unsubscribe: () => void = () => {}; void initialiseIdentity(setUser, setInviteToken, () => setRecoveryOpen(true)).then(fn => { unsubscribe = fn }); return () => unsubscribe() }, [])
-  const refresh = async () => { setMessage('正在排入背景更新…'); try { await requestRefresh(); window.setTimeout(() => void load(), 2500); setMessage('更新工作已啟動，資料完成後會自動載入。') } catch (error) { setMessage(error instanceof Error ? error.message : '更新失敗') } }
-  const submitLogin = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setLoggingIn(true)
-    setLoginError('')
-    try {
-      const currentUser = await login(email.trim(), password)
-      setUser(currentUser)
-      setPassword('')
-      setLoginOpen(false)
-      setMessage('已登入管理者帳號。')
-    } catch (error) {
-      setLoginError(error instanceof Error ? error.message : '登入失敗，請確認 Email 與密碼。')
-    } finally {
-      setLoggingIn(false)
-    }
-  }
-  const submitInvite = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    if (!inviteToken) return
-    setAcceptingInvite(true)
-    setInviteError('')
-    try {
-      const currentUser = await acceptInvite(inviteToken, invitePassword)
-      setUser(currentUser)
-      setInvitePassword('')
-      setInviteToken(null)
-      setMessage('帳號已啟用並登入。若尚未看到「立即更新」，請確認 Netlify Identity 已為此帳號指派 admin 角色。')
-    } catch (error) {
-      setInviteError(error instanceof Error ? error.message : '無法完成邀請。請確認連結尚未失效，或請管理者重新寄送邀請信。')
-    } finally {
-      setAcceptingInvite(false)
-    }
-  }
-  const submitRecovery = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setResettingPassword(true)
-    setRecoveryError('')
-    try {
-      const currentUser = await updateUser({ password: recoveryPassword })
-      setUser(currentUser)
-      setRecoveryPassword('')
-      setRecoveryOpen(false)
-      setMessage('密碼已重設並登入。請重新載入頁面後再使用「立即更新」。')
-    } catch (error) {
-      setRecoveryError(error instanceof Error ? error.message : '無法重設密碼。請確認連結尚未失效，或重新寄送重設信。')
-    } finally {
-      setResettingPassword(false)
-    }
-  }
+  useEffect(() => { void load() }, [])
   const market = data?.market
   return <main>
     <header className="topbar">
       <div><p className="eyebrow">PUBLIC MARKET RESEARCH · TAIWAN</p><h1>台灣資金緊俏每日儀表板</h1></div>
-      <div className="actions">
-        {isAdmin ? <><button className="secondary" onClick={() => void logout()}>登出</button><button onClick={() => void refresh()}>立即更新</button></> : user ? <button className="secondary" onClick={() => void logout()}>登出</button> : <button className="secondary" onClick={() => { setLoginError(''); setLoginOpen(true) }}>管理者登入</button>}
-      </div>
     </header>
-    {loginOpen && <div className="auth-backdrop" role="presentation">
-      <section className="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="login-title">
-        <button className="close-button" type="button" aria-label="關閉登入視窗" onClick={() => { setLoginOpen(false); setPassword(''); setLoginError('') }}>×</button>
-        <p className="section-label">ADMIN ACCESS</p>
-        <h2 id="login-title">管理者登入</h2>
-        <p className="auth-description">登入後可執行即時更新；公開訪客僅能閱讀市場研究內容。</p>
-        <form onSubmit={submitLogin}>
-          <label htmlFor="admin-email">Email</label>
-          <input id="admin-email" type="email" autoComplete="email" value={email} onChange={event => setEmail(event.target.value)} required />
-          <label htmlFor="admin-password">密碼</label>
-          <input id="admin-password" type="password" autoComplete="current-password" value={password} onChange={event => setPassword(event.target.value)} required />
-          {loginError && <p className="login-error" role="alert">{loginError}</p>}
-          <button className="login-submit" type="submit" disabled={loggingIn}>{loggingIn ? '登入中…' : '登入並繼續'}</button>
-        </form>
-        <p className="auth-help">尚未完成邀請？請先開啟 Netlify 寄到你信箱的邀請信，設定密碼後再登入。</p>
-      </section>
-    </div>}
-    {inviteToken && <div className="auth-backdrop" role="presentation">
-      <section className="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="invite-title">
-        <p className="section-label">ADMIN INVITATION</p>
-        <h2 id="invite-title">設定管理者密碼</h2>
-        <p className="auth-description">請設定此 Netlify Identity 帳號的密碼，完成啟用後會自動登入。</p>
-        <form onSubmit={submitInvite}>
-          <label htmlFor="invite-password">新密碼</label>
-          <input id="invite-password" type="password" autoComplete="new-password" minLength={8} value={invitePassword} onChange={event => setInvitePassword(event.target.value)} required />
-          {inviteError && <p className="login-error" role="alert">{inviteError}</p>}
-          <button className="login-submit" type="submit" disabled={acceptingInvite}>{acceptingInvite ? '啟用中…' : '設定密碼並啟用帳號'}</button>
-        </form>
-      </section>
-    </div>}
-    {recoveryOpen && <div className="auth-backdrop" role="presentation">
-      <section className="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="recovery-title">
-        <p className="section-label">PASSWORD RESET</p>
-        <h2 id="recovery-title">設定新密碼</h2>
-        <p className="auth-description">請設定 Netlify Identity 帳號的新密碼，完成後會自動登入。</p>
-        <form onSubmit={submitRecovery}>
-          <label htmlFor="recovery-password">新密碼</label>
-          <input id="recovery-password" type="password" autoComplete="new-password" minLength={8} value={recoveryPassword} onChange={event => setRecoveryPassword(event.target.value)} required />
-          {recoveryError && <p className="login-error" role="alert">{recoveryError}</p>}
-          <button className="login-submit" type="submit" disabled={resettingPassword}>{resettingPassword ? '重設中…' : '設定新密碼並登入'}</button>
-        </form>
-      </section>
-    </div>}
     {message && <p className="notice">{message}</p>}
-    {loading ? <p className="loading">載入市場資料中…</p> : !market ? <section className="empty-state"><h2>尚無可發布的有效快照</h2><p>請等待平日 12:00 自動更新，或由管理者登入後按「立即更新」。</p></section> : <>
+    {loading ? <p className="loading">載入市場資料中…</p> : !market ? <section className="empty-state"><h2>尚無可發布的有效快照</h2><p>請等待平日 12:00 由 GitHub Actions 自動更新。</p></section> : <>
       <section className="hero">
         <div><p className="section-label">今日資金壓力</p><div className="hero-value">{bp(market.tfssBp)}<small>bp</small></div><p className="formula">TFSS = 90D TAIBIR 初級市場 − 3M TAIBOR</p></div>
         <div className="hero-side"><StatusBadge status={market.status} /><p>資料日：{market.date}</p><p>更新：{new Date(market.updatedAt).toLocaleString('zh-TW')}</p><p>5 日變化：{bp(market.tfssChange5dBp)} bp</p></div>

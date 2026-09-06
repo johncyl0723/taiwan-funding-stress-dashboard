@@ -1,0 +1,64 @@
+name: 更新資料並部署
+
+on:
+  schedule:
+    - cron: '0 4 * * 1-5'
+  workflow_dispatch: {}
+  push:
+    branches: [master]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  refresh-data:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run refresh
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: '資料更新 [skip ci]'
+          file_pattern: 'public/data/*.json'
+
+  build:
+    needs: refresh-data
+    if: always() && !cancelled() && (needs.refresh-data.result == 'success' || needs.refresh-data.result == 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,4 +1,4 @@
-import type { RawMarketValues, SourceRef } from './types'
+import type { RawMarketValues, SourceRef } from '../../src/types.js'
 
 const TDCC_PRIMARY = 'https://www.tdcc.com.tw/portal/zh/tcWeb/tc_05sat_main03_3'
 const TDCC_SECONDARY = 'https://www.tdcc.com.tw/portal/zh/tcWeb/tc_05sat_main03_4'
@@ -54,11 +54,10 @@ async function fetchText(url: string) {
 
 export async function fetchMarketSources(): Promise<RawMarketValues> {
   const [primary, secondary, taibor, overnight, ncd] = await Promise.allSettled([fetchText(TDCC_PRIMARY), fetchText(TDCC_SECONDARY), fetchText(TAIBOR), fetchText(OVERNIGHT), fetchText(NCD)])
-  const raw: Record<string, string> = {}
   const status: Record<string, string> = {}
   const read = (key: string, result: PromiseSettledResult<string>) => {
     if (result.status === 'rejected') { status[key] = `${key} 讀取失敗：${String(result.reason)}`; return null }
-    raw[key] = result.value; status[key] = `${key} 已讀取`; return result.value
+    status[key] = `${key} 已讀取`; return result.value
   }
   const primaryHtml = read('TDCC 初級', primary), secondaryHtml = read('TDCC 次級', secondary), taiborHtml = read('TAIBOR', taibor), overnightHtml = read('央行 O/N', overnight), ncdHtml = read('央行 NCD', ncd)
   const p = primaryHtml ? fixing90(primaryHtml) : null
@@ -72,5 +71,5 @@ export async function fetchMarketSources(): Promise<RawMarketValues> {
     { label: 'TDCC TAIBIR 初級', url: TDCC_PRIMARY, asOf: date }, { label: 'TDCC TAIBIR 次級', url: TDCC_SECONDARY, asOf: date },
     { label: '銀行公會 TAIBOR', url: TAIBOR, asOf: date }, { label: '中央銀行金融業隔夜拆款', url: OVERNIGHT, asOf: date }, { label: '中央銀行公開市場操作', url: NCD, asOf: date }
   ]
-  return { date, taibir90Primary: p, taibir90Secondary: s, taibor3m: t, overnightRate: o, ncdNetIssuance: n, sources, sourceStatus: status, raw }
+  return { date, taibir90Primary: p, taibir90Secondary: s, taibor3m: t, overnightRate: o, ncdNetIssuance: n, sources, sourceStatus: status }
 }

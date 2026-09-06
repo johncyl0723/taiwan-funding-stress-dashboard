@@ -1,4 +1,4 @@
-import type { Status, StressStats } from './types'
+import type { Status, StressStats } from '../../src/types.js'
 
 export function computeStats(values: number[]): StressStats {
   const calculate = (window: number) => {
