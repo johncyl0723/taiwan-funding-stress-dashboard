@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "refresh": "tsx scripts/refresh.ts",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "backtest": "tsx scripts/backtest.ts"
   },
   "dependencies": {
     "react": "^19.0.0",

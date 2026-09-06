@@ -1,16 +1,30 @@
 {
   "market": {
     "date": "2026-09-04",
-    "status": "tight",
+    "status": "normal",
+    "eventFlags": [
+      "營所稅暫繳"
+    ],
     "tfssBp": 41.11,
     "tfssChange5dBp": 0.31,
     "taibir90Primary": 2.0943,
     "taibir90Secondary": 1.8515,
     "primarySecondaryBp": 24.28,
+    "taibirSlopeBp": 33.44,
     "taibor3m": 1.68322,
+    "taiborSlopeBp": 30.04,
     "overnightRate": 0.822,
+    "corridorPosition": -0.0026,
     "ncdNetIssuance": -30650,
     "ncdNetIssuance5d": 114800,
+    "ncdOutstanding": 6595270,
+    "repoOperation": false,
+    "foreignNet": 56213,
+    "foreignNet5d": -70972,
+    "usdTwd": 31.63,
+    "usdTwdVol20": 3.83,
+    "sofr90": 3.64571,
+    "fxNominalSpreadBp": 196.25,
     "stats": {
       "percentile60": 70.83333333333334,
       "percentile120": 85.41666666666666,
@@ -20,14 +34,38 @@
       "sample120": 120,
       "provisional": false
     },
-    "updatedAt": "2026-09-06T02:39:37.941Z",
-    "sourceStatus": {
-      "央行 NCD": "央行 NCD 已讀取（12 筆）",
-      "TAIBOR": "TAIBOR 已讀取（144 筆）",
-      "央行 O/N": "央行 O/N 已讀取（160 筆）",
-      "TDCC 次級": "TDCC 次級 已讀取（134 筆）",
-      "TDCC 初級": "TDCC 初級 已讀取（134 筆）"
+    "compositeInputs": {
+      "tfss": 1.0282042846189647,
+      "primarySecondary": 0.6757519367101091,
+      "taiborSlope": 2.212161092406652,
+      "corridor": -0.8119818062967213,
+      "ncdNetIssuance": null
     },
+    "compositeDispersion": {
+      "tfss": 2.832365166693729,
+      "primarySecondary": 0.8571932517427641,
+      "taiborSlope": 0.08125538443697122,
+      "corridor": 0.002574975593196091,
+      "ncdNetIssuance": null
+    },
+    "excludedInputs": [
+      {
+        "key": "taiborSlope",
+        "reason": "TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義"
+      },
+      {
+        "key": "corridor",
+        "reason": "O/N 走廊位置：120 日標準差 2.6e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
+      },
+      {
+        "key": "ncdNetIssuance",
+        "reason": "NCD 淨發行：樣本不足"
+      }
+    ],
+    "compositeZ": 0.852,
+    "compositeZ5d": 0.831,
+    "guardApplied": null,
+    "updatedAt": "2026-09-06T10:29:39.225Z",
     "sources": [
       {
         "label": "TDCC TAIBIR 初級（歷史查詢）",
@@ -53,21 +91,68 @@
         "label": "中央銀行公開市場操作",
         "url": "https://www.cbc.gov.tw/tw/lp-1163-1.html",
         "asOf": "2026-09-04"
+      },
+      {
+        "label": "中央銀行貼放利率",
+        "url": "https://www.cbc.gov.tw/tw/lp-370-1.html",
+        "asOf": "2024-03-22"
+      },
+      {
+        "label": "證交所三大法人買賣金額",
+        "url": "https://www.twse.com.tw/zh/trading/foreign/bfi82u.html",
+        "asOf": "2026-09-04"
+      },
+      {
+        "label": "中央銀行新臺幣對美元收盤匯率",
+        "url": "https://www.cbc.gov.tw/tw/lp-645-1.html",
+        "asOf": "2026-09-04"
+      },
+      {
+        "label": "NY Fed SOFR 平均指數",
+        "url": "https://www.newyorkfed.org/markets/reference-rates/sofr-averages-and-index",
+        "asOf": "2026-09-04"
       }
-    ]
+    ],
+    "sourceStatus": {
+      "央行貼放利率": "央行貼放利率 已讀取（20 筆）",
+      "外資買賣超": "外資買賣超 已讀取（12 筆）",
+      "TDCC 次級": "TDCC 次級 已讀取（134 筆）",
+      "TDCC 初級": "TDCC 初級 已讀取（134 筆）",
+      "USD SOFR": "USD SOFR 已讀取（200 筆）",
+      "央行 NCD": "央行 NCD 已讀取（12 筆）",
+      "TAIBOR": "TAIBOR 已讀取（144 筆）",
+      "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
+      "央行 O/N": "央行 O/N 已讀取（160 筆）",
+      "超額準備": "超額準備 已讀取（187 期，最新 2026-07）",
+      "準備貨幣": "準備貨幣 已讀取（355 期，最新 2026-07）",
+      "M1B 年增率": "M1B 年增率 已讀取（459 期，最新 2026-07）",
+      "M2 年增率": "M2 年增率 已讀取（459 期，最新 2026-07）",
+      "政府存款": "政府存款 已讀取（471 期，最新 2026-07）",
+      "五大銀行基準利率": "五大銀行基準利率 已讀取（285 期，最新 2026-08）",
+      "票券週統計": "票券週統計 已讀取（15 週）",
+      "364D NCD 標售": "364D NCD 標售 已讀取（2 次）"
+    },
+    "policyRate": {
+      "effectiveFrom": "2024-03-22",
+      "rediscount": 2,
+      "securedAccommodation": 2.375,
+      "shortTermAccommodation": 4.25
+    }
   },
   "insight": {
-    "marketState": "資金面明顯緊俏，TFSS 落在近期高檔區間（85–95 百分位）。",
-    "pressureSource": "中期資金供給吃緊，初級市場定價明顯高於次級市場。90 天期初級較次級高 24.3 bp，反映新資金供給的相對定價壓力。",
-    "policyObservation": "若持續數日未收斂，需留意央行是否調整 NCD 發行或附買回操作節奏。央行近 5 個交易日 NCD 淨吸收 114,800 百萬元。",
-    "researchView": "TFSS 較 5 個交易日前擴大 0.3 bp，壓力持續累積。本觀點為規則式模板依 TFSS 百分位與 5 日變化自動產生，僅供公開市場研究參考。",
+    "marketState": "資金面正常，綜合指標落在近期常態區間。",
+    "pressureSource": "短端與 1–3 個月資金成本皆未見明顯壓力。90 天期初級較次級高 24.3 bp。",
+    "policyObservation": "央行公開市場操作維持例行步調。央行近 5 個交易日 NCD 淨吸收 114,800 百萬元，未到期餘額 65,953 億元。",
+    "researchView": "綜合 z-score 5 日均 0.83（當日 0.85），由 2 個子指標合成。貢獻最大的是 TFSS（z 1.03）、初次級利差（z 0.68）。未納入：TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義；O/N 走廊位置：120 日標準差 2.6e-3 低於材料性門檻 0.01，變動幅度不具經濟意義；NCD 淨發行：樣本不足。TFSS 較 5 個交易日前擴大 0.3 bp。本日落在營所稅暫繳，資金偏緊屬季節性常態，燈號不因此升級。本觀點為規則式模板自動產生，僅供公開市場研究參考。",
+    "fxView": "SOFR 90 日均 3.646%，3M TAIBOR 1.683%，名目利差 196.3 bp。USD/TWD 31.630，20 日年化波動 3.8%。名目利差不等於實際成本：避險後的隱含台幣利率要加上換匯點年化，該資料目前未接上，此處僅供方向參考。",
     "risksAndLimits": [
       "本摘要為規則式模板文字，非 AI 或人工分析生成。",
       "TFSS 以票券初級市場利率減銀行間定盤利率，價差同時含信用溢酬與流動性溢酬，非純粹的資金鬆緊指標。",
-      "燈號為相對百分位，利率趨勢性走升期間可能同時推高分位，判讀需併看絕對水準與初級／次級利差。",
+      "綜合燈號的門檻為常態近似初值，尚未以歷史回測校準；子指標採等權，權重亦未經最適化。",
+      "子指標須通過材料性檢定（120 日標準差門檻）才納入合成：z-score 尺度無關，台灣的 TAIBOR 報價與隔拆走廊位置變動極小，不設門檻會讓雜訊主導燈號。",
+      "外幣通道缺少換匯點，無法計算避險後的隱含台幣成本。",
       "公開資料可能有發布與擷取延遲，指標判讀不構成投資、融資或交易建議。"
     ],
-    "generatedAt": "2026-09-06T02:39:37.945Z"
-  },
-  "bankMetrics": []
+    "generatedAt": "2026-09-06T10:29:39.234Z"
+  }
 }
