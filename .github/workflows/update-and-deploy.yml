@@ -52,6 +52,7 @@ jobs:
 
   deploy:
     needs: build
+    if: always() && !cancelled() && needs.build.result == 'success'
     permissions:
       pages: write
       id-token: write
