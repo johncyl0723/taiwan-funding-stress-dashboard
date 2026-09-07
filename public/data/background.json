@@ -8921,13 +8921,6 @@
   ],
   "weeklyBills": [
     {
-      "week": "2026-05-11 ~ 2026-05-15",
-      "primaryIssue": 581481,
-      "primaryRedeem": 614455,
-      "secondaryOutright": 943264,
-      "secondaryRepo": 764008
-    },
-    {
       "week": "2026-05-18 ~ 2026-05-22",
       "primaryIssue": 495874,
       "primaryRedeem": 495548,
@@ -9024,6 +9017,13 @@
       "primaryRedeem": 617279,
       "secondaryOutright": 1041790,
       "secondaryRepo": 1011868
+    },
+    {
+      "week": "2026-08-31 ~ 2026-09-04",
+      "primaryIssue": 499480,
+      "primaryRedeem": 393249,
+      "secondaryOutright": 871180,
+      "secondaryRepo": 857298
     }
   ],
   "ncdAuctions": [
@@ -9042,7 +9042,7 @@
       "awardRate": 1.643
     }
   ],
-  "updatedAt": "2026-09-06T11:41:33.306Z",
+  "updatedAt": "2026-09-07T09:01:50.193Z",
   "sources": [
     {
       "label": "央行 OpenData 貨幣總計數與準備貨幣",
@@ -9062,7 +9062,7 @@
     {
       "label": "集保票券保管結算交割週統計",
       "url": "https://www.tdcc.com.tw/portal/zh/tcWeb/tc_05sat_main02_3",
-      "asOf": "2026-08-24 ~ 2026-08-28"
+      "asOf": "2026-08-31 ~ 2026-09-04"
     },
     {
       "label": "央行 364 天期定期存單開標結果",
