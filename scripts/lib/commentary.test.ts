@@ -1,6 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { buildAiCommentary, buildNewsDigest, parseDigest } from './commentary'
 import type { HistoryPoint, NewsItem } from '../../src/types'
+
+const execFileMock = vi.fn()
+vi.mock('node:child_process', () => ({ execFile: (...args: unknown[]) => execFileMock(...args) }))
+const mockClaudeCode = (stdout: string) => execFileMock.mockImplementation((_cmd, _args, _opts, cb) => cb(null, stdout, ''))
+
+const { buildAiCommentary, buildNewsDigest, parseDigest } = await import('./commentary')
 
 const market = {
   date: '2026-09-04',
@@ -47,17 +52,56 @@ const okResponse = (content: string) =>
 afterEach(() => {
   delete process.env.OPENAI_API_KEY
   delete process.env.OPENAI_MODEL
+  delete process.env.CLAUDE_CODE_OAUTH_TOKEN
+  delete process.env.CLAUDE_CODE_MODEL
   vi.unstubAllGlobals()
+  execFileMock.mockReset()
 })
 
 describe('AI 短評', () => {
-  it('skips entirely without an API key, and never throws', async () => {
+  it('skips entirely with neither credential set, and never throws', async () => {
     const spy = vi.fn()
     vi.stubGlobal('fetch', spy)
     const result = await buildAiCommentary(market, undefined, news)
     expect(result.commentary).toBeNull()
-    expect(result.status).toContain('未設定 OPENAI_API_KEY')
+    expect(result.status).toContain('CLAUDE_CODE_OAUTH_TOKEN')
+    expect(result.status).toContain('OPENAI_API_KEY')
     expect(spy).not.toHaveBeenCalled()
+    expect(execFileMock).not.toHaveBeenCalled()
+  })
+
+  it('prefers the Claude Code subscription over OpenAI when both are set', async () => {
+    process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
+    process.env.OPENAI_API_KEY = 'sk-test'
+    mockClaudeCode(JSON.stringify({ type: 'result', subtype: 'success', result: '訂閱路徑產生的短評。' }))
+    const fetchSpy = vi.fn()
+    vi.stubGlobal('fetch', fetchSpy)
+
+    const result = await buildAiCommentary(market, undefined, news)
+    expect(result.commentary?.text).toBe('訂閱路徑產生的短評。')
+    expect(result.commentary?.model).toContain('Claude Code 訂閱')
+    expect(fetchSpy).not.toHaveBeenCalled()
+  })
+
+  it('falls back to OpenAI when only OPENAI_API_KEY is set', async () => {
+    process.env.OPENAI_API_KEY = 'sk-test'
+    vi.stubGlobal('fetch', vi.fn(async () => okResponse('OpenAI 路徑產生的短評。')))
+    const result = await buildAiCommentary(market, undefined, news)
+    expect(result.commentary?.text).toBe('OpenAI 路徑產生的短評。')
+    expect(execFileMock).not.toHaveBeenCalled()
+  })
+
+  it('does not retry on OpenAI when the selected Claude Code backend fails', async () => {
+    process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
+    process.env.OPENAI_API_KEY = 'sk-test'
+    mockClaudeCode(JSON.stringify({ type: 'result', subtype: 'success', is_error: true, result: 'boom' }))
+    const fetchSpy = vi.fn()
+    vi.stubGlobal('fetch', fetchSpy)
+
+    const result = await buildAiCommentary(market, undefined, news)
+    expect(result.commentary).toBeNull()
+    expect(result.status).toContain('boom')
+    expect(fetchSpy).not.toHaveBeenCalled()
   })
 
   it('posts the documented request shape and reads the reply', async () => {
@@ -176,7 +220,7 @@ describe('新聞摘要', () => {
   })
 
   it('skips without a key or without news, and survives an API failure', async () => {
-    expect((await buildNewsDigest(items)).status).toContain('未設定 OPENAI_API_KEY')
+    expect((await buildNewsDigest(items)).status).toContain('CLAUDE_CODE_OAUTH_TOKEN')
 
     process.env.OPENAI_API_KEY = 'sk-test'
     expect((await buildNewsDigest([])).status).toContain('無新聞可摘要')
@@ -185,5 +229,20 @@ describe('新聞摘要', () => {
     const failed = await buildNewsDigest(items)
     expect(failed.digest).toBeNull()
     expect(failed.status).toContain('生成失敗')
+  })
+
+  it('uses --json-schema on the Claude Code path and reads structured fields directly, no regex parsing', async () => {
+    process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
+    mockClaudeCode(JSON.stringify({
+      type: 'result', subtype: 'success',
+      structured_output: { official: '外匯存底 6,019.04 億美元。', media: '標題顯示央行加大回收資金。' }
+    }))
+    const { digest } = await buildNewsDigest(items)
+    expect(digest?.official).toContain('6,019.04')
+    expect(digest?.media).toContain('回收資金')
+    expect(digest?.model).toContain('Claude Code 訂閱')
+
+    const args = execFileMock.mock.calls[0][1] as string[]
+    expect(args).toContain('--json-schema')
   })
 })

@@ -16,14 +16,51 @@
 | 區塊 | 來源 | 失效時 |
 | --- | --- | --- |
 | **規則式摘要**、各指標的「現在的數字說什麼」 | `scripts/lib/insight.ts` 依當日數據套用預寫規則產生，不經 AI | 永遠存在 |
-| **AI 短評** | GitHub Action 內呼叫一次 OpenAI Chat Completions，把生成結果存進 `dashboard.json`，頁面本身仍是純靜態 | 未設金鑰或呼叫失敗時整段留空，其餘照常發布 |
+| **AI 短評／新聞摘要** | GitHub Action 內呼叫一次 LLM，把生成結果存進 `dashboard.json`，頁面本身仍是純靜態 | 未設任何憑證或呼叫失敗時整段留空，其餘照常發布 |
 
-要啟用 AI 短評，需在 repo 的 **Settings → Secrets and variables → Actions** 新增 secret `OPENAI_API_KEY`。
-模型預設 `gpt-5-mini`，可用 repository variable `OPENAI_MODEL` 覆寫 —— 模型 ID 會隨時間汰換，寫死會讓排程在某天突然失敗。
-以每日一次、輸入約 1,500 token 估算，月成本約數美分。
+AI 文字的 prompt 只餵入當日數據、被排除的子指標與新聞標題（或新聞稿全文），並要求「不得引入未提供的數字」
+「不得提供投資建議」；新聞摘要另外要求把新聞內容當「資料」而非指令。輸出未經人工審閱，畫面上明確標示
+模型名稱、生成時間與免責聲明。
 
-AI 短評的 prompt 只餵入當日數據、被排除的子指標與新聞標題，並要求「不得引入未提供的數字」「不得提供投資建議」。
-輸出未經人工審閱，畫面上明確標示模型名稱、生成時間與免責聲明。
+### 兩種後端，優先用訂閱
+
+`scripts/lib/commentary.ts` 依序嘗試：
+
+1. **Claude Code 訂閱**（`CLAUDE_CODE_OAUTH_TOKEN` 有設定就用這個）—— 不計量計費，吃訂閱額度
+2. **OpenAI API**（`OPENAI_API_KEY`）—— 計量計費
+3. 兩者都沒有 → 整段跳過，規則式文字不受影響
+
+兩者都設定時只用 Claude Code，失敗不會偷偷改打 OpenAI（避免「明明只設了訂閱，帳單卻跑去別的服務」）。
+
+**用 Claude Code 訂閱（建議，個人使用免計量計費）**
+
+這條路是官方支援的：`claude setup-token` 產生的 OAuth token 綁定 Pro/Max/Team/Enterprise 訂閱，
+Anthropic 自己的 GitHub Actions 排程範例（Daily Report）就是同樣「非程式相關、定期產生摘要」的用法，
+用訂閱額度執行而不計入 API 帳單。詳見 [code.claude.com/docs/en/authentication](https://code.claude.com/docs/en/authentication)
+與 [code.claude.com/docs/en/github-actions](https://code.claude.com/docs/en/github-actions)。
+
+1. 本機裝好 `claude` CLI 並登入你的 Pro/Max 帳號後，執行：
+   ```bash
+   claude setup-token
+   ```
+   瀏覽器授權完會印出一個一年期的 token。
+2. 到 repo 的 **Settings → Secrets and variables → Actions** 新增 secret `CLAUDE_CODE_OAUTH_TOKEN`，貼上這個 token。
+3. 選用：新增 repository variable `CLAUDE_CODE_MODEL`（預設 `haiku`，可設 `sonnet`／`opus`）。
+
+Token 一年到期，屆時要重新跑一次 `claude setup-token` 換新的。這個 token「只能發模型請求」，
+不能建立 Remote Control 連線或讀 claude.ai connectors，外流風險比一般帳密低，但仍要當機密保管
+（跟 API key 同等對待，只放在 repo secret，不要出現在程式碼或 log 裡）。
+
+**用 OpenAI API（備援／若不想用訂閱）**
+
+到 repo 的 **Settings → Secrets and variables → Actions** 新增 secret `OPENAI_API_KEY`。
+模型預設 `gpt-5-mini`，可用 repository variable `OPENAI_MODEL` 覆寫 —— 模型 ID 會隨時間汰換，
+寫死會讓排程在某天突然失敗。以每日一次、輸入約 1,500 token 估算，月成本約數美分。
+
+**其他實作細節**：跑 `claude` CLI 需要 Node.js 22+（workflow 已設定），且**刻意不加 `--bare`**——
+官方文件明講 bare 模式不讀 `CLAUDE_CODE_OAUTH_TOKEN`（只認 API key），加了會驗證失敗。
+新聞摘要在 Claude Code 這條路用 `--json-schema` 直接拿結構化的 `{official, media}`，
+不必再用正規表示式拆「官方：／媒體：」兩行文字；OpenAI 沒有對應機制，仍用文字格式＋解析。
 
 ## 新聞與 AI 摘要
 
@@ -132,6 +169,10 @@ npm test
 本機要試 AI 短評，在專案根目錄放一個 `.env`（已列入 `.gitignore`）或直接設環境變數：
 
 ```bash
+# 用 Claude Code 訂閱（需先本機跑過 claude setup-token）
+CLAUDE_CODE_OAUTH_TOKEN=... npm run refresh
+
+# 或用 OpenAI
 OPENAI_API_KEY=sk-... npm run refresh
 ```
 

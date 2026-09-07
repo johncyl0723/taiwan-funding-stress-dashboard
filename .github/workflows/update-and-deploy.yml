@@ -24,12 +24,19 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # claude CLI（npm install -g @anthropic-ai/claude-code）要求 Node 22+
+          node-version: 22
       - run: npm ci
       - run: npm test
-      # 未設定 OPENAI_API_KEY 時 AI 短評整段跳過，其餘資料照常更新
+      # 選用：用 Claude Code 訂閱（而非計量計費的 API）跑 AI 短評與新聞摘要。
+      # `claude setup-token` 產生的 OAuth token，見 README「AI 短評／新聞摘要」。
+      - run: npm install -g @anthropic-ai/claude-code
+      # 兩組憑證都沒有就整段跳過 AI 文字，其餘資料照常更新；
+      # 兩者都設定時優先用 Claude Code 訂閱，見 scripts/lib/commentary.ts
       - run: npm run refresh
         env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_MODEL: ${{ vars.CLAUDE_CODE_MODEL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
       - uses: stefanzweifel/git-auto-commit-action@v5
