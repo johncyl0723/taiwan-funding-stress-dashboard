@@ -131,3 +131,13 @@ footer { padding-top: 20px; border-top: 1px solid #294257; color: #7890a1; font-
   .four { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr; }
 }
+
+/* ── 手動更新按鈕 ──────────────────────────────────────── */
+.refresh-widget { display: flex; flex-direction: column; align-items: flex-end; gap: .4rem; }
+.refresh-btn { background: #1c2b3b; color: #d9ebff; border: 1px solid #2d4457; border-radius: 8px; padding: .55rem 1rem; font-size: .82rem; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.refresh-btn:hover:not(:disabled) { filter: brightness(1.15); }
+.refresh-btn:disabled { cursor: wait; opacity: .7; }
+.refresh-btn-link { display: inline-block; text-decoration: none; }
+.refresh-msg { max-width: 220px; text-align: right; font-size: .74rem; color: #91a8b9; margin: 0; }
+.refresh-msg.is-error { color: #ffb0b8; }
+@media (max-width: 640px) { .refresh-widget { align-items: flex-start; margin-top: 10px; } .refresh-msg { text-align: left; } }

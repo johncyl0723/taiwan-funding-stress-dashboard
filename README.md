@@ -146,10 +146,41 @@ Token 一年到期，屆時要重新跑一次 `claude setup-token` 換新的。�
 
 - **前端**：Vite + React，發布到 GitHub Pages
 - **資料更新**：GitHub Actions 排程（UTC `0 4 * * 1-5`，即台灣時間週一至週五 12:00）跑測試後執行 `scripts/refresh.ts`，寫回 `public/data/` 並自動 commit
-- **文字**：規則式模板（`scripts/lib/insight.ts`）＋ 選用的 OpenAI 短評（`scripts/lib/commentary.ts`），見上方「兩種文字」
-- **手動更新**：到 repo 的 Actions 頁籤，選 `更新資料並部署` → `Run workflow`
+- **文字**：規則式模板（`scripts/lib/insight.ts`）＋ 選用的 AI 短評／新聞摘要（`scripts/lib/commentary.ts`），見上方「兩種文字」
+- **手動更新**：頁面右上角按鈕（見下），或到 repo 的 Actions 頁籤選 `更新資料並部署` → `Run workflow`
 
-沒有伺服器、沒有資料庫、沒有登入機制。唯一會產生費用的外部服務是選用的 OpenAI 短評（每日一次呼叫，未設金鑰即不啟用）。
+沒有伺服器、沒有資料庫、沒有登入機制。唯一會產生費用的外部服務是選用的 AI 短評／新聞摘要（每日一次呼叫，
+未設任何憑證即不啟用）；手動更新按鈕若要做成「原地觸發不跳頁」，需另外加一支 Cloudflare Worker，見下。
+
+## 手動更新按鈕
+
+按鈕預設是**純連結**，連到 GitHub 的 Actions「Run workflow」頁面 —— 零風險、零基礎設施，多跳一次頁換一鍵觸發。
+
+要做成「原地觸發，不跳頁」，需要一支小型代理伺服器幫忙：靜態網站沒有能力代管有權限的 GitHub token，
+任何寫進前端 JS 的密鑰，任何人看原始碼或開發者工具就能拿走。程式碼在 `worker/`，用 Cloudflare Workers
+免費方案（一天 10 萬次請求，一個按鈕用不完），部署步驟如下 —— **這些步驟只有你能做**：建帳號、產生
+憑證、貼機密都需要你本人操作，我沒辦法代勞，也還沒有帳號可以先幫你跑過一次。
+
+1. **建立範圍剛好的 GitHub token**：Settings → Developer settings →
+   [Fine-grained tokens](https://github.com/settings/tokens?type=beta) → Generate new token。
+   Repository access 選**只勾這個 repo**；Permissions 只給 **Actions: Read and write**，其餘全部
+   No access。範圍越小，萬一外流的損害越小。
+2. **建 Cloudflare 帳號並裝 wrangler**（免費，[dash.cloudflare.com](https://dash.cloudflare.com) 註冊）：
+   ```bash
+   npm install -g wrangler
+   cd worker
+   wrangler login
+   wrangler secret put GITHUB_TOKEN   # 貼上第 1 步的 token
+   wrangler deploy
+   ```
+   部署完會印出一個 `https://taiwan-funding-stress-refresh.<你的子網域>.workers.dev` 網址。
+3. 到這個 repo 的 **Settings → Secrets and variables → Actions → Variables**，新增 repository variable
+   `REFRESH_WORKER_URL`，值就是第 2 步印出的網址。
+4. 重新 build 一次（下次排程跑完，或手動 `Run workflow`），按鈕就會從純連結變成原地觸發。
+
+`worker/trigger-refresh.js` 做了兩層防濫用：只接受來自這個網站的請求（檢查 `Origin`），
+以及讀 `dashboard.json` 的 `updatedAt` 做 10 分鐘冷卻，避免有人繞過按鈕直接洗 Worker 網址、
+浪費你的 GitHub Actions 額度。**這支 Worker 我沒有帳號可以先測過**，部署後請自己按一次確認能觸發。
 
 ## 本機啟動
 

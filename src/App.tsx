@@ -5,6 +5,7 @@ import {
   LayerHeader, MetricRow, MonthlyPanel, NewsList, Stats, StatusBadge, WeeklyBillsChart
 } from './components'
 import { DEFINITIONS, FX_DEFINITIONS, MONTHLY_HINTS } from './definitions'
+import { RefreshButton } from './RefreshButton'
 import type { BackgroundPayload, CompositeInputs, DashboardPayload, HistoryPoint } from './types'
 
 /** 與 scripts/lib/composite.ts 的 THRESHOLDS 對應，僅供圖表參考線使用 */
@@ -69,6 +70,7 @@ export default function App() {
         <p className="eyebrow">PUBLIC MARKET RESEARCH · TAIWAN</p>
         <h1>台灣資金緊俏每日儀表板</h1>
       </div>
+      <RefreshButton />
     </header>
 
     {message && <p className="notice">{message}</p>}

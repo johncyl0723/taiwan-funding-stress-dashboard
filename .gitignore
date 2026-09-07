@@ -4,3 +4,5 @@ coverage/
 *.tsbuildinfo
 .env
 .env.local
+worker/.wrangler/
+worker/.dev.vars

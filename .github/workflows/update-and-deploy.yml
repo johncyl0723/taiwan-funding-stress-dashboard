@@ -56,7 +56,10 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
+      # 未設定就編出純連結版按鈕（連到 Actions 頁面），不是必填
       - run: npm run build
+        env:
+          VITE_REFRESH_WORKER_URL: ${{ vars.REFRESH_WORKER_URL }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

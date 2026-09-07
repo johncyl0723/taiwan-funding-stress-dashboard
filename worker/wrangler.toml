@@ -1,0 +1,12 @@
+# Cloudflare Worker 設定檔。部署方式見 README「手動更新按鈕」一節。
+#
+# GITHUB_TOKEN 不寫在這裡 —— wrangler.toml 會進版控，機密只能用
+# `wrangler secret put GITHUB_TOKEN` 存進 Cloudflare 那一側，
+# 這支設定檔本身完全不含任何憑證。
+
+name = "taiwan-funding-stress-refresh"
+main = "trigger-refresh.js"
+compatibility_date = "2026-01-01"
+
+[observability]
+enabled = true
