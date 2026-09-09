@@ -1,51 +1,51 @@
 {
   "market": {
-    "date": "2026-09-08",
+    "date": "2026-09-09",
     "status": "normal",
     "eventFlags": [
       "營所稅暫繳"
     ],
-    "tfssBp": 41.13,
-    "tfssChange5dBp": 0.33,
+    "tfssBp": 41.11,
+    "tfssChange5dBp": 0.31,
     "taibir90Primary": 2.0943,
     "taibir90Secondary": 1.8515,
     "primarySecondaryBp": 24.28,
     "taibirSlopeBp": 33.44,
-    "taibor3m": 1.683,
-    "taiborSlopeBp": 30.02,
+    "taibor3m": 1.68322,
+    "taiborSlopeBp": 29.99,
     "overnightRate": null,
     "corridorPosition": null,
-    "ncdNetIssuance": -61900,
-    "ncdNetIssuance5d": -166970,
-    "ncdOutstanding": 6458550,
+    "ncdNetIssuance": -47400,
+    "ncdNetIssuance5d": -279670,
+    "ncdOutstanding": 6411150,
     "repoOperation": false,
-    "foreignNet": 13269,
-    "foreignNet5d": 18289,
-    "usdTwd": 31.535,
-    "usdTwdVol20": 3.76,
+    "foreignNet": 20924,
+    "foreignNet5d": 130568,
+    "usdTwd": 31.505,
+    "usdTwdVol20": 3.73,
     "sofr90": null,
     "fxNominalSpreadBp": null,
     "stats": {
-      "percentile60": 70.83333333333334,
-      "percentile120": 85.41666666666666,
-      "zScore60": 0.508053689255482,
-      "zScore120": 1.0021755944119353,
+      "percentile60": 66.66666666666666,
+      "percentile120": 83.33333333333334,
+      "zScore60": 0.4333221926717162,
+      "zScore120": 0.9790571179497156,
       "sample60": 60,
       "sample120": 120,
       "provisional": false
     },
     "compositeInputs": {
-      "tfss": 1.0021755944119353,
-      "primarySecondary": 0.6836607759985206,
-      "taiborSlope": 1.8717360690341995,
+      "tfss": 0.9790571179497156,
+      "primarySecondary": 0.6854386733617365,
+      "taiborSlope": 1.4827997131051407,
       "corridor": null,
       "ncdNetIssuance": null
     },
     "compositeDispersion": {
-      "tfss": 2.816788477395646,
-      "primarySecondary": 0.8534934582838543,
-      "taiborSlope": 0.08338960600032161,
-      "corridor": 0.002571964094919592,
+      "tfss": 2.8072076861278994,
+      "primarySecondary": 0.8527385785417091,
+      "taiborSlope": 0.0839627893771996,
+      "corridor": 0.0025691108492152605,
       "ncdNetIssuance": null
     },
     "excludedInputs": [
@@ -62,35 +62,35 @@
         "reason": "NCD 淨發行：樣本不足"
       }
     ],
-    "compositeZ": 0.843,
-    "compositeZ5d": 0.843,
+    "compositeZ": 0.832,
+    "compositeZ5d": 0.848,
     "guardApplied": null,
-    "updatedAt": "2026-09-08T08:40:43.564Z",
+    "updatedAt": "2026-09-09T08:44:54.130Z",
     "sources": [
       {
         "label": "TDCC TAIBIR 初級（歷史查詢）",
         "url": "https://www.tdcc.com.tw/portal/zh/tcWeb/tc_05sat_main03_5",
-        "asOf": "2026-09-08"
+        "asOf": "2026-09-09"
       },
       {
         "label": "TDCC TAIBIR 次級（歷史查詢）",
         "url": "https://www.tdcc.com.tw/portal/zh/tcWeb/tc_05sat_main03_6",
-        "asOf": "2026-09-08"
+        "asOf": "2026-09-09"
       },
       {
         "label": "銀行公會 TAIBOR（每日＋月報 CSV）",
         "url": "https://www.ba.org.tw/taiborDaily/index",
-        "asOf": "2026-09-08"
+        "asOf": "2026-09-09"
       },
       {
         "label": "中央銀行金融業隔夜拆款",
         "url": "https://www.cbc.gov.tw/tw/lp-641-1.html",
-        "asOf": "2026-09-07"
+        "asOf": "2026-09-08"
       },
       {
         "label": "中央銀行公開市場操作",
         "url": "https://www.cbc.gov.tw/tw/lp-1163-1.html",
-        "asOf": "2026-09-08"
+        "asOf": "2026-09-09"
       },
       {
         "label": "中央銀行貼放利率",
@@ -100,27 +100,27 @@
       {
         "label": "證交所三大法人買賣金額",
         "url": "https://www.twse.com.tw/zh/trading/foreign/bfi82u.html",
-        "asOf": "2026-09-08"
+        "asOf": "2026-09-09"
       },
       {
         "label": "中央銀行新臺幣對美元收盤匯率",
         "url": "https://www.cbc.gov.tw/tw/lp-645-1.html",
-        "asOf": "2026-09-08"
+        "asOf": "2026-09-09"
       },
       {
         "label": "NY Fed SOFR 平均指數",
         "url": "https://www.newyorkfed.org/markets/reference-rates/sofr-averages-and-index",
-        "asOf": "2026-09-04"
+        "asOf": "2026-09-08"
       }
     ],
     "sourceStatus": {
-      "TDCC 初級": "TDCC 初級 已讀取（136 筆）",
-      "TDCC 次級": "TDCC 次級 已讀取（136 筆）",
       "USD SOFR": "USD SOFR 已讀取（200 筆）",
-      "外資買賣超": "外資買賣超 已讀取（12 筆）",
+      "TDCC 次級": "TDCC 次級 已讀取（137 筆）",
+      "TDCC 初級": "TDCC 初級 已讀取（137 筆）",
       "央行貼放利率": "央行貼放利率 已讀取（20 筆）",
-      "TAIBOR": "TAIBOR 已讀取（146 筆）",
+      "外資買賣超": "外資買賣超 已讀取（12 筆）",
       "央行 NCD": "央行 NCD 已讀取（12 筆）",
+      "TAIBOR": "TAIBOR 已讀取（147 筆）",
       "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
       "央行 O/N": "央行 O/N 已讀取（160 筆）",
       "超額準備": "超額準備 已讀取（187 期，最新 2026-07）",
@@ -131,7 +131,7 @@
       "五大銀行基準利率": "五大銀行基準利率 已讀取（285 期，最新 2026-08）",
       "票券週統計": "票券週統計 已讀取（15 週）",
       "364D NCD 標售": "364D NCD 標售 已讀取（2 次）",
-      "新聞": "新聞 已讀取（央行 8 則、媒體 8 則）",
+      "新聞": "新聞 已讀取（央行 7 則、媒體 8 則）",
       "AI 評論": "AI 評論 已跳過（未設定 CLAUDE_CODE_OAUTH_TOKEN 或 OPENAI_API_KEY）",
       "新聞摘要": "新聞摘要 已跳過（未設定 CLAUDE_CODE_OAUTH_TOKEN 或 OPENAI_API_KEY）"
     },
@@ -145,24 +145,24 @@
   "insight": {
     "marketState": "資金面正常，綜合指數落在近一年常態區間。",
     "pressureSource": "短端與 1–3 個月資金成本皆未見明顯壓力。90 天期初級較次級高 24.3 bp。",
-    "policyObservation": "央行公開市場操作維持例行步調。央行近 5 個交易日 NCD 淨釋出 166,970 百萬元。",
-    "researchView": "TSS 綜合指數 5 日均 0.84，較前一交易日 +0.01、較一週前 +0.02。目前由 TFSS（z 1.00）主導，合成共採用 2 個子指標。距離「開始偏緊」門檻還有 0.16。另有 3 項子指標未納入合成，原因見下方子指標分解。本日落在營所稅暫繳，資金偏緊屬季節性常態，燈號不因此升級。本摘要為規則式模板依當日數據自動產生，僅供公開市場研究參考。",
+    "policyObservation": "央行公開市場操作維持例行步調。央行近 5 個交易日 NCD 淨釋出 279,670 百萬元。",
+    "researchView": "TSS 綜合指數 5 日均 0.85，較前一交易日 +0.01、較一週前 +0.03。目前由 TFSS（z 0.98）主導，合成共採用 2 個子指標。距離「開始偏緊」門檻還有 0.15。另有 3 項子指標未納入合成，原因見下方子指標分解。本日落在營所稅暫繳，資金偏緊屬季節性常態，燈號不因此升級。本摘要為規則式模板依當日數據自動產生，僅供公開市場研究參考。",
     "fxView": "尚無資料。資料不足，無法比較。",
     "readings": {
-      "tss": "TSS 綜合指數 5 日均 0.84，較前一交易日 +0.01、較一週前 +0.02。目前由 TFSS（z 1.00）主導，合成共採用 2 個子指標。距離「開始偏緊」門檻還有 0.16。",
-      "ncdNetIssuance": "近 5 個交易日淨釋出 166,970 百萬元，當日 -61,900 百萬元。目前未進入 TSS 合成：NCD 淨發行：樣本不足。",
-      "ncdOutstanding": "未到期餘額 64,586 億元，較 5 個交易日前 -1670 億元。",
+      "tss": "TSS 綜合指數 5 日均 0.85，較前一交易日 +0.01、較一週前 +0.03。目前由 TFSS（z 0.98）主導，合成共採用 2 個子指標。距離「開始偏緊」門檻還有 0.15。",
+      "ncdNetIssuance": "近 5 個交易日淨釋出 279,670 百萬元，當日 -47,400 百萬元。目前未進入 TSS 合成：NCD 淨發行：樣本不足。",
+      "ncdOutstanding": "未到期餘額 64,112 億元，較 5 個交易日前 -2797 億元。",
       "corridor": "尚無資料。",
       "overnight": "尚無資料。",
       "taibor": "1.683%，較 5 個交易日前 +0.0 bp。授信合約若以此計息，這就是利息費用的直接變動。",
       "taiborSlope": "30.0 bp。目前未進入 TSS 合成：TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義。",
-      "tfss": "41.1 bp，較 5 個交易日前 +0.3 bp。120 日 z-score 1.00。",
-      "primarySecondary": "24.3 bp，較 5 個交易日前 +0.0 bp。120 日 z-score 0.68。",
+      "tfss": "41.1 bp，較 5 個交易日前 +0.3 bp。120 日 z-score 0.98。",
+      "primarySecondary": "24.3 bp，較 5 個交易日前 +0.0 bp。120 日 z-score 0.69。",
       "taibirSlope": "33.4 bp。曲線偏陡，短天期相對便宜。",
-      "foreignNet": "近 5 個交易日淨買超 18,289 百萬元。",
+      "foreignNet": "近 5 個交易日淨買超 130,568 百萬元。",
       "sofr": "尚無資料。",
       "fxSpread": "資料不足，無法比較。",
-      "usdTwd": "31.535，20 日年化波動 3.8%。"
+      "usdTwd": "31.505，20 日年化波動 3.7%。"
     },
     "risksAndLimits": [
       "本區塊為規則式模板文字，依當日數據套用預寫規則產生，不經 AI 生成。",
@@ -172,7 +172,7 @@
       "外幣通道缺少換匯點，無法計算避險後的隱含台幣成本。",
       "公開資料可能有發布與擷取延遲，指標判讀不構成投資、融資或交易建議。"
     ],
-    "generatedAt": "2026-09-08T08:40:43.571Z"
+    "generatedAt": "2026-09-09T08:44:54.137Z"
   },
   "aiCommentary": null,
   "news": [
@@ -233,14 +233,6 @@
       "body": "115年7月存款不足退票概況 一、7月票據交換張數為426萬9,225張，較6月減少11.14％，票據交換金額為1兆1,509億元，較6月減少1.21％，主要係7月較6月減少1個月底峰日 1 ，致票據交換張數及金額均減少(詳附表)。 二、7月存款不足毛退票張數共計3,202張，占票據交換張數之比率為0.08％，較6月略增0.01個百分點；存款不足毛退票金額34億元，占票據交換金額之比率為0.29％ ，較6月減少0.01個百分點，主要係7月大戶2退票減少所致。 三、7月公司戶退票張數占全體退票張數之比重較6月減少1.23個百分點，公司戶退票金額占全體退票金額之比重較6月增加9.67個百分點；個人戶則呈反向同幅度變動。 註：1.交換票據通常在月底達到最高峰，俗稱月底峰日； 6月有2個月底峰日，7月則有1個月底峰日。 2.大戶係指每戶退票金額達1億元以上者。 備註："
     },
     {
-      "title": "115年7月消費者貸款及建築貸款餘額統計表",
-      "url": "https://www.cbc.gov.tw/tw/cp-302-192764-93ec6-1.html",
-      "source": "中央銀行新聞稿",
-      "date": "2026-08-25",
-      "official": true,
-      "body": "中央銀行新聞參考資料 115年8月25日發布 115年7月消費者貸款及建築貸款餘額統計表（詳 附表 ） 備註："
-    },
-    {
       "title": "國內金融：週二(8日)央行發行二種天期可轉讓定存單，回收資金",
       "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNcWRsNmN6NU9HWWl1Zk5zN1V5LW5CaDUzNVgxQXRFWkt5dVlxd1QxendNZHM3dWhPLUxqS3BkSVNyRjc5SkFjVkhxd21xY3hYWTk4d1l3bDJ2OHplVE9Ta3ZPQ2R0VzNSME5jdi16MjBvT1MzMjJDOTl2ZXlVN3NHNkNYNEpMYV9X?oc=5",
       "source": "富聯網",
@@ -248,10 +240,17 @@
       "official": false
     },
     {
-      "title": "台灣貨幣市場：資金尚屬平穩但需求相當旺盛，拆款及短票利率則持穩",
-      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5jdjBNNG9VVUlCMWt2d2RRTTdabG41Z1ZVU0N1cmpnWFl2X1EyMmw2dG02dmNtWVpBWDdNTlNxZUlTdTRZSjhsUEJmOFpxemZvY1Jmc0V0S29sTE9kMjZKT1hwSDhvVzZxZVYzcnJJdEo4aHhTcE9ERQ?oc=5",
+      "title": "台灣貨幣市場：銀行開始調整積數資金略偏緊，需求增溫拆款利率蠢動",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBmcHNiLXdfRXBlTFlmUzFjM2pLOHJVckNzYXh0Tk1mdlpkUFJ5VjJsRDFVVlFKZi1RMTNJdGUwOVZwd2tDNEtoUDYzZnRsS25yWmNXZllxTVE3U214ZkxPNmpEQjJGUmdpbW1BWXdIOV9DUDQ2Y1Jv?oc=5",
       "source": "TradingView",
       "date": "2026-09-08",
+      "official": false
+    },
+    {
+      "title": "台灣貨幣市場：資金尚屬平穩但需求相當旺盛，拆款及短票利率則持穩",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE8wNGNMZnYtaGtjZUVSSEpCTnZ1dmdsbGZnTkdxV3FuVGNLY0JtNndpUHJjQUN3WFNVWTNVRngtUzlTaGFJcmY3THFnNmpLZjg4dVA3UFlIcnZxeDJuWFZVdGxQblN1bHdfQjVOWUp1S1dZbmRJTi1R?oc=5",
+      "source": "TradingView",
+      "date": "2026-09-07",
       "official": false
     },
     {
@@ -284,16 +283,9 @@
     },
     {
       "title": "科技業聯貸 市場資金緊俏 銀行坦言利率一定要提高",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBRZU9IV0tHN2c5endjV1NEa2thZzlOaENNblpGN1AzdnR0M0ZrdGx1U0ZGaDVyQ2dINm9nMk9WUEVDbFQwT1puU0M2UzhXYTFuUnVIOGwzSmtrZ9IBX0FVX3lxTE14Zkxhb0s4cDJHUkt2UmdELTRLMzVSc1NfeXB0Z0R2dWNXN0lZblFOWVU1U0ZvNkhDTVktZFVOSmk2X2dlaW15Z0tNM2ZtZkZHOWlDSU9fTjNTZXlFTmRB?oc=5",
-      "source": "經濟日報",
-      "date": "2026-08-27",
-      "official": false
-    },
-    {
-      "title": "台灣貨幣市場：颱風假沒了資金陸續出籠，拆款及短票利率略鬆動",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5HSGJXcml6b2JRMzRQYXVkOWdjRllaNWVNNkdkWlh6VWFuUVh0ckFjNlQ4S2RWVGxWUk04X3ZOck4xLXhFZmVvNVFZN25wdmFScjl6QUgwdnlJZnRoUTRMU2tWLTh4bGgtMXVtYlNkbFBrSmE0clFN?oc=5",
-      "source": "TradingView",
-      "date": "2026-08-26",
+      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1yeTVHY1ppV29BZjhqRnVtczZkYnNPVW50MmtuMTVmc0lud1JwOGZjNUUydkVRYTk0OElVV1ZYSWgxajNKQVFmM2hVLUM4STI50gFWQVVfeXFMT2JMWld1eERvMzc4UUtDYnVBajAzR3RNU1Z3M2wtYVpVM3h1MEFLWExKd2lCNHdnTkV2MWloWkVUaWstYzE3Nk51V0staXpSMzBvQXRrbmc?oc=5",
+      "source": "UDN",
+      "date": "2026-08-28",
       "official": false
     }
   ],
