@@ -10141,8 +10141,8 @@
     "taibirSlopeBp": 33.44,
     "taibor3m": 1.68322,
     "taiborSlopeBp": 29.99,
-    "overnightRate": null,
-    "corridorPosition": null,
+    "overnightRate": 0.824,
+    "corridorPosition": -0.0009,
     "ncdNetIssuance": -47400,
     "ncdNetIssuance5d": -279670,
     "ncdOutstanding": 6411150,
@@ -10151,8 +10151,8 @@
     "foreignNet5d": 130568,
     "usdTwd": 31.505,
     "usdTwdVol20": 3.73,
-    "sofr90": null,
-    "fxNominalSpreadBp": null,
+    "sofr90": 3.64748,
+    "fxNominalSpreadBp": 196.43,
     "stats": {
       "percentile60": 66.66666666666666,
       "percentile120": 83.33333333333334,
@@ -10166,14 +10166,82 @@
       "tfss": 0.9790571179497156,
       "primarySecondary": 0.6854386733617365,
       "taiborSlope": 1.4827997131051407,
-      "corridor": null,
+      "corridor": -0.13770019939054784,
       "ncdNetIssuance": null
     },
     "compositeDispersion": {
       "tfss": 2.8072076861278994,
       "primarySecondary": 0.8527385785417091,
       "taiborSlope": 0.0839627893771996,
-      "corridor": 0.0025691108492152605,
+      "corridor": 0.0025659609419388207,
+      "ncdNetIssuance": null
+    },
+    "excludedInputs": [
+      {
+        "key": "taiborSlope",
+        "reason": "TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義"
+      },
+      {
+        "key": "corridor",
+        "reason": "O/N 走廊位置：120 日標準差 2.6e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
+      },
+      {
+        "key": "ncdNetIssuance",
+        "reason": "NCD 淨發行：樣本不足"
+      }
+    ],
+    "compositeZ": 0.832,
+    "compositeZ5d": 0.848,
+    "guardApplied": null
+  },
+  {
+    "date": "2026-09-10",
+    "status": "normal",
+    "eventFlags": [
+      "營所稅暫繳",
+      "理監事會前後"
+    ],
+    "tfssBp": 41.11,
+    "tfssChange5dBp": -0.02,
+    "taibir90Primary": 2.0943,
+    "taibir90Secondary": 1.8515,
+    "primarySecondaryBp": 24.28,
+    "taibirSlopeBp": 33.44,
+    "taibor3m": 1.68322,
+    "taiborSlopeBp": 29.96,
+    "overnightRate": null,
+    "corridorPosition": null,
+    "ncdNetIssuance": -50100,
+    "ncdNetIssuance5d": -264870,
+    "ncdOutstanding": 6361050,
+    "repoOperation": false,
+    "foreignNet": -38334,
+    "foreignNet5d": 140380,
+    "usdTwd": 31.548,
+    "usdTwdVol20": 3.68,
+    "sofr90": null,
+    "fxNominalSpreadBp": null,
+    "stats": {
+      "percentile60": 65.83333333333333,
+      "percentile120": 82.91666666666667,
+      "zScore60": 0.4069157930718371,
+      "zScore120": 0.9633061613548298,
+      "sample60": 60,
+      "sample120": 120,
+      "provisional": false
+    },
+    "compositeInputs": {
+      "tfss": 0.9633061613548298,
+      "primarySecondary": 0.6872212074979821,
+      "taiborSlope": 1.1067267469277833,
+      "corridor": null,
+      "ncdNetIssuance": null
+    },
+    "compositeDispersion": {
+      "tfss": 2.7965321667597927,
+      "primarySecondary": 0.8519818562230836,
+      "taiborSlope": 0.08418217678872932,
+      "corridor": 0.0025659609419388207,
       "ncdNetIssuance": null
     },
     "excludedInputs": [
@@ -10190,8 +10258,8 @@
         "reason": "NCD 淨發行：樣本不足"
       }
     ],
-    "compositeZ": 0.832,
-    "compositeZ5d": 0.848,
+    "compositeZ": 0.825,
+    "compositeZ5d": 0.84,
     "guardApplied": null
   }
 ]

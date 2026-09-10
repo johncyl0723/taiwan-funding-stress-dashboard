@@ -9028,13 +9028,6 @@
   ],
   "ncdAuctions": [
     {
-      "date": "2026-08-01",
-      "issueAmount": 1200,
-      "bidAmount": 1899.5,
-      "bidToCover": 1.58,
-      "awardRate": 1.626
-    },
-    {
       "date": "2026-09-01",
       "issueAmount": 1200,
       "bidAmount": 2026,
@@ -9042,7 +9035,7 @@
       "awardRate": 1.643
     }
   ],
-  "updatedAt": "2026-09-09T08:44:50.385Z",
+  "updatedAt": "2026-09-10T08:43:04.269Z",
   "sources": [
     {
       "label": "央行 OpenData 貨幣總計數與準備貨幣",
