@@ -150,14 +150,14 @@ export function AiCommentaryBlock({ commentary }: { commentary: AiCommentary | n
   if (!commentary) {
     return <div className="ai-block ai-off">
       <p className="ai-label">AI 短評</p>
-      <p className="muted">未產生。需在 repo secrets 設定 <code>OPENAI_API_KEY</code>；未設定時本區塊留空，上方規則式摘要不受影響。</p>
+      <p className="muted">未產生。需在 repo secrets 設定 <code>CLAUDE_CODE_OAUTH_TOKEN</code>；未設定時本區塊留空，上方規則式摘要不受影響。</p>
     </div>
   }
   return <div className="ai-block">
     <p className="ai-label">AI 短評 · {commentary.model}</p>
     {commentary.text.split(/\n+/).filter(Boolean).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
     <p className="ai-foot">
-      由 OpenAI {commentary.model} 依當日數據與新聞標題生成於 {new Date(commentary.generatedAt).toLocaleString('zh-TW')}，
+      由 {commentary.model} 依當日數據與新聞標題生成於 {new Date(commentary.generatedAt).toLocaleString('zh-TW')}，
       未經人工審閱，可能有誤，不構成投資、融資或交易建議。
     </p>
   </div>
@@ -207,7 +207,7 @@ export function NewsList({ items, digest }: { items: NewsItem[]; digest: NewsDig
     </div>}
 
     {digest && <p className="news-foot">
-      本節摘要由 OpenAI {digest.model} 生成於 {new Date(digest.generatedAt).toLocaleString('zh-TW')}，未經人工審閱。
+      本節摘要由 {digest.model} 生成於 {new Date(digest.generatedAt).toLocaleString('zh-TW')}，未經人工審閱。
     </p>}
     {!digest && <p className="muted small">AI 摘要未產生，以下為原始標題列表。</p>}
   </div>

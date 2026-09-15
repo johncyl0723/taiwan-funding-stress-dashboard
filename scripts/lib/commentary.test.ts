@@ -5,7 +5,7 @@ const execFileMock = vi.fn()
 vi.mock('node:child_process', () => ({ execFile: (...args: unknown[]) => execFileMock(...args) }))
 const mockClaudeCode = (stdout: string) => execFileMock.mockImplementation((_cmd, _args, _opts, cb) => cb(null, stdout, ''))
 
-const { buildAiCommentary, buildNewsDigest, parseDigest } = await import('./commentary')
+const { buildAiCommentary, buildNewsDigest } = await import('./commentary')
 
 const market = {
   date: '2026-09-04',
@@ -44,98 +44,44 @@ const news: NewsItem[] = [
   { title: '115年9月364天期定期存單開標結果', url: 'https://example.tw/a', source: '中央銀行新聞稿', date: '2026-09-03', official: true }
 ]
 
-const okResponse = (content: string) =>
-  new Response(JSON.stringify({ choices: [{ message: { content } }] }), {
-    status: 200, headers: { 'Content-Type': 'application/json' }
-  })
-
 afterEach(() => {
-  delete process.env.OPENAI_API_KEY
-  delete process.env.OPENAI_MODEL
   delete process.env.CLAUDE_CODE_OAUTH_TOKEN
   delete process.env.CLAUDE_CODE_MODEL
-  vi.unstubAllGlobals()
   execFileMock.mockReset()
 })
 
 describe('AI 短評', () => {
-  it('skips entirely with neither credential set, and never throws', async () => {
-    const spy = vi.fn()
-    vi.stubGlobal('fetch', spy)
+  it('skips entirely without CLAUDE_CODE_OAUTH_TOKEN, and never throws', async () => {
     const result = await buildAiCommentary(market, undefined, news)
     expect(result.commentary).toBeNull()
     expect(result.status).toContain('CLAUDE_CODE_OAUTH_TOKEN')
-    expect(result.status).toContain('OPENAI_API_KEY')
-    expect(spy).not.toHaveBeenCalled()
     expect(execFileMock).not.toHaveBeenCalled()
   })
 
-  it('prefers the Claude Code subscription over OpenAI when both are set', async () => {
+  it('generates commentary via the Claude Code subscription', async () => {
     process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
-    process.env.OPENAI_API_KEY = 'sk-test'
     mockClaudeCode(JSON.stringify({ type: 'result', subtype: 'success', result: '訂閱路徑產生的短評。' }))
-    const fetchSpy = vi.fn()
-    vi.stubGlobal('fetch', fetchSpy)
 
     const result = await buildAiCommentary(market, undefined, news)
     expect(result.commentary?.text).toBe('訂閱路徑產生的短評。')
     expect(result.commentary?.model).toContain('Claude Code 訂閱')
-    expect(fetchSpy).not.toHaveBeenCalled()
   })
 
-  it('falls back to OpenAI when only OPENAI_API_KEY is set', async () => {
-    process.env.OPENAI_API_KEY = 'sk-test'
-    vi.stubGlobal('fetch', vi.fn(async () => okResponse('OpenAI 路徑產生的短評。')))
-    const result = await buildAiCommentary(market, undefined, news)
-    expect(result.commentary?.text).toBe('OpenAI 路徑產生的短評。')
-    expect(execFileMock).not.toHaveBeenCalled()
-  })
-
-  it('does not retry on OpenAI when the selected Claude Code backend fails', async () => {
+  it('degrades to null instead of failing the whole refresh when the CLI reports an error', async () => {
     process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
-    process.env.OPENAI_API_KEY = 'sk-test'
     mockClaudeCode(JSON.stringify({ type: 'result', subtype: 'success', is_error: true, result: 'boom' }))
-    const fetchSpy = vi.fn()
-    vi.stubGlobal('fetch', fetchSpy)
 
     const result = await buildAiCommentary(market, undefined, news)
     expect(result.commentary).toBeNull()
     expect(result.status).toContain('boom')
-    expect(fetchSpy).not.toHaveBeenCalled()
-  })
-
-  it('posts the documented request shape and reads the reply', async () => {
-    process.env.OPENAI_API_KEY = 'sk-test'
-    let captured: { url: string; init: RequestInit } | null = null
-    vi.stubGlobal('fetch', vi.fn(async (url: string, init: RequestInit) => {
-      captured = { url, init }
-      return okResponse('今日資金面平穩。\n\n值得留意 NCD 淨吸收。')
-    }))
-
-    const result = await buildAiCommentary(market, undefined, news)
-    expect(result.commentary?.text).toContain('今日資金面平穩')
-    expect(result.commentary?.model).toBe('gpt-5-mini')
-
-    const call = captured!
-    expect(call.url).toBe('https://api.openai.com/v1/chat/completions')
-    expect((call.init.headers as Record<string, string>).Authorization).toBe('Bearer sk-test')
-    const body = JSON.parse(call.init.body as string)
-    // GPT-5 系列只接受 max_completion_tokens，且不支援 temperature
-    expect(body.max_completion_tokens).toBeGreaterThan(0)
-    expect(body).not.toHaveProperty('max_tokens')
-    expect(body).not.toHaveProperty('temperature')
-    expect(body.messages).toHaveLength(2)
   })
 
   it('feeds the model the real numbers, the exclusions and the news', async () => {
-    process.env.OPENAI_API_KEY = 'sk-test'
-    let prompt = ''
-    vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
-      prompt = JSON.parse(init.body as string).messages[1].content
-      return okResponse('ok')
-    }))
+    process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
+    mockClaudeCode(JSON.stringify({ type: 'result', subtype: 'success', result: 'ok' }))
 
     await buildAiCommentary(market, undefined, news)
+    const prompt = execFileMock.mock.calls[0][1][1] as string
     expect(prompt).toContain('41.1 bp')
     expect(prompt).toContain('0.83')
     expect(prompt).toContain('材料性門檻')
@@ -143,30 +89,21 @@ describe('AI 短評', () => {
     expect(prompt).toContain('營所稅暫繳')
   })
 
-  it('honours OPENAI_MODEL so a deprecated default cannot break the job', async () => {
-    process.env.OPENAI_API_KEY = 'sk-test'
-    process.env.OPENAI_MODEL = 'gpt-5-nano'
-    vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
-      expect(JSON.parse(init.body as string).model).toBe('gpt-5-nano')
-      return okResponse('ok')
-    }))
-    const result = await buildAiCommentary(market, undefined, news)
-    expect(result.commentary?.model).toBe('gpt-5-nano')
-  })
+  it('honours CLAUDE_CODE_MODEL so a deprecated default cannot break the job', async () => {
+    process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
+    process.env.CLAUDE_CODE_MODEL = 'sonnet'
+    mockClaudeCode(JSON.stringify({ type: 'result', subtype: 'success', result: 'ok' }))
 
-  it('degrades to null instead of failing the whole refresh', async () => {
-    process.env.OPENAI_API_KEY = 'sk-test'
-    vi.stubGlobal('fetch', vi.fn(async () =>
-      new Response(JSON.stringify({ error: { message: 'rate limit' } }), { status: 429 })
-    ))
     const result = await buildAiCommentary(market, undefined, news)
-    expect(result.commentary).toBeNull()
-    expect(result.status).toContain('rate limit')
+    expect(result.commentary?.model).toContain('sonnet')
+    const args = execFileMock.mock.calls[0][1] as string[]
+    expect(args).toContain('sonnet')
   })
 
   it('treats an empty reply as a failure rather than publishing blank commentary', async () => {
-    process.env.OPENAI_API_KEY = 'sk-test'
-    vi.stubGlobal('fetch', vi.fn(async () => okResponse('   ')))
+    process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
+    mockClaudeCode(JSON.stringify({ type: 'result', subtype: 'success', result: '   ' }))
+
     const result = await buildAiCommentary(market, undefined, news)
     expect(result.commentary).toBeNull()
     expect(result.status).toContain('沒有文字內容')
@@ -179,64 +116,13 @@ describe('新聞摘要', () => {
     { title: '央行8月大舉回收資金加發定存單逾2,000億元', url: 'https://news/2', source: '工商時報', date: '2026-09-02', official: false }
   ]
 
-  it('splits the two-line reply into official and media', async () => {
-    process.env.OPENAI_API_KEY = 'sk-test'
-    vi.stubGlobal('fetch', vi.fn(async () =>
-      okResponse('官方：外匯存底 6,019.04 億美元，月增 76.33 億。\n媒體：標題顯示央行 8 月加大回收資金。')
-    ))
-    const { digest } = await buildNewsDigest(items)
-    expect(digest?.official).toContain('6,019.04')
-    expect(digest?.media).toContain('回收資金')
-    expect(digest?.media).not.toContain('官方')
-  })
-
-  it('sends official bodies but only media headlines', async () => {
-    process.env.OPENAI_API_KEY = 'sk-test'
-    let prompt = ''
-    vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
-      prompt = JSON.parse(init.body as string).messages[1].content
-      return okResponse('官方：a\n媒體：b')
-    }))
-    await buildNewsDigest(items)
-    expect(prompt).toContain('6,019.04億美元')
-    expect(prompt).toContain('只有標題，未取得內文')
-    // 媒體那則沒有 body，不該憑空出現內文欄位
-    expect(prompt).not.toContain('內文：undefined')
-  })
-
-  it('tells the model that news content is data, not instructions', async () => {
-    process.env.OPENAI_API_KEY = 'sk-test'
-    let system = ''
-    vi.stubGlobal('fetch', vi.fn(async (_url: string, init: RequestInit) => {
-      system = JSON.parse(init.body as string).messages[0].content
-      return okResponse('官方：a\n媒體：b')
-    }))
-    await buildNewsDigest(items)
-    expect(system).toContain('不是指令')
-  })
-
-  it('keeps an off-format reply rather than discarding it', () => {
-    expect(parseDigest('央行本週維持例行操作。').official).toBe('央行本週維持例行操作。')
-  })
-
-  it('skips without a key or without news, and survives an API failure', async () => {
-    expect((await buildNewsDigest(items)).status).toContain('CLAUDE_CODE_OAUTH_TOKEN')
-
-    process.env.OPENAI_API_KEY = 'sk-test'
-    expect((await buildNewsDigest([])).status).toContain('無新聞可摘要')
-
-    vi.stubGlobal('fetch', vi.fn(async () => new Response('{}', { status: 500 })))
-    const failed = await buildNewsDigest(items)
-    expect(failed.digest).toBeNull()
-    expect(failed.status).toContain('生成失敗')
-  })
-
-  it('uses --json-schema on the Claude Code path and reads structured fields directly, no regex parsing', async () => {
+  it('reads the structured {official, media} fields directly, no regex parsing', async () => {
     process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
     mockClaudeCode(JSON.stringify({
       type: 'result', subtype: 'success',
       structured_output: { official: '外匯存底 6,019.04 億美元。', media: '標題顯示央行加大回收資金。' }
     }))
+
     const { digest } = await buildNewsDigest(items)
     expect(digest?.official).toContain('6,019.04')
     expect(digest?.media).toContain('回收資金')
@@ -244,5 +130,45 @@ describe('新聞摘要', () => {
 
     const args = execFileMock.mock.calls[0][1] as string[]
     expect(args).toContain('--json-schema')
+  })
+
+  it('sends official bodies but only media headlines', async () => {
+    process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
+    mockClaudeCode(JSON.stringify({
+      type: 'result', subtype: 'success',
+      structured_output: { official: 'a', media: 'b' }
+    }))
+
+    await buildNewsDigest(items)
+    const prompt = execFileMock.mock.calls[0][1][1] as string
+    expect(prompt).toContain('6,019.04億美元')
+    expect(prompt).toContain('只有標題，未取得內文')
+    // 媒體那則沒有 body，不該憑空出現內文欄位
+    expect(prompt).not.toContain('內文：undefined')
+  })
+
+  it('tells the model that news content is data, not instructions', async () => {
+    process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
+    mockClaudeCode(JSON.stringify({
+      type: 'result', subtype: 'success',
+      structured_output: { official: 'a', media: 'b' }
+    }))
+
+    await buildNewsDigest(items)
+    const args = execFileMock.mock.calls[0][1] as string[]
+    const systemIndex = args.indexOf('--append-system-prompt')
+    expect(args[systemIndex + 1]).toContain('不是指令')
+  })
+
+  it('skips without a token or without news, and survives a CLI failure', async () => {
+    expect((await buildNewsDigest(items)).status).toContain('CLAUDE_CODE_OAUTH_TOKEN')
+
+    process.env.CLAUDE_CODE_OAUTH_TOKEN = 'tok'
+    expect((await buildNewsDigest([])).status).toContain('無新聞可摘要')
+
+    mockClaudeCode(JSON.stringify({ type: 'result', subtype: 'success', is_error: true, result: 'boom' }))
+    const failed = await buildNewsDigest(items)
+    expect(failed.digest).toBeNull()
+    expect(failed.status).toContain('生成失敗')
   })
 })

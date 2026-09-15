@@ -31,14 +31,11 @@ jobs:
       # 選用：用 Claude Code 訂閱（而非計量計費的 API）跑 AI 短評與新聞摘要。
       # `claude setup-token` 產生的 OAuth token，見 README「AI 短評／新聞摘要」。
       - run: npm install -g @anthropic-ai/claude-code
-      # 兩組憑證都沒有就整段跳過 AI 文字，其餘資料照常更新；
-      # 兩者都設定時優先用 Claude Code 訂閱，見 scripts/lib/commentary.ts
+      # 沒有這組憑證就整段跳過 AI 文字，其餘資料照常更新，見 scripts/lib/commentary.ts
       - run: npm run refresh
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           CLAUDE_CODE_MODEL: ${{ vars.CLAUDE_CODE_MODEL }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: '資料更新 [skip ci]'

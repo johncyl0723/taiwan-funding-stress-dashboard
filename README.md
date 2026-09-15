@@ -22,17 +22,11 @@ AI 文字的 prompt 只餵入當日數據、被排除的子指標與新聞標題
 「不得提供投資建議」；新聞摘要另外要求把新聞內容當「資料」而非指令。輸出未經人工審閱，畫面上明確標示
 模型名稱、生成時間與免責聲明。
 
-### 兩種後端，優先用訂閱
+### 只用 Claude Code 訂閱，不接計量計費的 API
 
-`scripts/lib/commentary.ts` 依序嘗試：
-
-1. **Claude Code 訂閱**（`CLAUDE_CODE_OAUTH_TOKEN` 有設定就用這個）—— 不計量計費，吃訂閱額度
-2. **OpenAI API**（`OPENAI_API_KEY`）—— 計量計費
-3. 兩者都沒有 → 整段跳過，規則式文字不受影響
-
-兩者都設定時只用 Claude Code，失敗不會偷偷改打 OpenAI（避免「明明只設了訂閱，帳單卻跑去別的服務」）。
-
-**用 Claude Code 訂閱（建議，個人使用免計量計費）**
+`scripts/lib/commentary.ts` 只走一條路：**Claude Code 訂閱**（`CLAUDE_CODE_OAUTH_TOKEN` 有設定才會生成，
+沒設定就整段跳過，規則式文字不受影響）。不接 Anthropic 或 OpenAI 的計量計費 API key，
+所以這個功能本身不會產生任何 API 帳單。
 
 這條路是官方支援的：`claude setup-token` 產生的 OAuth token 綁定 Pro/Max/Team/Enterprise 訂閱，
 Anthropic 自己的 GitHub Actions 排程範例（Daily Report）就是同樣「非程式相關、定期產生摘要」的用法，
@@ -47,20 +41,14 @@ Anthropic 自己的 GitHub Actions 排程範例（Daily Report）就是同樣「
 2. 到 repo 的 **Settings → Secrets and variables → Actions** 新增 secret `CLAUDE_CODE_OAUTH_TOKEN`，貼上這個 token。
 3. 選用：新增 repository variable `CLAUDE_CODE_MODEL`（預設 `haiku`，可設 `sonnet`／`opus`）。
 
-Token 一年到期，屆時要重新跑一次 `claude setup-token` 換新的。這個 token「只能發模型請求」，
+Token 一年到期，屆時要重新跑一次 `claude setup-token` 換新的；也會在**閒置超過一個月**時失效，
+每日排程本身就會讓它持續保鮮，除非你把排程停用一段時間。這個 token「只能發模型請求」，
 不能建立 Remote Control 連線或讀 claude.ai connectors，外流風險比一般帳密低，但仍要當機密保管
-（跟 API key 同等對待，只放在 repo secret，不要出現在程式碼或 log 裡）。
-
-**用 OpenAI API（備援／若不想用訂閱）**
-
-到 repo 的 **Settings → Secrets and variables → Actions** 新增 secret `OPENAI_API_KEY`。
-模型預設 `gpt-5-mini`，可用 repository variable `OPENAI_MODEL` 覆寫 —— 模型 ID 會隨時間汰換，
-寫死會讓排程在某天突然失敗。以每日一次、輸入約 1,500 token 估算，月成本約數美分。
+（只放在 repo secret，不要出現在程式碼或 log 裡）。
 
 **其他實作細節**：跑 `claude` CLI 需要 Node.js 22+（workflow 已設定），且**刻意不加 `--bare`**——
 官方文件明講 bare 模式不讀 `CLAUDE_CODE_OAUTH_TOKEN`（只認 API key），加了會驗證失敗。
-新聞摘要在 Claude Code 這條路用 `--json-schema` 直接拿結構化的 `{official, media}`，
-不必再用正規表示式拆「官方：／媒體：」兩行文字；OpenAI 沒有對應機制，仍用文字格式＋解析。
+新聞摘要用 `--json-schema` 直接拿結構化的 `{official, media}`，不必再用正規表示式拆文字。
 
 ## 新聞與 AI 摘要
 
@@ -149,8 +137,8 @@ Token 一年到期，屆時要重新跑一次 `claude setup-token` 換新的。�
 - **文字**：規則式模板（`scripts/lib/insight.ts`）＋ 選用的 AI 短評／新聞摘要（`scripts/lib/commentary.ts`），見上方「兩種文字」
 - **手動更新**：頁面右上角按鈕（見下），或到 repo 的 Actions 頁籤選 `更新資料並部署` → `Run workflow`
 
-沒有伺服器、沒有資料庫、沒有登入機制。唯一會產生費用的外部服務是選用的 AI 短評／新聞摘要（每日一次呼叫，
-未設任何憑證即不啟用）；手動更新按鈕若要做成「原地觸發不跳頁」，需另外加一支 Cloudflare Worker，見下。
+沒有伺服器、沒有資料庫、沒有登入機制。選用的 AI 短評／新聞摘要吃 Claude Code 訂閱額度，不接計量計費 API，
+未設 `CLAUDE_CODE_OAUTH_TOKEN` 即不啟用；手動更新按鈕若要做成「原地觸發不跳頁」，需另外加一支 Cloudflare Worker，見下。
 
 ## 手動更新按鈕
 
@@ -197,14 +185,10 @@ npm run refresh
 npm test
 ```
 
-本機要試 AI 短評，在專案根目錄放一個 `.env`（已列入 `.gitignore`）或直接設環境變數：
+本機要試 AI 短評，需先跑過 `claude setup-token`，再設環境變數：
 
 ```bash
-# 用 Claude Code 訂閱（需先本機跑過 claude setup-token）
 CLAUDE_CODE_OAUTH_TOKEN=... npm run refresh
-
-# 或用 OpenAI
-OPENAI_API_KEY=sk-... npm run refresh
 ```
 
 回測與門檻檢查（一次性工具，不在每日排程內；TDCC 逐段查詢會花數分鐘）：

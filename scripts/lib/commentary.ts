@@ -3,17 +3,14 @@ import type { AiCommentary, HistoryPoint, NewsDigest, NewsItem } from '../../src
 
 /**
  * 兩段 AI 文字（短評、新聞摘要）各自呼叫一次，把結果存進 dashboard.json，
- * 頁面本身仍是純靜態。沒有任何憑證就整段跳過，規則式摘要照常運作。
+ * 頁面本身仍是純靜態。沒有 CLAUDE_CODE_OAUTH_TOKEN 就整段跳過，規則式摘要照常運作。
  *
- * 後端優先順序：Claude Code 訂閱（CLAUDE_CODE_OAUTH_TOKEN）> OpenAI API
- * （OPENAI_API_KEY）> 都沒有就跳過。選中哪個後端就只用那個，失敗不跨後端
- * 重試 —— 避免「明明只設了訂閱，帳單卻跑去 OpenAI」這種意外。
- *
- * Claude Code 這條路是 2026-09-06 查證 code.claude.com 官方文件＋在本機
- * 環境實測一次呼叫（確認 JSON 錯誤結構）後才接上的，不是憑印象猜的：
- * `claude setup-token` 產生綁定 Pro/Max/Team/Enterprise 訂閱的一年期
- * OAuth token，官方的 GitHub Actions 排程範例（Daily Report）就是同樣
- * 「非程式相關、定期產生摘要」的用法，用訂閱額度而非 API 計費執行。
+ * 只用 Claude Code 訂閱這條路，不計量計費、不接 Anthropic/OpenAI API key。
+ * 這是 2026-09-06 查證 code.claude.com 官方文件＋在本機環境實測一次呼叫
+ * （確認 JSON 錯誤結構）後才接上的，不是憑印象猜的：`claude setup-token`
+ * 產生綁定 Pro/Max/Team/Enterprise 訂閱的一年期 OAuth token，官方的
+ * GitHub Actions 排程範例（Daily Report）就是同樣「非程式相關、定期產生
+ * 摘要」的用法，用訂閱額度而非 API 計費執行。
  */
 const SYSTEM_PROMPT = `你是台灣貨幣市場的研究員，替一位上市公司財務長撰寫每日資金行情短評。
 
@@ -48,13 +45,7 @@ const DIGEST_SYSTEM_PROMPT = `你在整理台灣貨幣市場的新聞，讀者�
 - 只根據提供的內容，不得補充任何未提供的數字、日期或事件。
 - 不得提供投資、融資或交易建議。`
 
-/** 沒有結構化輸出可用時（OpenAI 路徑），要求輸出嚴格照這兩行文字 */
-const DIGEST_TEXT_FORMAT = `
-輸出格式，嚴格照這兩行，不要加標題或項目符號：
-官方：<130 字以內，摘要央行公告實際說了什麼，保留關鍵數字>
-媒體：<130 字以內，歸納這些標題共同透露的市場主題；只有標題可用時要說明是依標題歸納>`
-
-/** Claude Code 走 --json-schema，直接拿結構化欄位，不必再拆文字 */
+/** 走 --json-schema，直接拿結構化欄位，不必再拆文字 */
 const DIGEST_SCHEMA = {
   type: 'object',
   properties: {
@@ -68,84 +59,18 @@ interface TextResult { text: string; label: string }
 interface DigestResult { official: string; media: string; label: string }
 
 // ---------------------------------------------------------------------------
-// OpenAI 後端
+// 後端：Claude Code 訂閱
 // ---------------------------------------------------------------------------
 
-const OPENAI_DEFAULT_MODEL = 'gpt-5-mini'
-const OPENAI_ENDPOINT = 'https://api.openai.com/v1/chat/completions'
-const OPENAI_TIMEOUT_MS = 60_000
-
-interface ChatResponse {
-  choices?: { message?: { content?: string } }[]
-  error?: { message?: string }
-}
-
-async function openAiChat(system: string, user: string, maxTokens: number): Promise<{ text: string; model: string }> {
-  const apiKey = process.env.OPENAI_API_KEY!
-  const model = process.env.OPENAI_MODEL || OPENAI_DEFAULT_MODEL
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), OPENAI_TIMEOUT_MS)
-  try {
-    const response = await fetch(OPENAI_ENDPOINT, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      // GPT-5 系列用 max_completion_tokens，且不支援 temperature
-      body: JSON.stringify({
-        model,
-        max_completion_tokens: maxTokens,
-        messages: [
-          { role: 'system', content: system },
-          { role: 'user', content: user }
-        ]
-      }),
-      signal: controller.signal
-    })
-    const payload = (await response.json()) as ChatResponse
-    if (!response.ok) throw new Error(payload.error?.message ?? `HTTP ${response.status}`)
-    const text = payload.choices?.[0]?.message?.content?.trim()
-    if (!text) throw new Error('回應沒有文字內容')
-    return { text, model }
-  } finally {
-    clearTimeout(timer)
-  }
-}
-
-/** 把模型輸出的「官方：／媒體：」兩行拆開，供 OpenAI 這條沒有結構化輸出的路徑用 */
-export function parseDigest(text: string): { official: string; media: string } {
-  const official = text.match(/官方[：:]\s*([\s\S]*?)(?=\n\s*媒體[：:]|$)/)?.[1]?.trim() ?? ''
-  const media = text.match(/媒體[：:]\s*([\s\S]*)$/)?.[1]?.trim() ?? ''
-  // 模型沒照格式時，整段當作官方摘要，總比丟掉好
-  if (!official && !media) return { official: text.trim(), media: '' }
-  return { official, media }
-}
-
-// ---------------------------------------------------------------------------
-// 後端選擇：Claude Code 訂閱優先，OpenAI 其次
-// ---------------------------------------------------------------------------
-
-async function generateText(system: string, user: string, openAiMaxTokens: number): Promise<TextResult> {
-  if (process.env.CLAUDE_CODE_OAUTH_TOKEN) {
-    const result = await runClaudeCode(system, user)
-    return { text: result.text!, label: `${result.model}（Claude Code 訂閱）` }
-  }
-  if (process.env.OPENAI_API_KEY) {
-    const { text, model } = await openAiChat(system, user, openAiMaxTokens)
-    return { text, label: model }
-  }
-  throw new Error('未設定 CLAUDE_CODE_OAUTH_TOKEN 或 OPENAI_API_KEY')
+async function generateText(system: string, user: string): Promise<TextResult> {
+  const result = await runClaudeCode(system, user)
+  return { text: result.text!, label: `${result.model}（Claude Code 訂閱）` }
 }
 
 async function generateDigest(user: string): Promise<DigestResult> {
-  if (process.env.CLAUDE_CODE_OAUTH_TOKEN) {
-    const result = await runClaudeCode(DIGEST_SYSTEM_PROMPT, user, { jsonSchema: DIGEST_SCHEMA })
-    const structured = result.structured as { official?: string; media?: string }
-    return { official: structured.official ?? '', media: structured.media ?? '', label: `${result.model}（Claude Code 訂閱）` }
-  }
-  if (process.env.OPENAI_API_KEY) {
-    const { text, model } = await openAiChat(DIGEST_SYSTEM_PROMPT + DIGEST_TEXT_FORMAT, user, 600)
-    return { ...parseDigest(text), label: model }
-  }
-  throw new Error('未設定 CLAUDE_CODE_OAUTH_TOKEN 或 OPENAI_API_KEY')
+  const result = await runClaudeCode(DIGEST_SYSTEM_PROMPT, user, { jsonSchema: DIGEST_SCHEMA })
+  const structured = result.structured as { official?: string; media?: string }
+  return { official: structured.official ?? '', media: structured.media ?? '', label: `${result.model}（Claude Code 訂閱）` }
 }
 
 // ---------------------------------------------------------------------------
@@ -223,11 +148,11 @@ export async function buildAiCommentary(
   previous: HistoryPoint | undefined,
   news: NewsItem[]
 ): Promise<{ commentary: AiCommentary | null; status: string }> {
-  if (!process.env.CLAUDE_CODE_OAUTH_TOKEN && !process.env.OPENAI_API_KEY) {
-    return { commentary: null, status: 'AI 評論 已跳過（未設定 CLAUDE_CODE_OAUTH_TOKEN 或 OPENAI_API_KEY）' }
+  if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) {
+    return { commentary: null, status: 'AI 評論 已跳過（未設定 CLAUDE_CODE_OAUTH_TOKEN）' }
   }
   try {
-    const { text, label } = await generateText(SYSTEM_PROMPT, buildUserPrompt(market, previous, news), 800)
+    const { text, label } = await generateText(SYSTEM_PROMPT, buildUserPrompt(market, previous, news))
     return {
       commentary: { text, model: label, generatedAt: new Date().toISOString() },
       status: `AI 評論 已生成（${label}）`
@@ -244,8 +169,8 @@ export async function buildAiCommentary(
 export async function buildNewsDigest(
   news: NewsItem[]
 ): Promise<{ digest: NewsDigest | null; status: string }> {
-  if (!process.env.CLAUDE_CODE_OAUTH_TOKEN && !process.env.OPENAI_API_KEY) {
-    return { digest: null, status: '新聞摘要 已跳過（未設定 CLAUDE_CODE_OAUTH_TOKEN 或 OPENAI_API_KEY）' }
+  if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) {
+    return { digest: null, status: '新聞摘要 已跳過（未設定 CLAUDE_CODE_OAUTH_TOKEN）' }
   }
   if (!news.length) {
     return { digest: null, status: '新聞摘要 已跳過（無新聞可摘要）' }

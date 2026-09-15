@@ -156,7 +156,7 @@ export interface NewsDigest {
   generatedAt: string
 }
 
-/** 由 OpenAI 生成的每日短評，與規則式摘要分開存放並在畫面上分開標示 */
+/** 由 Claude Code 訂閱生成的每日短評，與規則式摘要分開存放並在畫面上分開標示 */
 export interface AiCommentary {
   text: string
   model: string
