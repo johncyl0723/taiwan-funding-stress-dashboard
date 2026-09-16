@@ -10465,5 +10465,73 @@
     "compositeZ": 0.706,
     "compositeZ5d": 0.799,
     "guardApplied": null
+  },
+  {
+    "date": "2026-09-16",
+    "status": "normal",
+    "eventFlags": [
+      "營所稅暫繳",
+      "理監事會前後"
+    ],
+    "tfssBp": 41.11,
+    "tfssChange5dBp": 0,
+    "taibir90Primary": 2.0943,
+    "taibir90Secondary": 1.8532,
+    "primarySecondaryBp": 24.11,
+    "taibirSlopeBp": 33.44,
+    "taibor3m": 1.68322,
+    "taiborSlopeBp": 29.94,
+    "overnightRate": null,
+    "corridorPosition": null,
+    "ncdNetIssuance": -50050,
+    "ncdNetIssuance5d": -290100,
+    "ncdOutstanding": 6121050,
+    "repoOperation": false,
+    "foreignNet": -17980,
+    "foreignNet5d": -245247,
+    "usdTwd": 31.888,
+    "usdTwdVol20": 3.77,
+    "sofr90": null,
+    "fxNominalSpreadBp": null,
+    "stats": {
+      "percentile60": 62.5,
+      "percentile120": 81.25,
+      "zScore60": 0.33187647102795775,
+      "zScore120": 0.9027601210258207,
+      "sample60": 60,
+      "sample120": 120,
+      "provisional": false
+    },
+    "compositeInputs": {
+      "tfss": 0.9027601210258207,
+      "primarySecondary": 0.49847766123533443,
+      "taiborSlope": 0.813265268547959,
+      "corridor": null,
+      "ncdNetIssuance": null
+    },
+    "compositeDispersion": {
+      "tfss": 2.7426074867521404,
+      "primarySecondary": 0.8472462583111372,
+      "taiborSlope": 0.08422836022781556,
+      "corridor": 0.002725753718393013,
+      "ncdNetIssuance": null
+    },
+    "excludedInputs": [
+      {
+        "key": "taiborSlope",
+        "reason": "TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義"
+      },
+      {
+        "key": "corridor",
+        "reason": "O/N 走廊位置：樣本不足"
+      },
+      {
+        "key": "ncdNetIssuance",
+        "reason": "NCD 淨發行：樣本不足"
+      }
+    ],
+    "compositeZ": 0.701,
+    "compositeZ5d": 0.772,
+    "guardApplied": null
   }
 ]
