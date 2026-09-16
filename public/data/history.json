@@ -10423,8 +10423,8 @@
     "foreignNet5d": -206343,
     "usdTwd": 31.848,
     "usdTwdVol20": 3.73,
-    "sofr90": null,
-    "fxNominalSpreadBp": null,
+    "sofr90": 3.64603,
+    "fxNominalSpreadBp": 196.28,
     "stats": {
       "percentile60": 63.33333333333333,
       "percentile120": 81.66666666666667,

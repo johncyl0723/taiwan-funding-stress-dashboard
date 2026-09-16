@@ -24,8 +24,8 @@
     "foreignNet5d": -206343,
     "usdTwd": 31.848,
     "usdTwdVol20": 3.73,
-    "sofr90": null,
-    "fxNominalSpreadBp": null,
+    "sofr90": 3.64603,
+    "fxNominalSpreadBp": 196.28,
     "stats": {
       "percentile60": 63.33333333333333,
       "percentile120": 81.66666666666667,
@@ -66,7 +66,7 @@
     "compositeZ": 0.706,
     "compositeZ5d": 0.799,
     "guardApplied": null,
-    "updatedAt": "2026-09-15T09:15:58.420Z",
+    "updatedAt": "2026-09-16T00:02:11.628Z",
     "sources": [
       {
         "label": "TDCC TAIBIR 初級（歷史查詢）",
@@ -111,19 +111,19 @@
       {
         "label": "NY Fed SOFR 平均指數",
         "url": "https://www.newyorkfed.org/markets/reference-rates/sofr-averages-and-index",
-        "asOf": "2026-09-14"
+        "asOf": "2026-09-15"
       }
     ],
     "sourceStatus": {
       "TDCC 初級": "TDCC 初級 已讀取（137 筆）",
-      "TDCC 次級": "TDCC 次級 已讀取（137 筆）",
       "USD SOFR": "USD SOFR 已讀取（200 筆）",
+      "TDCC 次級": "TDCC 次級 已讀取（137 筆）",
       "央行貼放利率": "央行貼放利率 已讀取（20 筆）",
-      "外資買賣超": "外資買賣超 已讀取（12 筆）",
       "央行 NCD": "央行 NCD 已讀取（12 筆）",
       "TAIBOR": "TAIBOR 已讀取（151 筆）",
-      "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
       "央行 O/N": "央行 O/N 已讀取（160 筆）",
+      "外資買賣超": "外資買賣超 已讀取（11 筆）",
+      "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
       "超額準備": "超額準備 已讀取（187 期，最新 2026-07）",
       "準備貨幣": "準備貨幣 已讀取（355 期，最新 2026-07）",
       "M1B 年增率": "M1B 年增率 已讀取（459 期，最新 2026-07）",
@@ -132,9 +132,9 @@
       "五大銀行基準利率": "五大銀行基準利率 已讀取（285 期，最新 2026-08）",
       "票券週統計": "票券週統計 已讀取（15 週）",
       "364D NCD 標售": "364D NCD 標售 已讀取（1 次）",
-      "新聞": "新聞 已讀取（央行 8 則、媒體 8 則）",
-      "AI 評論": "AI 評論 已跳過（未設定 CLAUDE_CODE_OAUTH_TOKEN 或 OPENAI_API_KEY）",
-      "新聞摘要": "新聞摘要 已跳過（未設定 CLAUDE_CODE_OAUTH_TOKEN 或 OPENAI_API_KEY）"
+      "新聞": "新聞 已讀取（央行 7 則、媒體 7 則）",
+      "AI 評論": "AI 評論 已生成（haiku（Claude Code 訂閱））",
+      "新聞摘要": "新聞摘要 已生成（haiku（Claude Code 訂閱））"
     },
     "policyRate": {
       "effectiveFrom": "2024-03-22",
@@ -148,7 +148,7 @@
     "pressureSource": "短端與 1–3 個月資金成本皆未見明顯壓力。90 天期初級較次級高 24.1 bp。",
     "policyObservation": "央行公開市場操作維持例行步調。央行近 5 個交易日 NCD 淨釋出 287,450 百萬元。",
     "researchView": "TSS 綜合指數 5 日均 0.80，較前一交易日 -0.03、較一週前 -0.04。目前由 TFSS（z 0.92）主導，合成共採用 2 個子指標。距離「開始偏緊」門檻還有 0.20。另有 3 項子指標未納入合成，原因見下方子指標分解。本日落在營所稅暫繳、理監事會前後，資金偏緊屬季節性常態，燈號不因此升級。本摘要為規則式模板依當日數據自動產生，僅供公開市場研究參考。",
-    "fxView": "尚無資料。資料不足，無法比較。",
+    "fxView": "90 日均 3.646%。196.3 bp，美元名目上較貴。避險後的隱含台幣成本需要換匯點，該資料尚未接上，因此無法據此做切換決策。",
     "readings": {
       "tss": "TSS 綜合指數 5 日均 0.80，較前一交易日 -0.03、較一週前 -0.04。目前由 TFSS（z 0.92）主導，合成共採用 2 個子指標。距離「開始偏緊」門檻還有 0.20。",
       "ncdNetIssuance": "近 5 個交易日淨釋出 287,450 百萬元，當日 -50,000 百萬元。目前未進入 TSS 合成：NCD 淨發行：樣本不足。",
@@ -161,8 +161,8 @@
       "primarySecondary": "24.1 bp，較 5 個交易日前 -0.2 bp。120 日 z-score 0.49。",
       "taibirSlope": "33.4 bp。曲線偏陡，短天期相對便宜。",
       "foreignNet": "近 5 個交易日淨賣超 206,343 百萬元。",
-      "sofr": "尚無資料。",
-      "fxSpread": "資料不足，無法比較。",
+      "sofr": "90 日均 3.646%。",
+      "fxSpread": "196.3 bp，美元名目上較貴。避險後的隱含台幣成本需要換匯點，該資料尚未接上，因此無法據此做切換決策。",
       "usdTwd": "31.848，20 日年化波動 3.7%。"
     },
     "risksAndLimits": [
@@ -173,9 +173,13 @@
       "外幣通道缺少換匯點，無法計算避險後的隱含台幣成本。",
       "公開資料可能有發布與擷取延遲，指標判讀不構成投資、融資或交易建議。"
     ],
-    "generatedAt": "2026-09-15T09:15:58.427Z"
+    "generatedAt": "2026-09-16T00:02:11.629Z"
   },
-  "aiCommentary": null,
+  "aiCommentary": {
+    "text": "資金面繼續寬鬆。TSS 綜合指數 0.80（5 日均）、當日 0.71，均遠低於 1.0 的偏緊門檻，燈號 normal。隔夜拆款利率 0.814%，3M TAIBOR 1.683%，均保持穩定。央行大幅減少定期存單發行量（NCD 近 5 日淨發行 -287,450 百萬元），為主要寬鬆因素。票券市場方面，TFSS 溢酬 41.1 bp（z 0.92）、1W–3M 斜率 29.9 bp（z 0.83）呈中等水準，反映銀行間流動性充裕。\n\n外資近 5 日淨買賣超 -206,343 百萬元，持續呈淨流出狀態，對匯率與資金面構成溫和壓力。當日營所稅暫繳與理監事會相關活動可能引發短期資金需求變化。初級－次級利差 24.1 bp（z 0.49）保持低檔，尚無信用風險升溫跡象。另外，NCD 淨發行因樣本不足無 z-score；O/N 走廊位置與 TAIBOR 斜率因變動幅度低於經濟意義門檻已排除合成，須一併說明。",
+    "model": "haiku（Claude Code 訂閱）",
+    "generatedAt": "2026-09-16T00:01:45.794Z"
+  },
   "news": [
     {
       "title": "115年8月銀行辦理人民幣業務概況",
@@ -234,24 +238,16 @@
       "body": "115年9月364天期定期存單開標結果 本行訂於民國115年9月4日發行364天期定期存單新台幣1,200億元，經於115年9月3日開標，得標結果如次： 期別 發行總額 (億元) 投標總額 (億元) 得標總額 (億元) 投標倍數 得標比率 得標加權 平均利率 364天 1,200.00 2,026.00 1,200.00 1.69 59.23% 1.643 % 備註："
     },
     {
-      "title": "115年甲類第8期（5年期）中央政府建設公債開標結果",
-      "url": "https://www.cbc.gov.tw/tw/cp-302-192797-82b85-1.html",
-      "source": "中央銀行新聞稿",
-      "date": "2026-09-01",
-      "official": true,
-      "body": "115年甲類第8期（5年期）中央政府建設公債開標結果 本行受財政部委託，於115年 9 月 1 日標售5年期115年度甲類第8期中央政府建設公債，開標結果如次： 一、標售結果 （一）發行日期：115年 9 月 4 日 （二）到期日期：120年 9 月 4 日 （三）公告發行額：新臺幣250億元。 （四）實際發行額：新臺幣250億元。 （五）票面利率：以百分之0.125為級距，依競標最高得標利率， 最接近且較低之數，年息百分之1.7500訂定。 （六）應繳價款：競標得標及代售部分均依最高得標利率計算。 （七）競標部分： 公告發行額：新臺幣249.939億元。 實際發行額：新臺幣249.939億元。 投標總額：新臺幣392.500億元。 得標總額：新臺幣249.939億元。 投標倍數：1.57。 最低得標利率：年息百分之1.7000。 最高得標利率：年息百分之1.8200。 得標高低利率差：0.120個百分點。 得標加權平均利率：年息百分之1.7790。 （八）委託中華郵政公司代售部分： 公告發行額：新臺幣0.061億元。 實際發行額：新臺幣0.061億元。 二、本期公債最高得標利率為1.8200%，上次同年期（115年度甲1期增額公債115年2月26日發行）公債最高得標利率為1.3410%。 三、依得標行業別，本期公債與上次同年期公債比較情形： 銀行業 證券業 票券業 保險業 本 期 80.80% 18.80% 0.40% 0.00% 上次同年期 74.16% 20.17% 4.00% 1.67% 增 減 ＋6.64% －1.37% －3.60% －1.67% 備註："
-    },
-    {
       "title": "台灣貨幣市場：央行大減定存單發行量資金趨寬鬆，拆款利率穩中略下滑",
       "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1IRXVOU1pXV2NnZFAtbUs0bjNsdHdhSnNISWlqeE9oMlQwTXJYU2stMHVZZFg4b0RxSmMwVHZIdlJZZXVKSlZmZXd4SnNFU1JpRlZMU2FxdWlsTGo5aHNKU1BWNTlFU3RwUTlLSUtENDF1QWtTNjVmcA?oc=5",
-      "source": "TradingView",
+      "source": "tradingview.com",
       "date": "2026-09-15",
       "official": false
     },
     {
       "title": "台灣貨幣市場：央行減發定存單資金略轉寬鬆，拆款及短票利率大致持穩",
       "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE52Wld5WHplUDlmcFFtdE1XTkxaQUF3UTNqLWNnYmZOaG5oMVNsSHZwS0FXMjhKUkFYRHR4TEFQZnU5THEtX1E1SV9MOHdkMlFXUnJPUjB2YVBlOXR1X1pSY0owamJGLWFhQUVDaDEwTVZlaGNIcmtn?oc=5",
-      "source": "TradingView",
+      "source": "fr.tradingview.com",
       "date": "2026-09-13",
       "official": false
     },
@@ -272,7 +268,7 @@
     {
       "title": "國內金融：週二(8日)央行發行二種天期可轉讓定存單，回收資金",
       "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNcWRsNmN6NU9HWWl1Zk5zN1V5LW5CaDUzNVgxQXRFWkt5dVlxd1QxendNZHM3dWhPLUxqS3BkSVNyRjc5SkFjVkhxd21xY3hYWTk4d1l3bDJ2OHplVE9Ta3ZPQ2R0VzNSME5jdi16MjBvT1MzMjJDOTl2ZXlVN3NHNkNYNEpMYV9X?oc=5",
-      "source": "ww2.money-link.com.tw",
+      "source": "富聯網",
       "date": "2026-09-08",
       "official": false
     },
@@ -289,14 +285,12 @@
       "source": "工商時報",
       "date": "2026-09-03",
       "official": false
-    },
-    {
-      "title": "台灣貨幣市場：提存期末兩日短錢多利率平穩，升息預期走高銀行保守操作",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OQ3FMYnozVGFJWjZDYlJyMEdNb2x4U0RYTGNJSWdOQUFQalE3UmZNM0ttc24xbTYxRVY3dDhxdFBDckF3ckJUUXVHdW43NF9maGZhSDdQNmdEa2JGWVBPdldPSkpOVzg2d01FeUlpdk52UUp6Vlpv?oc=5",
-      "source": "TradingView",
-      "date": "2026-09-01",
-      "official": false
     }
   ],
-  "newsDigest": null
+  "newsDigest": {
+    "official": "8月準備貨幣月增323億元至7兆5,796億元，年增率7.03%；人民幣存款餘額1,099.92億元；外匯存底月增76.33億美元至6,019.04億美元；隔夜拆款利率0.822%較上月微降，商業本票1.88%、364天定存單1.643%；新許可安泰商銀外幣信託業務，台銀、兆豐銀、一銀發行外幣定存單；指定銀行總數達3,451家。",
+    "media": "近期央行減發定存單使市場資金趨寬鬆，隔夜拆款利率穩中略下滑；銀行積數調整反映市場資金需求相當旺盛；8月央行大舉加發定存單逾2,000億元回收資金，短期票券利率略有上升；月末整體流動性相對平穩。",
+    "model": "haiku（Claude Code 訂閱）",
+    "generatedAt": "2026-09-16T00:02:11.628Z"
+  }
 }
