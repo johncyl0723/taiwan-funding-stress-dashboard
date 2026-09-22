@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { extractAnnouncementBody, parseNcdAnnouncement, parseNcdAuction } from './cbc'
 import { fetchMarketSeries } from './index'
 
@@ -116,6 +116,18 @@ function stubSite(overrides: Record<string, string> = {}, fail: string[] = []) {
 }
 
 describe('official source parsing (live-site formats)', () => {
+  // 外資買賣超（fetchForeignNetSeries）用真實系統時間往回抓 12 個平日，
+  // 夾具資料寫死在 2026-09-04；不固定「今天」的話，這個測試會隨日曆
+  // 往前走而變成測不出 2026-09-04（超出 12 個平日窗口）就開始失敗。
+  beforeEach(() => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-09-08T00:00:00+08:00'))
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   it('assembles a multi-day series with full curves from every source', async () => {
     stubSite()
     const result = await fetchMarketSeries(60)
