@@ -66,7 +66,7 @@
     "compositeZ": 0.642,
     "compositeZ5d": 0.684,
     "guardApplied": null,
-    "updatedAt": "2026-09-22T23:30:41.642Z",
+    "updatedAt": "2026-09-23T00:45:06.093Z",
     "sources": [
       {
         "label": "TDCC TAIBIR 初級（歷史查詢）",
@@ -115,15 +115,15 @@
       }
     ],
     "sourceStatus": {
-      "TDCC 次級": "TDCC 次級 已讀取（137 筆）",
       "TDCC 初級": "TDCC 初級 已讀取（137 筆）",
+      "TDCC 次級": "TDCC 次級 已讀取（137 筆）",
       "USD SOFR": "USD SOFR 已讀取（200 筆）",
       "央行貼放利率": "央行貼放利率 已讀取（20 筆）",
       "外資買賣超": "外資買賣超 已讀取（11 筆）",
-      "央行 NCD": "央行 NCD 已讀取（12 筆）",
       "TAIBOR": "TAIBOR 已讀取（142 筆）",
-      "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
+      "央行 NCD": "央行 NCD 已讀取（12 筆）",
       "央行 O/N": "央行 O/N 已讀取（160 筆）",
+      "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
       "超額準備": "超額準備 已讀取（188 期，最新 2026-08）",
       "準備貨幣": "準備貨幣 已讀取（355 期，最新 2026-07）",
       "M1B 年增率": "M1B 年增率 已讀取（459 期，最新 2026-07）",
@@ -132,7 +132,7 @@
       "五大銀行基準利率": "五大銀行基準利率 已讀取（285 期，最新 2026-08）",
       "票券週統計": "票券週統計 已讀取（15 週）",
       "364D NCD 標售": "364D NCD 標售 已讀取（1 次）",
-      "新聞": "新聞 已讀取（央行 8 則、媒體 8 則）",
+      "新聞": "新聞 已讀取（央行 8 則、媒體 7 則）",
       "AI 評論": "AI 評論 已生成（haiku（Claude Code 訂閱））",
       "新聞摘要": "新聞摘要 已生成（haiku（Claude Code 訂閱））"
     },
@@ -173,12 +173,12 @@
       "外幣通道缺少換匯點，無法計算避險後的隱含台幣成本。",
       "公開資料可能有發布與擷取延遲，指標判讀不構成投資、融資或交易建議。"
     ],
-    "generatedAt": "2026-09-22T23:30:41.643Z"
+    "generatedAt": "2026-09-23T00:45:06.094Z"
   },
   "aiCommentary": {
-    "text": "資金面整體寬鬆。TSS 綜合指數 0.68（5 日均），遠低於緊俏門檻 1.0，反映流動性充裕。隔夜拆款利率 0.815%、O/N 走廊位置 z-score -2.44，顯示短期限資金持續充沛。票券相對銀行間溢酬（z 0.86）與 1W–3M 斜率（z 0.76）均呈溫和水位，印證短期限市場供給充足。外資近 5 日淨買超 147 億美元，USD/TWD 31.708 匯率相對穩定，顯示外部資金持續淨流入。今日營所稅暫繳與理監事會前後事件可能帶來短期資金需求波動，惟整體基調不變。\n\n信用溢酬未見惡化。初級－次級利差 z 0.42，為相對低檔，反映市場對信用風險定價尚未升溫。惟 NCD 近 5 日淨發行 -310.7 億元，暗示企業短期融資需求趨弱或發行人操作策略調整，但資料樣本不足，變動幅度之經濟意義有限。美國 SOFR 90 日均 3.659% 維持相對緊水位，未來若美聯儲政策或國際情勢生變，需注視其對台灣資金成本與外資流向的衝擊。",
+    "text": "資金面溫和偏鬆，綜合指數 z-score 0.68 遠低於緊俏門檻 1.0。納入合成的子指標均溫和：票券相對溢酬 z 0.86、初級次級利差 z 0.42、TAIBOR 斜率 z 0.76，整體反映流動性無壓力。NCD 近 5 日呈淨贖回（-310,700 百萬元），外資近 5 日買超 146,999 百萬元，市場資金流向偏向吸收。隔夜拆款利率 0.815% 在走廊軟下限附近，3M TAIBOR 1.683% 亦屬低檔。\n\n值得留意的是，NCD 淨發行因樣本不足未納入合成指數，無法完整評估債券市場資金供給狀況。TAIBOR 斜率與 O/N 走廊位置因變動幅度未達經濟意義門檻亦被排除，反映超短期利率變動受約束。央行 9 月 17 日理監事會決議後，市場已消化利率預期；本週期營所稅暫繳可能產生短期資金潮汐，惟近日流動性整體穩定，尚無壓力訊號。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-09-22T23:30:30.962Z"
+    "generatedAt": "2026-09-23T00:45:04.552Z"
   },
   "news": [
     {
@@ -262,14 +262,14 @@
     {
       "title": "台灣貨幣市場：央行續砍定存單“錢淹市場”，需求疲弱拆款利率穩中略鬆動",
       "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFB6N2VkWkxsdm5KZWxkT0gzQllOdENWNk9fUW55RWlxclRTQmxSSVduYVdpY1pMRGstVTk3RzlDUEVMSVVRZlJTWGlNb2EtcU9mckV4ZVlxM3BQa01jVENLOFZqY0h2YlF4M2ZXMXFjYkZDbmRzVWtiYw?oc=5",
-      "source": "TradingView",
+      "source": "tradingview.com",
       "date": "2026-09-18",
       "official": false
     },
     {
       "title": "台灣貨幣市場：央行連日大砍定存單資金豐沛，拆款及短票利率則持穩",
       "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5KTGRKRmNOQjFaRDVmTjRBTFFWbGlnSnFPWTBud0NZTUdDS3ZFU0pRMzVyWHJiRVpBaW9mMDBERm1iTVhvZ2Y2dzhzbGhJYmExbFQ3THJhRVJaN2hZd3JvYVVHR1JLb1hSakd0RDZrOGt5cDFjTHBLMw?oc=5",
-      "source": "TradingView",
+      "source": "tradingview.com",
       "date": "2026-09-17",
       "official": false
     },
@@ -293,19 +293,12 @@
       "source": "TradingView",
       "date": "2026-09-09",
       "official": false
-    },
-    {
-      "title": "國內金融：週二(8日)央行發行二種天期可轉讓定存單，回收資金",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNcWRsNmN6NU9HWWl1Zk5zN1V5LW5CaDUzNVgxQXRFWkt5dVlxd1QxendNZHM3dWhPLUxqS3BkSVNyRjc5SkFjVkhxd21xY3hYWTk4d1l3bDJ2OHplVE9Ta3ZPQ2R0VzNSME5jdi16MjBvT1MzMjJDOTl2ZXlVN3NHNkNYNEpMYV9X?oc=5",
-      "source": "富聯網",
-      "date": "2026-09-08",
-      "official": false
     }
   ],
   "newsDigest": {
-    "official": "央行8月五大銀行新承做放款加權平均利率2.187%，較7月上升0.020個百分點。上修2026年全年經濟成長率預測為11.48%，2027年為5.82%。1至8月CPI年增率1.84%，核心CPI為2.11%。9月發行2年期定期存單新台幣250億元，投標倍數3.21倍，得標利率1.638%。",
-    "media": "央行減發定期存單，定存單面額近跌破6兆元。市場資金整體寬鬆但分配不均，拆款利率維持穩定。市場對央行升息政策存在疑慮。流動性充裕下，銀行融資成本有所提升。",
+    "official": "五大銀行8月新承做放款加權平均利率2.187%，較7月上升0.020個百分點。8月外匯交易量10,444.2億美元。9月2年期定存單得標利率1.638%。央行上修全年經濟成長率至11.48%，明年預測5.82%。通膨受服務類僵固性與原油高位持續影響。",
+    "media": "央行持續減發定存單調控流動性，造成市場資金寬鬆但分配不均。短期拆款利率保持穩定略有鬆動，短期票券市場整體平穩。市場關注央行貨幣政策走向與資金面平衡。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-09-22T23:30:41.642Z"
+    "generatedAt": "2026-09-23T00:45:06.093Z"
   }
 }
