@@ -1,6 +1,6 @@
 # 台灣資金緊俏每日儀表板
 
-公開市場研究用途的台灣短期資金監測工具。線上：<https://johncyl0723.github.io/taiwan-funding-stress-dashboard/>
+公開市場研究用途的台灣短期資金監測工具。線上：<https://tw-funding-dashboard.pages.dev/>
 
 版面分三部分：
 
@@ -130,15 +130,37 @@ Token 一年到期，屆時要重新跑一次 `claude setup-token` 換新的；�
 
 ## 架構
 
-純靜態網站，全部跑在 GitHub 上：
+純靜態網站，資料與程式碼放在 GitHub，公開網址發布在 Cloudflare（刻意不用 GitHub Pages 的
+`github.io` 網址，避免公開連結一眼看出背後放在 GitHub 上）：
 
-- **前端**：Vite + React，發布到 GitHub Pages
+- **前端**：Vite + React，`npm run build` 產出的 `dist/` 由 GitHub Actions 部署到 **Cloudflare Pages**（`tw-funding-dashboard.pages.dev`）
 - **資料更新**：GitHub Actions 排程（UTC `0 4 * * 1-5`，即台灣時間週一至週五 12:00）跑測試後執行 `scripts/refresh.ts`，寫回 `public/data/` 並自動 commit
 - **文字**：規則式模板（`scripts/lib/insight.ts`）＋ 選用的 AI 短評／新聞摘要（`scripts/lib/commentary.ts`），見上方「兩種文字」
 - **手動更新**：頁面右上角按鈕（見下），或到 repo 的 Actions 頁籤選 `更新資料並部署` → `Run workflow`
 
 沒有伺服器、沒有資料庫、沒有登入機制。選用的 AI 短評／新聞摘要吃 Claude Code 訂閱額度，不接計量計費 API，
 未設 `CLAUDE_CODE_OAUTH_TOKEN` 即不啟用；手動更新按鈕若要做成「原地觸發不跳頁」，需另外加一支 Cloudflare Worker，見下。
+
+## 部署到 Cloudflare Pages
+
+一次性設定，設定好之後 GitHub Actions 每次都會自動部署，不需要重複操作：
+
+1. **建立 Pages 專案**（本機跑一次即可，之後都由 CI 接手）：
+   ```bash
+   npm install -g wrangler
+   wrangler login
+   wrangler pages project create tw-funding-dashboard --production-branch=master --force
+   ```
+   `--force` 是必要的——新版 wrangler 預設會把 `pages project create` 導去 Cloudflare 另一個「Workers with Assets」
+   產品，不是傳統 Pages，網址也不會是 `.pages.dev`。之後的 `wrangler pages deploy` 不需要這個旗標。
+2. **建立 Cloudflare API Token**：<https://dash.cloudflare.com/profile/api-tokens> → Create Custom Token →
+   權限只給 **Account → Cloudflare Pages → Edit**，範圍越小越好。
+3. 到 repo 的 **Settings → Secrets and variables → Actions**：
+   - 新增 secret `CLOUDFLARE_API_TOKEN`，貼上第 2 步的 token
+   - 新增 variable `CLOUDFLARE_ACCOUNT_ID`，值是 Cloudflare Dashboard 右側欄可以看到的帳號 ID
+
+部署那一步用 [`cloudflare/wrangler-action`](https://github.com/cloudflare/wrangler-action) 執行
+`wrangler pages deploy dist --project-name=tw-funding-dashboard`，跟本機手動部署是同一支指令。
 
 ## 手動更新按鈕
 

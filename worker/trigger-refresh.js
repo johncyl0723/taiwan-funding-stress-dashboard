@@ -19,12 +19,12 @@
  */
 
 /** 只接受這個來源的請求，擋掉任何人直接打這支 Worker 的網址 */
-const ALLOWED_ORIGIN = 'https://johncyl0723.github.io'
+const ALLOWED_ORIGIN = 'https://tw-funding-dashboard.pages.dev'
 
 const OWNER = 'johncyl0723'
 const REPO = 'taiwan-funding-stress-dashboard'
 const WORKFLOW_FILE = 'update-and-deploy.yml'
-const DASHBOARD_URL = `https://${OWNER}.github.io/${REPO}/data/dashboard.json`
+const DASHBOARD_URL = `${ALLOWED_ORIGIN}/data/dashboard.json`
 
 /** 兩次觸發之間至少間隔這麼久，避免有人繞過按鈕直接洗 Worker 網址 */
 const COOLDOWN_MS = 10 * 60 * 1000
