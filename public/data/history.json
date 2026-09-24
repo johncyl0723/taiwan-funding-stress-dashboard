@@ -10829,10 +10829,10 @@
     "repoOperation": false,
     "foreignNet": 37313,
     "foreignNet5d": 202292,
-    "usdTwd": null,
-    "usdTwdVol20": 3.68,
-    "sofr90": null,
-    "fxNominalSpreadBp": null,
+    "usdTwd": 31.716,
+    "usdTwdVol20": 3.57,
+    "sofr90": 3.66196,
+    "fxNominalSpreadBp": 197.85,
     "stats": {
       "percentile60": 79.16666666666666,
       "percentile120": 85.41666666666666,
@@ -10872,6 +10872,74 @@
     ],
     "compositeZ": 0.637,
     "compositeZ5d": 0.671,
+    "guardApplied": null
+  },
+  {
+    "date": "2026-09-24",
+    "status": "normal",
+    "eventFlags": [
+      "營所稅暫繳",
+      "理監事會前後"
+    ],
+    "tfssBp": 41.16,
+    "tfssChange5dBp": 0.07,
+    "taibir90Primary": 2.095,
+    "taibir90Secondary": 1.8547,
+    "primarySecondaryBp": 24.03,
+    "taibirSlopeBp": 33.43,
+    "taibor3m": 1.68344,
+    "taiborSlopeBp": 29.94,
+    "overnightRate": null,
+    "corridorPosition": null,
+    "ncdNetIssuance": -85100,
+    "ncdNetIssuance5d": -437150,
+    "ncdOutstanding": 5673300,
+    "repoOperation": false,
+    "foreignNet": -33802,
+    "foreignNet5d": 156305,
+    "usdTwd": 31.78,
+    "usdTwdVol20": 3.5,
+    "sofr90": null,
+    "fxNominalSpreadBp": null,
+    "stats": {
+      "percentile60": 80,
+      "percentile120": 85,
+      "zScore60": 0.5557930552719003,
+      "zScore120": 0.8365174841437588,
+      "sample60": 60,
+      "sample120": 120,
+      "provisional": false
+    },
+    "compositeInputs": {
+      "tfss": 0.8365174841437588,
+      "primarySecondary": 0.4288967460711155,
+      "taiborSlope": 0.7337869493975527,
+      "corridor": null,
+      "ncdNetIssuance": null
+    },
+    "compositeDispersion": {
+      "tfss": 2.627062045908995,
+      "primarySecondary": 0.836448406956459,
+      "taiborSlope": 0.08381179312403877,
+      "corridor": 0.003179900417727993,
+      "ncdNetIssuance": null
+    },
+    "excludedInputs": [
+      {
+        "key": "taiborSlope",
+        "reason": "TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義"
+      },
+      {
+        "key": "corridor",
+        "reason": "O/N 走廊位置：樣本不足"
+      },
+      {
+        "key": "ncdNetIssuance",
+        "reason": "NCD 淨發行：樣本不足"
+      }
+    ],
+    "compositeZ": 0.633,
+    "compositeZ5d": 0.66,
     "guardApplied": null
   }
 ]
