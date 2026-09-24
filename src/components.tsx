@@ -4,6 +4,7 @@ import {
   ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis
 } from 'recharts'
 import type { Definition } from './definitions'
+import { monthlySignal, type Signal } from './signals'
 import type {
   AiCommentary, CompositeInputs, EventFlag, HistoryPoint, MonthlySeries,
   NcdAuction, NewsDigest, NewsItem, Status, StressStats, WeeklyBillPoint
@@ -21,13 +22,26 @@ export function StatusBadge({ status, provisional, large }: {
   </span>
 }
 
-export function Card({ title, value, unit, hint, children }: {
-  title: string; value: string; unit?: string; hint?: string; children?: ReactNode
+/** 右上角的方向徽章；判斷依據放在 title 與 aria-label，畫面上另有一行可見的說明 */
+export function SignalBadge({ signal }: { signal: Signal }) {
+  return <span className={`signal signal-${signal.tone}`} title={signal.basis}
+    aria-label={`${signal.label}。${signal.basis}`}>
+    {signal.arrow && <span className="signal-arrow" aria-hidden="true">{signal.arrow}</span>}
+    {signal.label}
+  </span>
+}
+
+export function Card({ title, value, unit, hint, signal, children }: {
+  title: string; value: string; unit?: string; hint?: string; signal?: Signal | null; children?: ReactNode
 }) {
   return <article className="card">
-    <p className="card-title">{title}</p>
+    <div className="card-head">
+      <p className="card-title">{title}</p>
+      {signal && <SignalBadge signal={signal} />}
+    </div>
     <div className="metric"><strong>{value}</strong>{unit && <span>{unit}</span>}</div>
     {hint && <p className="hint">{hint}</p>}
+    {signal && <p className="signal-basis">{signal.basis}</p>}
     {children}
   </article>
 }
@@ -99,7 +113,7 @@ function MiniTrend({ history, dataKey, muted }: {
  * 文字固定分成「這個指標在量什麼」與「現在的數字說什麼」兩段，
  * 未進入合成的指標以 muted 狀態呈現並標明原因 —— 這是設計好的狀態，不是錯誤。
  */
-export function MetricRow({ definition, value, reading, history, dataKey, excluded, asOf }: {
+export function MetricRow({ definition, value, reading, history, dataKey, excluded, asOf, signal }: {
   definition: Definition
   value: string
   reading: string
@@ -107,6 +121,7 @@ export function MetricRow({ definition, value, reading, history, dataKey, exclud
   dataKey: keyof HistoryPoint
   excluded?: string
   asOf: string
+  signal?: Signal | null
 }) {
   return <article className={`metric-row${excluded ? ' is-excluded' : ''}`}>
     <div className="metric-chart">
@@ -115,7 +130,10 @@ export function MetricRow({ definition, value, reading, history, dataKey, exclud
     <div className="metric-text">
       <header className="metric-head">
         <h3>{definition.title}</h3>
-        <span className="freq">{definition.frequency}頻 · {asOf}</span>
+        <div className="metric-meta">
+          {signal && <SignalBadge signal={signal} />}
+          <span className="freq">{definition.frequency}頻 · {asOf}</span>
+        </div>
       </header>
       <div className="metric-value">
         <strong>{value}</strong>{definition.unit && <span>{definition.unit}</span>}
@@ -127,6 +145,7 @@ export function MetricRow({ definition, value, reading, history, dataKey, exclud
         <dt>現在的數字說什麼</dt>
         <dd>{reading}</dd>
       </dl>
+      {signal && <p className="signal-basis"><b>判讀依據</b>{signal.basis}</p>}
       {definition.caveat && <p className="caveat">限制：{definition.caveat}</p>}
     </div>
   </article>
@@ -296,6 +315,7 @@ export function MonthlyPanel({ series, hints }: { series: MonthlySeries[]; hints
         value={last ? numberFor(last.value, item.unit === '%' ? 2 : 0) : '—'}
         unit={item.unit}
         hint={`${last?.period ?? '—'}${deltaLabel(delta, item.unit)}`}
+        signal={monthlySignal(item)}
       >
         <p className="hint">{hints[item.key] ?? item.hint}</p>
       </Card>

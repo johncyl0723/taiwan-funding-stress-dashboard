@@ -6,6 +6,7 @@ import {
 } from './components'
 import { DEFINITIONS, FX_DEFINITIONS, MONTHLY_HINTS } from './definitions'
 import { RefreshButton } from './RefreshButton'
+import { dailySignal } from './signals'
 import type { BackgroundPayload, CompositeInputs, DashboardPayload, HistoryPoint } from './types'
 
 /** 與 scripts/lib/composite.ts 的 THRESHOLDS 對應，僅供圖表參考線使用 */
@@ -61,6 +62,7 @@ export default function App() {
       dataKey={dataKey}
       excluded={excludedKey ? excludedFor(excludedKey) : undefined}
       asOf={market.date}
+      signal={dailySignal(definitionKey, market, history)}
     />
   }
 
@@ -144,6 +146,19 @@ export default function App() {
           依知識圖譜由上而下展開：外生資金流動 → 央行調節供給 → 銀行間形成價格 → 傳導到企業票券成本 → 合成為單一指數。
           以下各層皆為日頻資料，資料日 {market.date}；月頻與週頻背景另置於本節最後。
         </p>
+        <div className="signal-legend">
+          <b>怎麼讀右上角的徽章</b>
+          <span><span className="signal signal-loose"><span className="signal-arrow">▲</span>水位增加</span>
+            <span className="signal signal-tight"><span className="signal-arrow">▼</span>水位減少</span>
+            「量」的指標：這個數字代表台灣資金水位增加或減少。</span>
+          <span><span className="signal signal-loose">寬鬆</span>
+            <span className="signal signal-neutral">中性</span>
+            <span className="signal signal-tight">偏緊</span>
+            「價」的指標：這個數字代表資金面目前寬鬆或緊縮。</span>
+          <span><span className="signal signal-reference">參考指標</span>
+            不直接對應台幣寬緊（美元、匯率、期限溢酬形狀），不硬給方向。</span>
+          <em>判斷門檻是依歷史資料分布訂的經驗值，未經回測校準；每張卡片都附上這次判斷的依據與數字。</em>
+        </div>
 
         <div className="layer">
           <LayerHeader index={1} label="外生驅動"
