@@ -66,7 +66,7 @@
     "compositeZ": 0.633,
     "compositeZ5d": 0.66,
     "guardApplied": null,
-    "updatedAt": "2026-09-25T09:27:35.910Z",
+    "updatedAt": "2026-09-28T10:40:47.058Z",
     "sources": [
       {
         "label": "TDCC TAIBIR 初級（歷史查詢）",
@@ -111,17 +111,17 @@
       {
         "label": "NY Fed SOFR 平均指數",
         "url": "https://www.newyorkfed.org/markets/reference-rates/sofr-averages-and-index",
-        "asOf": "2026-09-24"
+        "asOf": "2026-09-25"
       }
     ],
     "sourceStatus": {
+      "TDCC 次級": "TDCC 次級 已讀取（136 筆）",
+      "TDCC 初級": "TDCC 初級 已讀取（136 筆）",
       "USD SOFR": "USD SOFR 已讀取（200 筆）",
-      "TDCC 初級": "TDCC 初級 已讀取（139 筆）",
-      "TDCC 次級": "TDCC 次級 已讀取（139 筆）",
       "央行貼放利率": "央行貼放利率 已讀取（20 筆）",
-      "外資買賣超": "外資買賣超 已讀取（11 筆）",
-      "央行 NCD": "央行 NCD 已讀取（12 筆）",
+      "外資買賣超": "外資買賣超 已讀取（10 筆）",
       "TAIBOR": "TAIBOR 已讀取（144 筆）",
+      "央行 NCD": "央行 NCD 已讀取（12 筆）",
       "央行 O/N": "央行 O/N 已讀取（160 筆）",
       "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
       "超額準備": "超額準備 已讀取（188 期，最新 2026-08）",
@@ -173,12 +173,12 @@
       "外幣通道缺少換匯點，無法計算避險後的隱含台幣成本。",
       "公開資料可能有發布與擷取延遲，指標判讀不構成投資、融資或交易建議。"
     ],
-    "generatedAt": "2026-09-25T09:27:35.910Z"
+    "generatedAt": "2026-09-28T10:40:47.058Z"
   },
   "aiCommentary": {
-    "text": "資金面維持寬鬆，TSS綜合指數5日均z-score 0.66，遠低於1.0的偏緊門檻，顯示市場無壓力信號。隔夜拆款利率穩定於0.812%，外資近5日淨買入157,142百萬元，持續貢獻增量資金。票券相對銀行間溢酬41.2bp（z 0.84）、初級－次級利差24.0bp、TAIBOR 1W–3M斜率29.9bp均呈溫和水位，反映各主要利率走廊內部流動性分層合理。\n\n留意NCD近5日淨發行轉為-437,150百萬元，但央行未提供z-score，樣本不足難以判斷是否形成趨勢。票券溢酬z值0.84雖未達顯著，與NCD淨發行轉負同時出現，可能暗示市場對票券相對價值偏好有微調。當日營所稅暫繳及理監事會前後活動，後續應留意月底營建期間對資金面影響。8月消費貸款及金融統計報告公布，未見異常訊號，資金面維持正常運作。",
+    "text": "資金面整體寬鬆，TSS 綜合指數 0.66（5 日均）維持在 normal 燈號，遠低於 1.0 偏緊門檻，較前一日微幅緩解。票券相對銀行間溢酬達 41.2 bp（z-score 0.84），為主要驅動因素，顯示票券市場相對銀行融資面臨溫和壓力。初級－次級利差 24.0 bp、TAIBOR 1W–3M 斜率 29.9 bp 則呈現溫和水位。外資近 5 日淨買超 157,142 百萬元，為流動性供給的正面力量。隔夜拆款利率 0.812%、3M TAIBOR 1.683% 均處低檔。\n\n值得留意之處：NCD 近 5 日淨發行 -437,150 百萬元（負值），反映企業融資可能轉向銀行管道而非票券市場，與票券溢酬擴大互相印證。另 O/N 走廊位置 z-score 達 -3.10（極度異常偏緊），惟因 120 日標準差過低未納入合成指數，隔夜市場實際壓力程度須進一步確認。當日營所稅暫繳期間，企業現金流出亦需關注對短期流動性的影響。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-09-25T09:27:26.612Z"
+    "generatedAt": "2026-09-28T10:40:46.286Z"
   },
   "news": [
     {
@@ -246,6 +246,13 @@
       "body": "相關議題包括： ● 本次理事會政策考量因素 ● 外界關心之議題"
     },
     {
+      "title": "央行狂放錢 9月減發定存單創兩紀錄！楊金龍揭資金「分配不均」難題",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9UaE1FYVpXZUdOY0xUMVFYVHVScDB3dHBVQkdHQmEyY2lRNk1BbnkxU3BvNjZOQ0UxTlRSR1oyYjFmSEs1WHFZaG1NbENTQUE0dzUybGh6SEZFLW1DTFQ0?oc=5",
+      "source": "工商時報",
+      "date": "2026-09-25",
+      "official": false
+    },
+    {
       "title": "市場資金緊俏央行罕見連2季減發364天期存單| 產經",
       "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE01NVAyS0pnTjBIc0tlMzlKSjBEcDZKVWZTNTYtUzFHbGZQcFNRaDdCcHk4c0toMmRmamVCby1fNGwzMnVCZU13VzBUT3BFS1VCTm4zZWxTeE1xSDZabnc?oc=5",
       "source": "中央社 CNA",
@@ -255,7 +262,7 @@
     {
       "title": "台灣央行續減發存單達1兆元台幣創紀錄 資金水庫洩洪支應企業融資",
       "url": "https://news.google.com/rss/articles/CBMi1ANBVV95cUxNZElrVDVJeVB6d2U5aEhhQmJ4Z0ZjSFVwc0haQzVaUjg5S05VMFpJVmwwYzlPc2JoSU5zOFlNUEhMMk9wenlGREhhNXRCYzRRdjZDTjRGS2pQNWItbEM1bWV6alpVUEhnYnVwejlWOXZmVnNIT0l3TUc5a1RBa2JCOGxpOG5jejM0dmVyRERMWm82eHlheVZSN3NiaXY0Yk80eUt4RWZPWTlnaXdyUXRKRUY3dDRYbC1jdnZBbzZPZ3FBMk0yMTVfR3hHY2NaX1Z4YmpkYnIyNzBkZUZhQzNPcHNxZnpFZkR4a29FMXNQYTg5bWpkcGI0YzQ0R1hiOVZaVFBaUzd6TDBSS0pld0pzX3g0T1NTVmR1MjBDV3AyMDZIdWhJU0FzMnhtRmJJXy1heFRwdzFTZndMX3RWQUlPTnMyc1MtdTVDYTcxTE1RaWpYQk00ZG1YdHcyWlg0Zkh2S3R4eGxmUG5HWFc1akU0Y3gteWlhTkZwRUx6TkpSMll3SnpWdFVZZksyUTlZRFdYTUdPUGJKUHN4c3BzVUEtZHFKRUl5bFZJVXJBcUc5RW1EQzR0clRxYTBaNHNtS2JJVm41d0M3Wmh0LWtsdXo3c3NiR3Y?oc=5",
-      "source": "Yahoo 財經",
+      "source": "hk.finance.yahoo.com",
       "date": "2026-09-24",
       "official": false
     },
@@ -288,24 +295,17 @@
       "official": false
     },
     {
-      "title": "港元定存新動向｜10銀行加存息迎超級央行周 現有客戶最高4厘年利率",
-      "url": "https://news.google.com/rss/articles/CBMivgNBVV95cUxQSEI1ZTRIS0pZNThvSG13VDFUaGJ6bXlTUDc1NkZXaFR0V3ZfYks2cThmYzRBQ1dmczVIalBlMjlNTko1cTJ1T1dtSTRzN2MyTS05VnVfcmZxT0RhQk0weF9pdVp5XzZLb1dtdExYXzVNRnVlcHpJSTBkT1g0ZEtiMUVRSFkxLU8xOFRTb25HYWJ5aW92MVpkV3FYRXJselNYd1U0MWl6cFlCdkgyUEhSZzdiMlBKVExmUl9ka2E4dEY1cnRhUTNJMmRsa29aQjlNLWxUbDBnTW5Ia2E5LUhUX21fYkNiTS1fSk5qM3JuNG1SVVh1VnR3VEVpZU94Zlh5dDhTSUxKOXZjNGFxeU1oeXh3b1BjMVoxMU9sWFRPZWZnaFJYemZPSlF5bzZmOG9pdEFZQXpyOGo5alN0Q2NsbU1Oa0hWdnVWQVI0UDBjdTdxWmt1RlgzSDZQbEtwWG5UZ1dZN2Z0ZFEtQ3gtZ3Rxbl9Uam0tb3NLVkhKbTNQRFhBOHVCZkF4ZzhnOHNKYzdCNHZia0tZSEV0Q3doYjJ3X3dJalRyMk1rbjk2eng5WU9kWlJkU0pDb1lCRzVkdw?oc=5",
-      "source": "香港經濟日報HKET",
-      "date": "2026-09-16",
-      "official": false
-    },
-    {
       "title": "台灣貨幣市場：央行續減定存單發行量資金更趨寬鬆，拆款及短票利率屬平穩",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1iTWNsVTM1eHc3cndydTBMYThKei1XNmJQaWlZUEFQMVpOVWM5SzJtNS1rNUZQaVlnTTQtZnZrd2JSbDZmYkc4dFN6THBsTXh4NHlGT0FScXlPTmNfYXhhNTVMQ0NzRENuUHRtelhxa2trcEUzcUlr?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBJY1h5UUJkaTV5TG9QVkV0V3c3aWQ2dFFxUGpqelhncnNhTE5kZ1FDMUJ0MDRXa3ctSmFHcGRBTFBiVFl4X1V0OVNCRWx0cm9BeHNfR3lzcG1KNFliZmN3VWVKTER0QU0yVUh0azJNV1MtMGI1RFlEWg?oc=5",
       "source": "TradingView",
-      "date": "2026-09-15",
+      "date": "2026-09-16",
       "official": false
     }
   ],
   "newsDigest": {
-    "official": "央行调整Q4定期存单发行规模：364天期每月从1,200亿元降至1,100亿元，2年期维持250亿元。8月金融数据方面，M1B年增率6.65%，M2年增率6.79%；五大银行新承做放款平均利率2.187%；台北外汇市场交易量净额10,444.2亿美元。",
-    "media": "央行连续2季减发364天期存单，累计减额达1兆元创纪录。市场解读央行\"洩洪\"操作支应企业融资需求，释放流动性推升资金面宽松。拆款利率随之下调，短期票据利率保持平稳。",
+    "official": "央行115年第4季定期存單：364天期月額自1,200億元降至1,100億元、2年期維持250億元。8月M1B年增率6.65%、M2年增率6.79%；全體貨幣機構放款投資年增率9.43%；五大銀行新承做放款平均利率2.187%，較7月上升0.020個百分點；台北外匯市場交易量10,444.2億美元。",
+    "media": "央行連續2季減發364天期存單創紀錄，第4季續減額度。媒體聚焦資金面題：央行「放水」政策支應企業融資需求，定存單餘額跌破6兆元大關。惟市場資金充裕但分配不均，拆款利率呈下調趨勢。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-09-25T09:27:35.910Z"
+    "generatedAt": "2026-09-28T10:40:47.058Z"
   }
 }
