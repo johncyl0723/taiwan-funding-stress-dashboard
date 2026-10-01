@@ -11031,12 +11031,12 @@
     "ncdNetIssuance5d": 85450,
     "ncdOutstanding": 6095950,
     "repoOperation": false,
-    "foreignNet": 29636,
-    "foreignNet5d": 16722,
+    "foreignNet": 30857,
+    "foreignNet5d": 17943,
     "usdTwd": 31.852,
     "usdTwdVol20": 3.62,
-    "sofr90": null,
-    "fxNominalSpreadBp": null,
+    "sofr90": 3.6818,
+    "fxNominalSpreadBp": 199.84,
     "stats": {
       "percentile60": 98.33333333333333,
       "percentile120": 96.66666666666667,
@@ -11076,6 +11076,71 @@
     ],
     "compositeZ": 0.381,
     "compositeZ5d": 0.535,
+    "guardApplied": null
+  },
+  {
+    "date": "2026-10-01",
+    "status": "normal",
+    "eventFlags": [],
+    "tfssBp": 41.63,
+    "tfssChange5dBp": 0.47,
+    "taibir90Primary": 2.0997,
+    "taibir90Secondary": 1.8667,
+    "primarySecondaryBp": 23.3,
+    "taibirSlopeBp": 33.5,
+    "taibor3m": 1.68344,
+    "taiborSlopeBp": 29.94,
+    "overnightRate": 0.811,
+    "corridorPosition": -0.0119,
+    "ncdNetIssuance": 130150,
+    "ncdNetIssuance5d": 365700,
+    "ncdOutstanding": 6226100,
+    "repoOperation": false,
+    "foreignNet": 21937,
+    "foreignNet5d": -5441,
+    "usdTwd": 31.842,
+    "usdTwdVol20": 3.48,
+    "sofr90": null,
+    "fxNominalSpreadBp": null,
+    "stats": {
+      "percentile60": 97.5,
+      "percentile120": 96.25,
+      "zScore60": 2.0376692987566227,
+      "zScore120": 0.9721698037534573,
+      "sample60": 60,
+      "sample120": 120,
+      "provisional": false
+    },
+    "compositeInputs": {
+      "tfss": 0.9721698037534573,
+      "primarySecondary": -0.41796964545154724,
+      "taiborSlope": 0.6955883335241224,
+      "corridor": -2.977757408918246,
+      "ncdNetIssuance": null
+    },
+    "compositeDispersion": {
+      "tfss": 2.56239529731894,
+      "primarySecondary": 0.8292069462578222,
+      "taiborSlope": 0.0833826520726384,
+      "corridor": 0.003571759506492874,
+      "ncdNetIssuance": null
+    },
+    "excludedInputs": [
+      {
+        "key": "taiborSlope",
+        "reason": "TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義"
+      },
+      {
+        "key": "corridor",
+        "reason": "O/N 走廊位置：120 日標準差 3.6e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
+      },
+      {
+        "key": "ncdNetIssuance",
+        "reason": "NCD 淨發行：樣本不足"
+      }
+    ],
+    "compositeZ": 0.277,
+    "compositeZ5d": 0.462,
     "guardApplied": null
   }
 ]
