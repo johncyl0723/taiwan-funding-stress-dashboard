@@ -8935,6 +8935,10 @@
         {
           "period": "2026-08",
           "value": 3.32
+        },
+        {
+          "period": "2026-09",
+          "value": 3.32
         }
       ]
     }
@@ -9055,7 +9059,7 @@
       "awardRate": 1.643
     }
   ],
-  "updatedAt": "2026-10-01T10:46:30.634Z",
+  "updatedAt": "2026-10-02T10:21:18.644Z",
   "sources": [
     {
       "label": "央行 OpenData 貨幣總計數與準備貨幣",
@@ -9070,7 +9074,7 @@
     {
       "label": "央行 OpenData 五大銀行存放款利率",
       "url": "https://data.gov.tw/dataset/10359",
-      "asOf": "2026-08"
+      "asOf": "2026-09"
     },
     {
       "label": "集保票券保管結算交割週統計",
