@@ -11230,8 +11230,8 @@
     "foreignNet5d": 64730,
     "usdTwd": 31.788,
     "usdTwdVol20": 3.16,
-    "sofr90": null,
-    "fxNominalSpreadBp": null,
+    "sofr90": 3.69549,
+    "fxNominalSpreadBp": 201.21,
     "stats": {
       "percentile60": 95.83333333333334,
       "percentile120": 95.41666666666667,
@@ -11271,6 +11271,71 @@
     ],
     "compositeZ": 0.119,
     "compositeZ5d": 0.256,
+    "guardApplied": null
+  },
+  {
+    "date": "2026-10-06",
+    "status": "normal",
+    "eventFlags": [],
+    "tfssBp": 41.63,
+    "tfssChange5dBp": 0,
+    "taibir90Primary": 2.0997,
+    "taibir90Secondary": 1.8727,
+    "primarySecondaryBp": 22.7,
+    "taibirSlopeBp": 33.5,
+    "taibor3m": 1.68344,
+    "taiborSlopeBp": 29.94,
+    "overnightRate": 0.812,
+    "corridorPosition": -0.0111,
+    "ncdNetIssuance": -173700,
+    "ncdNetIssuance5d": 195550,
+    "ncdOutstanding": 6091700,
+    "repoOperation": false,
+    "foreignNet": -6657,
+    "foreignNet5d": 120656,
+    "usdTwd": 31.781,
+    "usdTwdVol20": 2.99,
+    "sofr90": null,
+    "fxNominalSpreadBp": null,
+    "stats": {
+      "percentile60": 95,
+      "percentile120": 95,
+      "zScore60": 1.942439131507187,
+      "zScore120": 0.9319687480019231,
+      "sample60": 60,
+      "sample120": 120,
+      "provisional": false
+    },
+    "compositeInputs": {
+      "tfss": 0.9319687480019231,
+      "primarySecondary": -1.0986904018735104,
+      "taiborSlope": 0.6581848799493514,
+      "corridor": -2.4549599649844027,
+      "ncdNetIssuance": null
+    },
+    "compositeDispersion": {
+      "tfss": 2.483541790747417,
+      "primarySecondary": 0.8280312619903518,
+      "taiborSlope": 0.08280348221341104,
+      "corridor": 0.003876166401513514,
+      "ncdNetIssuance": null
+    },
+    "excludedInputs": [
+      {
+        "key": "taiborSlope",
+        "reason": "TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義"
+      },
+      {
+        "key": "corridor",
+        "reason": "O/N 走廊位置：120 日標準差 3.9e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
+      },
+      {
+        "key": "ncdNetIssuance",
+        "reason": "NCD 淨發行：樣本不足"
+      }
+    ],
+    "compositeZ": -0.083,
+    "compositeZ5d": 0.163,
     "guardApplied": null
   }
 ]
