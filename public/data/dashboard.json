@@ -59,7 +59,7 @@
     "compositeZ": -0.383,
     "compositeZ5d": -0.151,
     "guardApplied": null,
-    "updatedAt": "2026-10-12T09:58:37.780Z",
+    "updatedAt": "2026-10-12T11:43:32.032Z",
     "sources": [
       {
         "label": "TDCC TAIBIR 初級（歷史查詢）",
@@ -108,15 +108,15 @@
       }
     ],
     "sourceStatus": {
-      "TDCC 初級": "TDCC 初級 已讀取（135 筆）",
       "TDCC 次級": "TDCC 次級 已讀取（135 筆）",
+      "TDCC 初級": "TDCC 初級 已讀取（135 筆）",
       "USD SOFR": "USD SOFR 已讀取（200 筆）",
       "央行貼放利率": "央行貼放利率 已讀取（20 筆）",
       "外資買賣超": "外資買賣超 已讀取（9 筆）",
       "央行 NCD": "央行 NCD 已讀取（12 筆）",
       "TAIBOR": "TAIBOR 已讀取（153 筆）",
-      "央行 O/N": "央行 O/N 已讀取（160 筆）",
       "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
+      "央行 O/N": "央行 O/N 已讀取（160 筆）",
       "超額準備": "超額準備 已讀取（188 期，最新 2026-08）",
       "準備貨幣": "準備貨幣 已讀取（356 期，最新 2026-08）",
       "M1B 年增率": "M1B 年增率 已讀取（460 期，最新 2026-08）",
@@ -166,12 +166,12 @@
       "外幣通道缺少換匯點，無法計算避險後的隱含台幣成本。",
       "公開資料可能有發布與擷取延遲，指標判讀不構成投資、融資或交易建議。"
     ],
-    "generatedAt": "2026-10-12T09:58:37.781Z"
+    "generatedAt": "2026-10-12T11:43:32.032Z"
   },
   "aiCommentary": {
-    "text": "資金面燈號為 normal。TSS 綜合指數 5 日均 z 為 -0.15，當日 -0.38、較前一日 -0.10，距 1.0 偏緊門檻仍遠。納入合成的子指標中，初級－次級利差（z -1.05）與 NCD 近 5 日淨發行（-341,650 百萬元，z -1.00）偏低；TFSS 票券溢酬（z 0.89）與 1W–3M 斜率（z 0.62）偏高，兩側相互抵銷，整體接近中性。O/N 走廊位置因 120 日標準差低於材料性門檻而未納入。\n\n拉低讀數的主要是利差與 NCD 淨發行，但新聞標題多為央行例行統計與致詞，未直接涉及拆款利率或 NCD 發行，無法與數據互相印證。10/05 的 364 天期定存單開標與 NCD 負淨發行僅是時間上接近，未經證實。外資近 5 日淨賣超 75,854 百萬元，USD/TWD 為 31.895、20 日年化波動 3.0%，可與資金面並列觀察。SOFR 90 日均無資料，無法納入比較。",
+    "text": "資金面未見偏緊跡象，燈號為 normal。TSS 綜合指數 5 日均 z 為 -0.15，當日 -0.38，較前一日下降 0.10，低於 1.0 的偏緊門檻。主要驅動因素是 NCD 近 5 日淨發行為 -341,650 百萬元（z -1.00），顯示到期償還多於發行；初級－次級利差 22.7 bp（z -1.05）亦低於 120 日均值。外資近 5 日淨賣超 75,854 百萬元。\n\n值得留意的是票券相對銀行間溢酬 41.6 bp（z 0.89）為子指標中偏高者，但 5 日變化為 0。TAIBOR 斜率與 O/N 走廊位置因 120 日標準差低於材料性門檻而未納入合成，其中 O/N 走廊 z 為 -2.44，雖數值偏離，但不影響綜合指數。新聞多為央行例行統計與致詞，與數據無直接印證或矛盾；今日無事件旗標，SOFR 90 日均無資料，無法比對。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-10-12T09:58:37.780Z"
+    "generatedAt": "2026-10-12T11:43:32.032Z"
   },
   "news": [
     {
@@ -274,24 +274,24 @@
       "official": false
     },
     {
-      "title": "AI投資潮掀資金需求路透:央行「口鷹實鴿」解銀行困局連3週減發存單狂釋金| 財經焦點",
-      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1xazlzOHo4THVWdGZ6Vk43ZU8zaENuU2lWZlFQSkJvbDJvSzROYnpCc2NRX0FKN2s2RldnWkdDRmp6NjJ1SnRPZFExMHdFN09JU3BkLXVMeExTUC15?oc=5",
-      "source": "太報 TaiSounds",
-      "date": "2026-09-29",
-      "official": false
-    },
-    {
       "title": "口鷹實鴿？央行減發定存單原因曝：AI產業借款潮來襲銀行也缺錢| 金融要聞| 產經",
       "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE52am1XTGw2dmdVeXozX2pjb3YtRldKcGdvVlNzQmZhZDFWRGI5ZEx2aVhfUFBhTW9idU85YWJydU9NQmVtakV6UTM4a3ZQWEp5?oc=5",
       "source": "UDN",
       "date": "2026-09-29",
       "official": false
+    },
+    {
+      "title": "AI投資潮掀資金需求路透:央行「口鷹實鴿」解銀行困局連3週減發存單狂釋金| 財經焦點",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1xazlzOHo4THVWdGZ6Vk43ZU8zaENuU2lWZlFQSkJvbDJvSzROYnpCc2NRX0FKN2s2RldnWkdDRmp6NjJ1SnRPZFExMHdFN09JU3BkLXVMeExTUC15?oc=5",
+      "source": "太報 TaiSounds",
+      "date": "2026-09-29",
+      "official": false
     }
   ],
   "newsDigest": {
-    "official": "9月日平均準備貨幣7兆6,866億元，月增1,070億元、年增8.03%；9月底外匯存底6,007.45億美元，月減11.59億美元。10月364天期定存單得標加權平均利率1.602%，得標率45.84%。9月隔夜拆款加權平均利率0.817%，月降0.005個百分點。",
-    "media": "僅依標題：媒體聚焦央行連續減發定存單，有報導視為寬鬆聯想或政策轉向，另指AI投資潮帶動借款需求、銀行缺錢。銀行加碼搶存款（標題稱6個月定存年息最高2.5%），短率區間偏跌，一大行調降拆款利率。",
+    "official": "115年9月日平均準備貨幣7兆6,866億元，月增1,070億元、年增8.03%；1至9月累計年增7.24%。9月底外匯存底6,007.45億美元，月減11.59億美元。10月5日364天期定存單得標1,100億元、加權平均利率1.602%。",
+    "media": "僅標題可見：媒體聚焦央行連3週減發定存單，標題將其與AI產業借款潮、銀行資金需求並列討論，並提及「口鷹實鴿」與政策轉向疑問；另有一大行調降拆款利率、銀行加碼推出定存優惠（6個月定存年息最高2.5%）等報導。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-10-12T09:58:29.170Z"
+    "generatedAt": "2026-10-12T11:43:31.184Z"
   }
 }
