@@ -11909,12 +11909,12 @@
     "ncdNetIssuance5d": -71500,
     "ncdOutstanding": 5824400,
     "repoOperation": false,
-    "foreignNet": 960,
-    "foreignNet5d": -504025,
+    "foreignNet": 2239,
+    "foreignNet5d": -502746,
     "usdTwd": 32.488,
     "usdTwdVol20": 4.25,
-    "sofr90": null,
-    "fxNominalSpreadBp": null,
+    "sofr90": 3.74739,
+    "fxNominalSpreadBp": 206.4,
     "stats": {
       "percentile60": 86.66666666666667,
       "percentile120": 90.83333333333333,
@@ -11950,6 +11950,67 @@
     ],
     "compositeZ": -0.083,
     "compositeZ5d": -0.157,
+    "guardApplied": null
+  },
+  {
+    "date": "2026-10-22",
+    "status": "normal",
+    "eventFlags": [],
+    "tfssBp": 41.63,
+    "tfssChange5dBp": 0,
+    "taibir90Primary": 2.0997,
+    "taibir90Secondary": 1.875,
+    "primarySecondaryBp": 22.47,
+    "taibirSlopeBp": 33.5,
+    "taibor3m": 1.68344,
+    "taiborSlopeBp": 29.94,
+    "overnightRate": 0.81,
+    "corridorPosition": -0.0128,
+    "ncdNetIssuance": 500,
+    "ncdNetIssuance5d": 1000,
+    "ncdOutstanding": 5824900,
+    "repoOperation": false,
+    "foreignNet": -81657,
+    "foreignNet5d": -281848,
+    "usdTwd": 32.508,
+    "usdTwdVol20": 4.12,
+    "sofr90": null,
+    "fxNominalSpreadBp": null,
+    "stats": {
+      "percentile60": 85.83333333333333,
+      "percentile120": 90.41666666666667,
+      "zScore60": 1.3822334888847914,
+      "zScore120": 0.7956720527667458,
+      "sample60": 60,
+      "sample120": 120,
+      "provisional": false
+    },
+    "compositeInputs": {
+      "tfss": 0.7956720527667458,
+      "primarySecondary": -1.1890171625818688,
+      "taiborSlope": 0.525205448033917,
+      "corridor": -2.1494455384085684,
+      "ncdNetIssuance": 0.436064608409179
+    },
+    "compositeDispersion": {
+      "tfss": 2.153211230735775,
+      "primarySecondary": 0.8488803737211088,
+      "taiborSlope": 0.07933403361035495,
+      "corridor": 0.004708966329130937,
+      "ncdNetIssuance": 230352.8330702372
+    },
+    "excludedInputs": [
+      {
+        "key": "taiborSlope",
+        "reason": "TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義"
+      },
+      {
+        "key": "corridor",
+        "reason": "O/N 走廊位置：120 日標準差 4.7e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
+      }
+    ],
+    "compositeZ": 0.014,
+    "compositeZ5d": -0.119,
     "guardApplied": null
   }
 ]
