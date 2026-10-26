@@ -59,7 +59,7 @@
     "compositeZ": 0.014,
     "compositeZ5d": -0.119,
     "guardApplied": null,
-    "updatedAt": "2026-10-23T09:10:06.579Z",
+    "updatedAt": "2026-10-26T09:50:38.387Z",
     "sources": [
       {
         "label": "TDCC TAIBIR 初級（歷史查詢）",
@@ -104,19 +104,19 @@
       {
         "label": "NY Fed SOFR 平均指數",
         "url": "https://www.newyorkfed.org/markets/reference-rates/sofr-averages-and-index",
-        "asOf": "2026-10-22"
+        "asOf": "2026-10-23"
       }
     ],
     "sourceStatus": {
       "USD SOFR": "USD SOFR 已讀取（200 筆）",
+      "TDCC 次級": "TDCC 次級 已讀取（135 筆）",
+      "TDCC 初級": "TDCC 初級 已讀取（135 筆）",
       "央行貼放利率": "央行貼放利率 已讀取（20 筆）",
-      "TDCC 初級": "TDCC 初級 已讀取（137 筆）",
-      "TDCC 次級": "TDCC 次級 已讀取（137 筆）",
-      "外資買賣超": "外資買賣超 已讀取（10 筆）",
+      "外資買賣超": "外資買賣超 已讀取（9 筆）",
       "央行 NCD": "央行 NCD 已讀取（12 筆）",
       "TAIBOR": "TAIBOR 已讀取（139 筆）",
-      "央行 O/N": "央行 O/N 已讀取（160 筆）",
       "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
+      "央行 O/N": "央行 O/N 已讀取（160 筆）",
       "超額準備": "超額準備 已讀取（189 期，最新 2026-09）",
       "準備貨幣": "準備貨幣 已讀取（356 期，最新 2026-08）",
       "M1B 年增率": "M1B 年增率 已讀取（460 期，最新 2026-08）",
@@ -125,7 +125,7 @@
       "五大銀行基準利率": "五大銀行基準利率 已讀取（286 期，最新 2026-09）",
       "票券週統計": "票券週統計 已讀取（15 週）",
       "364D NCD 標售": "364D NCD 標售 已讀取（1 次）",
-      "新聞": "新聞 已讀取（央行 8 則、媒體 4 則）",
+      "新聞": "新聞 已讀取（央行 8 則、媒體 3 則）",
       "AI 評論": "AI 評論 已生成（haiku（Claude Code 訂閱））",
       "新聞摘要": "新聞摘要 已生成（haiku（Claude Code 訂閱））"
     },
@@ -166,12 +166,12 @@
       "外幣通道缺少換匯點，無法計算避險後的隱含台幣成本。",
       "公開資料可能有發布與擷取延遲，指標判讀不構成投資、融資或交易建議。"
     ],
-    "generatedAt": "2026-10-23T09:10:06.580Z"
+    "generatedAt": "2026-10-26T09:50:38.388Z"
   },
   "aiCommentary": {
-    "text": "資金面未顯示緊俏：TSS 綜合指數 5 日均 z 為 -0.12，低於 1.0 的偏緊門檻，當日 0.01、較前一日 +0.04。隔夜拆款利率 0.810%，3M TAIBOR 1.683%，票券相對銀行間溢酬 41.6 bp 且 5 日無變化。子指標分歧：票券溢酬（z 0.80）與 1W–3M 斜率（z 0.53）偏高，初級－次級利差（z -1.19）偏低。\n\n值得留意的是外資近 5 日賣超 281,773 百萬元，USD/TWD 為 32.508，20 日年化波動 4.1%。新聞標題提及 10/19 的新台幣貶值說明，與外資賣超並列觀察，但僅有標題，無法確認內容或因果。O/N 走廊位置（z -2.15）同時出現在納入與未納入合成的清單中，合成口徑需確認，本段不據以解讀。本日無事件旗標；10/23 颱風相關公告為次日新聞，不影響本日數據。",
+    "text": "資金面燈號為 normal。TSS 綜合指數 5 日均 z 為 -0.12，當日 0.01，較前一日上升 0.04，低於 1.0 的偏緊門檻。隔夜拆款利率 0.810%、3M TAIBOR 1.683%，初級－次級利差 z 為 -1.19，顯示短端利率與利差相對平穩。外資近 5 日淨賣超約 2,818 億元，值得留意。\n\nO/N 走廊位置 z 為 -2.15，但因 120 日標準差低於門檻，與 TAIBOR 斜率同樣未納入綜合指數。USD/TWD 為 32.508，20 日年化波動 4.1%。10-19「近期新台幣匯率貶值之說明」與外資淨賣超方向相符，但標題未載細節，無法確認因果。10-22 與 10-23 的標題多與颱風退票及人員冒用澄清有關，與本次資金指標無直接對應，10-23 也晚於資料日。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-10-23T09:10:06.579Z"
+    "generatedAt": "2026-10-26T09:50:38.387Z"
   },
   "news": [
     {
@@ -253,13 +253,6 @@
       "official": false
     },
     {
-      "title": "台灣利率市場：5年期IRS觸及逾三周新低；短率大致持平",
-      "url": "https://news.google.com/rss/articles/CBMi4gJBVV95cUxNdkROeVpUcDJma2NZSmJFdjcxVmRicTVxRU5SZUJKd0hYV3YyZVFqb0JobW9Ya3g1ME1hbmlPVDMyM0FwZ3JjZ2ZkNklfV0hSSHFHbDFGNUMtWWVFa3dzMVByd2toel9iM0FDNWJKMklOV3RNd2VweHEtU0F4RlFVOHJKcUVyWjBQcFlvc1F5V3FyTENQVGE5UC13U1NQUnItM1Uya19MM1NudXZpQXRTUllaemlTR3MzV181LUM1cWVFNjc3bUJaaUZCNG9vVjNleGEtZUFzUkh3Ulc0dnRFMlJ0N0k3Nm9TbDBONXI3SkVzdjNLT3ItMEM5eWFnZlpuOTJXdmhCOWkxWTk3ellaOVh1UEtSQ0UxSGY0MldnTVpUVnNDMmJfalFma0JETUVja1BXOVRqRWV6ZGozMUlQdGlHeGdVT25uRGxBbGtFT2c3VzJtcTE5UkNWQWhrSFBYTUE?oc=5",
-      "source": "Yahoo 財經",
-      "date": "2026-10-19",
-      "official": false
-    },
-    {
       "title": "〈財經週報-華許效應〉緊中帶鬆政策可望延續 台灣央行仍走自己的路",
       "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1UaHUyU3JSS0Q0WUxxcUhVWUp4dk91dHpqbUx1ajMwN3pEamZkMXhndGtDb2xIaUtkMmg2MEp6c19VU0tYOGtkWFlVS3hQQlRiZTU3Y2tBOVg?oc=5",
       "source": "自由時報",
@@ -268,9 +261,9 @@
     }
   ],
   "newsDigest": {
-    "official": "10/23薔琵颱風致台北外匯市場休市，央行提供外幣資金5.85億美元。9月五大銀行新承做放款加權平均利率2.193%，較8月升0.006個百分點。10/20十年期公債最高得標利率2.0010%。10/12至16新台幣由31.895貶至32.338元，貶1.37%。",
-    "media": "媒體標題聚焦：匯市資金波動使央行六天減發定存單1,504億元；10年期公債標售利率升破2%，短期利率持平；5年期IRS觸及逾三周新低；週報認為台灣央行仍走自己的路。（僅標題，未取得內文）",
+    "official": "9月五大銀行新承做放款平均利率2.193%，升0.006個百分點；9月台北外匯市場交易淨額11,048.8億美元。10/20標售10年期建設公債250億元，最高得標利率2.0010%。10/12至16新台幣由31.895貶至32.338（貶1.37%），外資淨匯出179.61億美元。",
+    "media": "標題聚焦三點：匯市巨量牽動資金調節，央行六天減發定存單1,504億元；10年期公債標售利率升破2%，短期利率區間持穩；另一篇標題認為緊中帶鬆政策可望延續，台灣央行仍走自己的路。以上僅依標題，未取得內文。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-10-23T09:09:59.937Z"
+    "generatedAt": "2026-10-26T09:50:35.985Z"
   }
 }
