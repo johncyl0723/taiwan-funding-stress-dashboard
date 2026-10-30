@@ -1,6 +1,6 @@
 {
   "market": {
-    "date": "2026-10-29",
+    "date": "2026-10-30",
     "status": "normal",
     "eventFlags": [],
     "tfssBp": 41.59,
@@ -11,40 +11,40 @@
     "taibirSlopeBp": 33.5,
     "taibor3m": 1.68378,
     "taiborSlopeBp": 29.96,
-    "overnightRate": 0.811,
-    "corridorPosition": -0.0119,
-    "ncdNetIssuance": 3000,
-    "ncdNetIssuance5d": 34650,
-    "ncdOutstanding": 5833950,
+    "overnightRate": 0.812,
+    "corridorPosition": -0.0111,
+    "ncdNetIssuance": 45500,
+    "ncdNetIssuance5d": 55050,
+    "ncdOutstanding": 5879450,
     "repoOperation": false,
-    "foreignNet": -68815,
-    "foreignNet5d": -140240,
-    "usdTwd": 32.492,
-    "usdTwdVol20": 4.28,
+    "foreignNet": -112467,
+    "foreignNet5d": -254946,
+    "usdTwd": 32.478,
+    "usdTwdVol20": 4.26,
     "sofr90": null,
     "fxNominalSpreadBp": null,
     "stats": {
-      "percentile60": 68.33333333333333,
-      "percentile120": 81.66666666666667,
-      "zScore60": 1.1583786793439113,
-      "zScore120": 0.7430862480730818,
+      "percentile60": 67.5,
+      "percentile120": 81.25,
+      "zScore60": 1.119780157726717,
+      "zScore120": 0.732389672266905,
       "sample60": 60,
       "sample120": 120,
       "provisional": false
     },
     "compositeInputs": {
-      "tfss": 0.7430862480730818,
-      "primarySecondary": -1.2097203815600581,
-      "taiborSlope": 0.7380568381668012,
-      "corridor": -1.818372996953447,
-      "ncdNetIssuance": 0.559805595864367
+      "tfss": 0.732389672266905,
+      "primarySecondary": -1.2198224721818416,
+      "taiborSlope": 0.7246421425568138,
+      "corridor": -1.6223599396500832,
+      "ncdNetIssuance": 0.6400563853621747
     },
     "compositeDispersion": {
-      "tfss": 2.044401535630633,
-      "primarySecondary": 0.8397257323409566,
-      "taiborSlope": 0.07824600628786141,
-      "corridor": 0.004931148164699801,
-      "ncdNetIssuance": 224157.32307171676
+      "tfss": 2.004169896047294,
+      "primarySecondary": 0.8352991438534002,
+      "taiborSlope": 0.07785452067085714,
+      "corridor": 0.004968071389717878,
+      "ncdNetIssuance": 222623.91833570652
     },
     "excludedInputs": [
       {
@@ -53,38 +53,38 @@
       },
       {
         "key": "corridor",
-        "reason": "O/N 走廊位置：120 日標準差 4.9e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
+        "reason": "O/N 走廊位置：120 日標準差 5.0e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
       }
     ],
-    "compositeZ": 0.031,
-    "compositeZ5d": -0.001,
+    "compositeZ": 0.051,
+    "compositeZ5d": 0.026,
     "guardApplied": null,
-    "updatedAt": "2026-10-29T10:44:56.207Z",
+    "updatedAt": "2026-10-30T10:45:14.863Z",
     "sources": [
       {
         "label": "TDCC TAIBIR 初級（歷史查詢）",
         "url": "https://www.tdcc.com.tw/portal/zh/tcWeb/tc_05sat_main03_5",
-        "asOf": "2026-10-29"
+        "asOf": "2026-10-30"
       },
       {
         "label": "TDCC TAIBIR 次級（歷史查詢）",
         "url": "https://www.tdcc.com.tw/portal/zh/tcWeb/tc_05sat_main03_6",
-        "asOf": "2026-10-29"
+        "asOf": "2026-10-30"
       },
       {
         "label": "銀行公會 TAIBOR（每日＋月報 CSV）",
         "url": "https://www.ba.org.tw/taiborDaily/index",
-        "asOf": "2026-10-29"
+        "asOf": "2026-10-30"
       },
       {
         "label": "中央銀行金融業隔夜拆款",
         "url": "https://www.cbc.gov.tw/tw/lp-641-1.html",
-        "asOf": "2026-10-29"
+        "asOf": "2026-10-30"
       },
       {
         "label": "中央銀行公開市場操作",
         "url": "https://www.cbc.gov.tw/tw/lp-1163-1.html",
-        "asOf": "2026-10-29"
+        "asOf": "2026-10-30"
       },
       {
         "label": "中央銀行貼放利率",
@@ -94,27 +94,27 @@
       {
         "label": "證交所三大法人買賣金額",
         "url": "https://www.twse.com.tw/zh/trading/foreign/bfi82u.html",
-        "asOf": "2026-10-29"
+        "asOf": "2026-10-30"
       },
       {
         "label": "中央銀行新臺幣對美元收盤匯率",
         "url": "https://www.cbc.gov.tw/tw/lp-645-1.html",
-        "asOf": "2026-10-29"
+        "asOf": "2026-10-30"
       },
       {
         "label": "NY Fed SOFR 平均指數",
         "url": "https://www.newyorkfed.org/markets/reference-rates/sofr-averages-and-index",
-        "asOf": "2026-10-28"
+        "asOf": "2026-10-29"
       }
     ],
     "sourceStatus": {
-      "TDCC 次級": "TDCC 次級 已讀取（136 筆）",
-      "TDCC 初級": "TDCC 初級 已讀取（136 筆）",
+      "TDCC 次級": "TDCC 次級 已讀取（137 筆）",
+      "TDCC 初級": "TDCC 初級 已讀取（137 筆）",
       "央行貼放利率": "央行貼放利率 已讀取（20 筆）",
       "USD SOFR": "USD SOFR 已讀取（200 筆）",
       "外資買賣超": "外資買賣超 已讀取（10 筆）",
       "央行 NCD": "央行 NCD 已讀取（12 筆）",
-      "TAIBOR": "TAIBOR 已讀取（142 筆）",
+      "TAIBOR": "TAIBOR 已讀取（143 筆）",
       "央行 O/N": "央行 O/N 已讀取（160 筆）",
       "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
       "超額準備": "超額準備 已讀取（189 期，最新 2026-09）",
@@ -125,7 +125,7 @@
       "五大銀行基準利率": "五大銀行基準利率 已讀取（286 期，最新 2026-09）",
       "票券週統計": "票券週統計 已讀取（15 週）",
       "364D NCD 標售": "364D NCD 標售 已讀取（1 次）",
-      "新聞": "新聞 已讀取（央行 8 則、媒體 1 則）",
+      "新聞": "新聞 已讀取（央行 8 則、媒體 3 則）",
       "AI 評論": "AI 評論 已生成（haiku（Claude Code 訂閱））",
       "新聞摘要": "新聞摘要 已生成（haiku（Claude Code 訂閱））"
     },
@@ -139,24 +139,24 @@
   "insight": {
     "marketState": "資金面正常，綜合指數落在近一年常態區間。",
     "pressureSource": "短端與 1–3 個月資金成本皆未見明顯壓力。90 天期初級較次級高 22.5 bp。",
-    "policyObservation": "央行公開市場操作維持例行步調。央行近 5 個交易日 NCD 淨吸收 34,650 百萬元。",
-    "researchView": "TSS 綜合指數 5 日均 -0.00，較前一交易日 +0.04、較一週前 +0.19。目前由 TFSS（z 0.74）主導，合成共採用 3 個子指標。距離「開始偏緊」門檻還有 1.00。另有 2 項子指標未納入合成，原因見下方子指標分解。本摘要為規則式模板依當日數據自動產生，僅供公開市場研究參考。",
+    "policyObservation": "央行公開市場操作維持例行步調。央行近 5 個交易日 NCD 淨吸收 55,050 百萬元。",
+    "researchView": "TSS 綜合指數 5 日均 0.03，較前一交易日 +0.03、較一週前 +0.18。目前由 TFSS（z 0.73）主導，合成共採用 3 個子指標。距離「開始偏緊」門檻還有 0.97。另有 2 項子指標未納入合成，原因見下方子指標分解。本摘要為規則式模板依當日數據自動產生，僅供公開市場研究參考。",
     "fxView": "尚無資料。資料不足，無法比較。",
     "readings": {
-      "tss": "TSS 綜合指數 5 日均 -0.00，較前一交易日 +0.04、較一週前 +0.19。目前由 TFSS（z 0.74）主導，合成共採用 3 個子指標。距離「開始偏緊」門檻還有 1.00。",
-      "ncdNetIssuance": "近 5 個交易日淨吸收 34,650 百萬元，當日 3,000 百萬元。",
-      "ncdOutstanding": "未到期餘額 58,340 億元，較 5 個交易日前 +347 億元。",
-      "corridor": "隔拆 0.811% 位於走廊 -1.2% 的位置（下限為 7 天期 NCD 發行利率、上限為重貼現率 2%）。目前未進入 TSS 合成：O/N 走廊位置：120 日標準差 4.9e-3 低於材料性門檻 0.01，變動幅度不具經濟意義。",
-      "overnight": "0.811%，較 5 個交易日前 +0.0 bp。",
+      "tss": "TSS 綜合指數 5 日均 0.03，較前一交易日 +0.03、較一週前 +0.18。目前由 TFSS（z 0.73）主導，合成共採用 3 個子指標。距離「開始偏緊」門檻還有 0.97。",
+      "ncdNetIssuance": "近 5 個交易日淨吸收 55,050 百萬元，當日 45,500 百萬元。",
+      "ncdOutstanding": "未到期餘額 58,795 億元，較 5 個交易日前 +551 億元。",
+      "corridor": "隔拆 0.812% 位於走廊 -1.1% 的位置（下限為 7 天期 NCD 發行利率、上限為重貼現率 2%）。目前未進入 TSS 合成：O/N 走廊位置：120 日標準差 5.0e-3 低於材料性門檻 0.01，變動幅度不具經濟意義。",
+      "overnight": "0.812%，較 5 個交易日前 +0.2 bp。",
       "taibor": "1.684%，較 5 個交易日前 +0.0 bp。授信合約若以此計息，這就是利息費用的直接變動。",
       "taiborSlope": "30.0 bp。目前未進入 TSS 合成：TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義。",
-      "tfss": "41.6 bp，較 5 個交易日前 -0.0 bp。120 日 z-score 0.74。",
-      "primarySecondary": "22.5 bp，較 5 個交易日前 +0.0 bp。120 日 z-score -1.21。",
+      "tfss": "41.6 bp，較 5 個交易日前 -0.0 bp。120 日 z-score 0.73。",
+      "primarySecondary": "22.5 bp，較 5 個交易日前 +0.0 bp。120 日 z-score -1.22。",
       "taibirSlope": "33.5 bp。曲線偏陡，短天期相對便宜。",
-      "foreignNet": "近 5 個交易日淨賣超 140,240 百萬元。",
+      "foreignNet": "近 5 個交易日淨賣超 254,946 百萬元。",
       "sofr": "尚無資料。",
       "fxSpread": "資料不足，無法比較。",
-      "usdTwd": "32.492，20 日年化波動 4.3%。"
+      "usdTwd": "32.478，20 日年化波動 4.3%。"
     },
     "risksAndLimits": [
       "本區塊為規則式模板文字，依當日數據套用預寫規則產生，不經 AI 生成。",
@@ -166,14 +166,22 @@
       "外幣通道缺少換匯點，無法計算避險後的隱含台幣成本。",
       "公開資料可能有發布與擷取延遲，指標判讀不構成投資、融資或交易建議。"
     ],
-    "generatedAt": "2026-10-29T10:44:56.208Z"
+    "generatedAt": "2026-10-30T10:45:14.864Z"
   },
   "aiCommentary": {
-    "text": "今日 TSS 綜合指數（5 日均 z-score）為 -0.00，當日 0.03，遠低於 1.0 的偏緊門檻，資金面未見緊俏。票券相對銀行間溢酬 41.6 bp（z 0.74）與 NCD 近 5 日淨發行 34,650 百萬元（z 0.56）推升指數，初級－次級利差 22.5 bp（z -1.21）則拉低讀數。\n\n合成僅納入三項指標，TAIBOR 斜率與 O/N 走廊位置因變動未達材料性門檻而排除，因此後者 z -1.82 的偏低訊號未反映於綜合指數。外資近 5 日淨賣超 140,240 百萬元，USD/TWD 為 32.492，SOFR 90 日均無資料，美元端無法比對。新聞以央行聲明與議事錄摘要為主，標題未直接指向利率或票券變化，當日無事件旗標，其對資金面的影響尚難判斷。",
+    "text": "綜合指數（5 日均 z-score）為 0.03，遠低於 1.0 的偏緊門檻；當日 0.05，較前一日上升 0.03，顯示資金面仍在常態區間。分項中，O/N 走廊位置（z -1.62）與初級－次級利差（z -1.22）偏低，TFSS 溢酬（z 0.73）與 1W–3M 斜率（z 0.72）略高。隔夜拆款利率為 0.812%，3M TAIBOR 為 1.684%。\n\n外資近 5 日淨賣超 254,946 百萬元，但綜合指數仍處低位，兩者未見同步壓力，數據無法證實其連動。未納入合成的 TAIBOR 斜率與 O/N 走廊位置因波動低於材料性門檻而排除；SOFR 90 日均無資料，無法比較。新聞多為央行例行統計與澄清稿，未見可直接對照資金面的事件，議事錄摘要內容亦未提供。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-10-29T10:44:56.207Z"
+    "generatedAt": "2026-10-30T10:45:14.863Z"
   },
   "news": [
+    {
+      "title": "115年9月銀行衍生性金融商品交易量統計",
+      "url": "https://www.cbc.gov.tw/tw/cp-302-193122-f65db-1.html",
+      "source": "中央銀行新聞稿",
+      "date": "2026-10-30",
+      "official": true,
+      "body": "115年9月銀行衍生性金融商品交易量統計 115年9月銀行承作衍生性金融商品交易量如下：匯率契約折合新臺幣19兆7,666億元、利率契約4兆2,638億元、權益證券契約2,188億元、商品契約185億元及信用契約27億元，合計24兆2,704億元(附表1、附圖1)，較上月增加13.67%，主要係換利交易增加所致(附表2)。茲就交易內容分析如下： 一、商品種類： 匯率契約占81.44%、利率契約占17.57%、權益證券契約占0.90%、商品契約占0.08%及信用契約占0.01%(附表1)。 二、交易幣別： 涉及新臺幣交易占44.37%，交易量較上月增加25.76%；純外幣交易占55.63%，交易量較上月增加5.58%(附表1、附圖2)。 三、銀行類別： 本國銀行交易量占70.24%；外國及大陸地區銀行在台分行交易量占29.76%(附圖2)。交易量前五大銀行依序為中國信託、國泰世華、永豐、台新及法商法國巴黎銀行，合計占總交易量之36.24%。 四、交易變動： 各類交易量與上月比較，其中匯率契約增加7,527億元或3.96%，利率契約增加2兆1,541億元或102.10%，權益證券契約增加192億元或9.63%，商品契約減少79億元，信用契約增加15億元(附表2)。 備註："
+    },
     {
       "title": "本行彭前總裁名義遭冒用，特此澄清",
       "url": "https://www.cbc.gov.tw/tw/cp-302-193117-0f61a-1.html",
@@ -231,25 +239,31 @@
       "body": "115年9月金融情況 貨幣總計數 本(115)年9月日平均貨幣總計數M1B及M2月增率分別為1.02%及0.97%；M1B及M2年增率分別上升為7.20%及7.24%。M2年增率上升主要係放款與投資年增率上升，及企業海外籌資資金暫泊。累計本年1至9月平均M1B及M2年增率分別為7.65%及6.69%。 (%) 項 目 115年9月 115年1~9月 月增率 年增率 年增率 M1B 1.02 7.20 7.65 M2 0.97 7.24 6.69 註：本表月增率及年增率均未經季節調整。 金融機構放款與投資 9月底全體貨幣機構放款與投資月增率(以成本計價)為0.77%；年增率由上月底之9.43%上升為9.79%，主要係對民間部門、公營事業及政府債權年增率均上升。若包括人壽保險公司放款與投資，並加計全體貨幣機構轉列之催收款及轉銷呆帳金額，則調整後全體金融機構放款與投資年增率為8.06%，高於上月底之7.69%。 (%) 項 目 115年9月 115年1~9月 月增率 年增率 年增率 全體貨幣機構放款與投資 0.77 9.79 8.54 全體金融機構放款與投資 0.79 8.38 7.27 調整後全體金融機構放款與投資 0.77 8.06 7.00 註1：本表月增率及年增率(未季調)均以成本計價。 註2：全體金融機構放款與投資=全體貨幣機構放款與投資+人壽保險公司放款與投資； 調整後全體金融機構放款與投資=全體金融機構放款與投資+催收款及轉銷呆帳。 備註："
     },
     {
-      "title": "薔琵颱風來襲，本行相關同仁來行上班，從事國際金融交易及交割，維持本國銀行外幣資金之正常運作",
-      "url": "https://www.cbc.gov.tw/tw/cp-302-193070-7d365-1.html",
-      "source": "中央銀行新聞稿",
-      "date": "2026-10-23",
-      "official": true,
-      "body": "薔琵颱風來襲，本行相關同仁來行上班，從事國際金融交易及交割，維持本國銀行外幣資金之正常運作 受到薔琵颱風來襲影響，本（23）日台灣各地區多停班停課，銀行業暫停營業，台北外匯市場休市，惟國際金融市場持續營運，本行相關同仁來行上班，從事國際金融交易及交割，並提供銀行所需外幣資金；本日本行對國內外匯指定銀行及本國銀行海外分行提供外幣資金5.85億美元，以維持銀行之正常運作。 備註："
-    },
-    {
       "title": "Fed 2027 年利率決策減至 7 次！改制原因曝光，未來升降息與金融市場影響解析",
       "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9hXzBaaU1BMHM4Um84MHgxcEFscGdpWC1KZkFPZjJJeWRqaHJ2MUdrM0RFOUlVbDU3S1NRNHVQMHhUbl8xdllzdEJ3ZGNUdDVhY1RV?oc=5",
       "source": "果仁家",
       "date": "2026-10-29",
       "official": false
+    },
+    {
+      "title": "台灣利率市場：5年期IRS觸及逾三周新低；短率大致持平",
+      "url": "https://news.google.com/rss/articles/CBMi4gJBVV95cUxNdkROeVpUcDJma2NZSmJFdjcxVmRicTVxRU5SZUJKd0hYV3YyZVFqb0JobW9Ya3g1ME1hbmlPVDMyM0FwZ3JjZ2ZkNklfV0hSSHFHbDFGNUMtWWVFa3dzMVByd2toel9iM0FDNWJKMklOV3RNd2VweHEtU0F4RlFVOHJKcUVyWjBQcFlvc1F5V3FyTENQVGE5UC13U1NQUnItM1Uya19MM1NudXZpQXRTUllaemlTR3MzV181LUM1cWVFNjc3bUJaaUZCNG9vVjNleGEtZUFzUkh3Ulc0dnRFMlJ0N0k3Nm9TbDBONXI3SkVzdjNLT3ItMEM5eWFnZlpuOTJXdmhCOWkxWTk3ellaOVh1UEtSQ0UxSGY0MldnTVpUVnNDMmJfalFma0JETUVja1BXOVRqRWV6ZGozMUlQdGlHeGdVT25uRGxBbGtFT2c3VzJtcTE5UkNWQWhrSFBYTUE?oc=5",
+      "source": "Yahoo 財經",
+      "date": "2026-10-19",
+      "official": false
+    },
+    {
+      "title": "〈財經週報-華許效應〉緊中帶鬆政策可望延續 台灣央行仍走自己的路",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1UaHUyU3JSS0Q0WUxxcUhVWUp4dk91dHpqbUx1ajMwN3pEamZkMXhndGtDb2xIaUtkMmg2MEp6c19VU0tYOGtkWFlVS3hQQlRiZTU3Y2tBOVg?oc=5",
+      "source": "自由時報",
+      "date": "2026-10-18",
+      "official": false
     }
   ],
   "newsDigest": {
-    "official": "115年9月M2年增7.24%、M1B年增7.20%；全體貨幣機構放款與投資年增9.79%（上月9.43%）。9月流動準備比率23.45%，較上月減0.07個百分點。10/23央行因颱風休市日對銀行提供外幣資金5.85億美元。",
-    "media": "媒體標題指出Fed 2027年利率決策會議減至7次並改制，文章探討改制原因及未來升降息與金融市場影響。僅取得標題，未取得內文。",
+    "official": "9月銀行衍生性金融商品交易量24兆2,704億元，月增13.67%，主因換利交易增加。9月全體金融機構流動準備比率23.45%，月減0.07個百分點；應提流動準備5兆6,473億元。9月M2年增率7.24%，放款與投資年增率9.79%。另澄清楊總裁主權基金言論與事實不符。",
+    "media": "媒體標題聚焦利率與政策走向：台灣利率市場方面，5年期IRS觸及逾三周新低、短率大致持平（10/19）；財經週報稱緊中帶鬆政策可望延續，台灣央行仍走自己的路（10/18）；另有Fed 2027年利率決策減至7次的報導（10/29）。僅依標題歸納，未取得內文。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-10-29T10:44:47.313Z"
+    "generatedAt": "2026-10-30T10:45:12.851Z"
   }
 }
