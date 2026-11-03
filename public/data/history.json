@@ -12279,8 +12279,8 @@
     "foreignNet5d": -246885,
     "usdTwd": 32.592,
     "usdTwdVol20": 4.32,
-    "sofr90": null,
-    "fxNominalSpreadBp": null,
+    "sofr90": 3.78518,
+    "fxNominalSpreadBp": 210.14,
     "stats": {
       "percentile60": 66.66666666666666,
       "percentile120": 80.83333333333333,
@@ -12316,6 +12316,67 @@
     ],
     "compositeZ": 0.166,
     "compositeZ5d": 0.056,
+    "guardApplied": null
+  },
+  {
+    "date": "2026-11-03",
+    "status": "normal",
+    "eventFlags": [],
+    "tfssBp": 41.59,
+    "tfssChange5dBp": -0.01,
+    "taibir90Primary": 2.0997,
+    "taibir90Secondary": 1.875,
+    "primarySecondaryBp": 22.47,
+    "taibirSlopeBp": 33.5,
+    "taibor3m": 1.68378,
+    "taiborSlopeBp": 29.96,
+    "overnightRate": 0.809,
+    "corridorPosition": -0.0136,
+    "ncdNetIssuance": -113500,
+    "ncdNetIssuance5d": 26950,
+    "ncdOutstanding": 5853300,
+    "repoOperation": false,
+    "foreignNet": -107307,
+    "foreignNet5d": -346153,
+    "usdTwd": 32.76,
+    "usdTwdVol20": 4.49,
+    "sofr90": null,
+    "fxNominalSpreadBp": null,
+    "stats": {
+      "percentile60": 65.83333333333333,
+      "percentile120": 80.41666666666667,
+      "zScore60": 1.0472077222009475,
+      "zScore120": 0.7121141568544197,
+      "sample60": 60,
+      "sample120": 120,
+      "provisional": false
+    },
+    "compositeInputs": {
+      "tfss": 0.7121141568544197,
+      "primarySecondary": -1.2405098808245618,
+      "taiborSlope": 0.6980850634307815,
+      "corridor": -2.038147336729576,
+      "ncdNetIssuance": 0.48344801201318743
+    },
+    "compositeDispersion": {
+      "tfss": 1.9170615462791547,
+      "primarySecondary": 0.8263403211685181,
+      "taiborSlope": 0.07699634731596063,
+      "corridor": 0.005094495940609718,
+      "ncdNetIssuance": 220816.57320047336
+    },
+    "excludedInputs": [
+      {
+        "key": "taiborSlope",
+        "reason": "TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義"
+      },
+      {
+        "key": "corridor",
+        "reason": "O/N 走廊位置：120 日標準差 5.1e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
+      }
+    ],
+    "compositeZ": -0.015,
+    "compositeZ5d": 0.051,
     "guardApplied": null
   }
 ]

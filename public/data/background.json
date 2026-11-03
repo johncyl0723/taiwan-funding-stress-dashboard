@@ -9081,9 +9081,16 @@
       "bidAmount": 2399.5,
       "bidToCover": 2.18,
       "awardRate": 1.602
+    },
+    {
+      "date": "2026-11-01",
+      "issueAmount": 1100,
+      "bidAmount": 2731.7,
+      "bidToCover": 2.48,
+      "awardRate": 1.577
     }
   ],
-  "updatedAt": "2026-11-02T12:04:07.970Z",
+  "updatedAt": "2026-11-03T11:41:11.094Z",
   "sources": [
     {
       "label": "央行 OpenData 貨幣總計數與準備貨幣",
@@ -9108,7 +9115,7 @@
     {
       "label": "央行 364 天期定期存單開標結果",
       "url": "https://www.cbc.gov.tw/tw/lp-1163-1.html",
-      "asOf": "2026-10-01"
+      "asOf": "2026-11-01"
     }
   ]
 }
