@@ -12401,8 +12401,8 @@
     "foreignNet5d": -512010,
     "usdTwd": 32.821,
     "usdTwdVol20": 4.36,
-    "sofr90": null,
-    "fxNominalSpreadBp": null,
+    "sofr90": 3.79213,
+    "fxNominalSpreadBp": 210.83,
     "stats": {
       "percentile60": 65,
       "percentile120": 80,
@@ -12438,6 +12438,67 @@
     ],
     "compositeZ": 0.133,
     "compositeZ5d": 0.073,
+    "guardApplied": null
+  },
+  {
+    "date": "2026-11-05",
+    "status": "normal",
+    "eventFlags": [],
+    "tfssBp": 41.59,
+    "tfssChange5dBp": 0,
+    "taibir90Primary": 2.0997,
+    "taibir90Secondary": 1.875,
+    "primarySecondaryBp": 22.47,
+    "taibirSlopeBp": 33.5,
+    "taibor3m": 1.68378,
+    "taiborSlopeBp": 29.97,
+    "overnightRate": 0.813,
+    "corridorPosition": -0.0102,
+    "ncdNetIssuance": -96600,
+    "ncdNetIssuance5d": 34100,
+    "ncdOutstanding": 5868050,
+    "repoOperation": false,
+    "foreignNet": -102461,
+    "foreignNet5d": -545656,
+    "usdTwd": 32.876,
+    "usdTwdVol20": 4.3,
+    "sofr90": null,
+    "fxNominalSpreadBp": null,
+    "stats": {
+      "percentile60": 64.16666666666667,
+      "percentile120": 79.58333333333333,
+      "zScore60": 0.9809644015679162,
+      "zScore120": 0.693400813184593,
+      "sample60": 60,
+      "sample120": 120,
+      "provisional": false
+    },
+    "compositeInputs": {
+      "tfss": 0.693400813184593,
+      "primarySecondary": -1.2618742063836437,
+      "taiborSlope": 0.7998754990232966,
+      "corridor": -1.3142773810272854,
+      "ncdNetIssuance": 0.4886982394537017
+    },
+    "compositeDispersion": {
+      "tfss": 1.821577519547885,
+      "primarySecondary": 0.8172367695472353,
+      "taiborSlope": 0.07615768546611425,
+      "corridor": 0.0051517536793039935,
+      "ncdNetIssuance": 218820.5837657498
+    },
+    "excludedInputs": [
+      {
+        "key": "taiborSlope",
+        "reason": "TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義"
+      },
+      {
+        "key": "corridor",
+        "reason": "O/N 走廊位置：120 日標準差 5.2e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
+      }
+    ],
+    "compositeZ": -0.027,
+    "compositeZ5d": 0.062,
     "guardApplied": null
   }
 ]
