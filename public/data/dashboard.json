@@ -1,6 +1,6 @@
 {
   "market": {
-    "date": "2026-11-09",
+    "date": "2026-11-10",
     "status": "normal",
     "eventFlags": [],
     "tfssBp": 41.59,
@@ -11,80 +11,80 @@
     "taibirSlopeBp": 33.5,
     "taibor3m": 1.68378,
     "taiborSlopeBp": 29.97,
-    "overnightRate": 0.813,
-    "corridorPosition": -0.0102,
-    "ncdNetIssuance": -81950,
-    "ncdNetIssuance5d": -146700,
-    "ncdOutstanding": 5820100,
+    "overnightRate": 0.812,
+    "corridorPosition": -0.0111,
+    "ncdNetIssuance": -72550,
+    "ncdNetIssuance5d": -105750,
+    "ncdOutstanding": 5747550,
     "repoOperation": false,
-    "foreignNet": -90056,
-    "foreignNet5d": -540912,
-    "usdTwd": 32.882,
-    "usdTwdVol20": 4.7,
+    "foreignNet": -34117,
+    "foreignNet5d": -467722,
+    "usdTwd": 32.865,
+    "usdTwdVol20": 4.75,
     "sofr90": null,
     "fxNominalSpreadBp": null,
     "stats": {
-      "percentile60": 62.5,
-      "percentile120": 78.75,
-      "zScore60": 0.9199525940620739,
-      "zScore120": 0.6767459224952038,
+      "percentile60": 61.66666666666667,
+      "percentile120": 78.33333333333333,
+      "zScore60": 0.8908845517352872,
+      "zScore120": 0.6695691242773018,
       "sample60": 60,
       "sample120": 120,
       "provisional": false
     },
     "compositeInputs": {
-      "tfss": 0.6767459224952038,
-      "primarySecondary": -1.283957583410191,
-      "taiborSlope": 0.7723538136914812,
-      "corridor": -1.264767871862651,
-      "ncdNetIssuance": -0.3455952883893103
+      "tfss": 0.6695691242773018,
+      "primarySecondary": -1.2952831060603476,
+      "taiborSlope": 0.7587849215863789,
+      "corridor": -1.4117822504992945,
+      "ncdNetIssuance": -0.15353427943552125
     },
     "compositeDispersion": {
-      "tfss": 1.7164245763763952,
-      "primarySecondary": 0.807983597021349,
-      "taiborSlope": 0.07520301227713945,
-      "corridor": 0.005195946871253484,
-      "ncdNetIssuance": 215000.21476215264
+      "tfss": 1.6590271161805112,
+      "primarySecondary": 0.8032992904266756,
+      "taiborSlope": 0.074680802233387,
+      "corridor": 0.00521681016842029,
+      "ncdNetIssuance": 212890.5682833319
     },
     "excludedInputs": [
       {
         "key": "taiborSlope",
-        "reason": "TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義"
+        "reason": "TAIBOR 斜率：120 日標準差 0.07 低於材料性門檻 0.25，變動幅度不具經濟意義"
       },
       {
         "key": "corridor",
         "reason": "O/N 走廊位置：120 日標準差 5.2e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
       }
     ],
-    "compositeZ": -0.318,
-    "compositeZ5d": -0.056,
+    "compositeZ": -0.26,
+    "compositeZ5d": -0.105,
     "guardApplied": null,
-    "updatedAt": "2026-11-09T12:36:26.620Z",
+    "updatedAt": "2026-11-10T12:15:10.429Z",
     "sources": [
       {
         "label": "TDCC TAIBIR 初級（歷史查詢）",
         "url": "https://www.tdcc.com.tw/portal/zh/tcWeb/tc_05sat_main03_5",
-        "asOf": "2026-11-09"
+        "asOf": "2026-11-10"
       },
       {
         "label": "TDCC TAIBIR 次級（歷史查詢）",
         "url": "https://www.tdcc.com.tw/portal/zh/tcWeb/tc_05sat_main03_6",
-        "asOf": "2026-11-09"
+        "asOf": "2026-11-10"
       },
       {
         "label": "銀行公會 TAIBOR（每日＋月報 CSV）",
         "url": "https://www.ba.org.tw/taiborDaily/index",
-        "asOf": "2026-11-09"
+        "asOf": "2026-11-10"
       },
       {
         "label": "中央銀行金融業隔夜拆款",
         "url": "https://www.cbc.gov.tw/tw/lp-641-1.html",
-        "asOf": "2026-11-09"
+        "asOf": "2026-11-10"
       },
       {
         "label": "中央銀行公開市場操作",
         "url": "https://www.cbc.gov.tw/tw/lp-1163-1.html",
-        "asOf": "2026-11-09"
+        "asOf": "2026-11-10"
       },
       {
         "label": "中央銀行貼放利率",
@@ -94,29 +94,29 @@
       {
         "label": "證交所三大法人買賣金額",
         "url": "https://www.twse.com.tw/zh/trading/foreign/bfi82u.html",
-        "asOf": "2026-11-09"
+        "asOf": "2026-11-10"
       },
       {
         "label": "中央銀行新臺幣對美元收盤匯率",
         "url": "https://www.cbc.gov.tw/tw/lp-645-1.html",
-        "asOf": "2026-11-09"
+        "asOf": "2026-11-10"
       },
       {
         "label": "NY Fed SOFR 平均指數",
         "url": "https://www.newyorkfed.org/markets/reference-rates/sofr-averages-and-index",
-        "asOf": "2026-11-06"
+        "asOf": "2026-11-09"
       }
     ],
     "sourceStatus": {
-      "TDCC 次級": "TDCC 次級 已讀取（135 筆）",
       "TDCC 初級": "TDCC 初級 已讀取（135 筆）",
+      "TDCC 次級": "TDCC 次級 已讀取（135 筆）",
       "USD SOFR": "USD SOFR 已讀取（200 筆）",
       "央行貼放利率": "央行貼放利率 已讀取（20 筆）",
-      "外資買賣超": "外資買賣超 已讀取（10 筆）",
+      "外資買賣超": "外資買賣超 已讀取（11 筆）",
       "央行 NCD": "央行 NCD 已讀取（12 筆）",
-      "TAIBOR": "TAIBOR 已讀取（149 筆）",
-      "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
+      "TAIBOR": "TAIBOR 已讀取（150 筆）",
       "央行 O/N": "央行 O/N 已讀取（160 筆）",
+      "新臺幣匯率": "新臺幣匯率 已讀取（160 筆）",
       "超額準備": "超額準備 已讀取（189 期，最新 2026-09）",
       "準備貨幣": "準備貨幣 已讀取（357 期，最新 2026-09）",
       "M1B 年增率": "M1B 年增率 已讀取（461 期，最新 2026-09）",
@@ -125,7 +125,7 @@
       "五大銀行基準利率": "五大銀行基準利率 已讀取（287 期，最新 2026-10）",
       "票券週統計": "票券週統計 已讀取（15 週）",
       "364D NCD 標售": "364D NCD 標售 已讀取（2 次）",
-      "新聞": "新聞 已讀取（央行 8 則、媒體 4 則）",
+      "新聞": "新聞 已讀取（央行 8 則、媒體 5 則）",
       "AI 評論": "AI 評論 已生成（haiku（Claude Code 訂閱））",
       "新聞摘要": "新聞摘要 已生成（haiku（Claude Code 訂閱））"
     },
@@ -139,24 +139,24 @@
   "insight": {
     "marketState": "資金面正常，綜合指數落在近一年常態區間。",
     "pressureSource": "短端與 1–3 個月資金成本皆未見明顯壓力。90 天期初級較次級高 22.5 bp。",
-    "policyObservation": "央行公開市場操作維持例行步調。央行近 5 個交易日 NCD 淨釋出 146,700 百萬元。",
-    "researchView": "TSS 綜合指數 5 日均 -0.06，較前一交易日 -0.10、較一週前 -0.11。目前由 TFSS（z 0.68）主導，合成共採用 3 個子指標。距離「開始偏緊」門檻還有 1.06。另有 2 項子指標未納入合成，原因見下方子指標分解。本摘要為規則式模板依當日數據自動產生，僅供公開市場研究參考。",
+    "policyObservation": "央行公開市場操作維持例行步調。央行近 5 個交易日 NCD 淨釋出 105,750 百萬元。",
+    "researchView": "TSS 綜合指數 5 日均 -0.10，較前一交易日 -0.05、較一週前 -0.16。目前由 TFSS（z 0.67）主導，合成共採用 3 個子指標。距離「開始偏緊」門檻還有 1.10。另有 2 項子指標未納入合成，原因見下方子指標分解。本摘要為規則式模板依當日數據自動產生，僅供公開市場研究參考。",
     "fxView": "尚無資料。資料不足，無法比較。",
     "readings": {
-      "tss": "TSS 綜合指數 5 日均 -0.06，較前一交易日 -0.10、較一週前 -0.11。目前由 TFSS（z 0.68）主導，合成共採用 3 個子指標。距離「開始偏緊」門檻還有 1.06。",
-      "ncdNetIssuance": "近 5 個交易日淨釋出 146,700 百萬元，當日 -81,950 百萬元。",
-      "ncdOutstanding": "未到期餘額 58,201 億元，較 5 個交易日前 -1467 億元。",
-      "corridor": "隔拆 0.813% 位於走廊 -1.0% 的位置（下限為 7 天期 NCD 發行利率、上限為重貼現率 2%）。目前未進入 TSS 合成：O/N 走廊位置：120 日標準差 5.2e-3 低於材料性門檻 0.01，變動幅度不具經濟意義。",
-      "overnight": "0.813%，較 5 個交易日前 +0.0 bp。",
+      "tss": "TSS 綜合指數 5 日均 -0.10，較前一交易日 -0.05、較一週前 -0.16。目前由 TFSS（z 0.67）主導，合成共採用 3 個子指標。距離「開始偏緊」門檻還有 1.10。",
+      "ncdNetIssuance": "近 5 個交易日淨釋出 105,750 百萬元，當日 -72,550 百萬元。",
+      "ncdOutstanding": "未到期餘額 57,476 億元，較 5 個交易日前 -1058 億元。",
+      "corridor": "隔拆 0.812% 位於走廊 -1.1% 的位置（下限為 7 天期 NCD 發行利率、上限為重貼現率 2%）。目前未進入 TSS 合成：O/N 走廊位置：120 日標準差 5.2e-3 低於材料性門檻 0.01，變動幅度不具經濟意義。",
+      "overnight": "0.812%，較 5 個交易日前 +0.3 bp。",
       "taibor": "1.684%，較 5 個交易日前 +0.0 bp。授信合約若以此計息，這就是利息費用的直接變動。",
-      "taiborSlope": "30.0 bp。目前未進入 TSS 合成：TAIBOR 斜率：120 日標準差 0.08 低於材料性門檻 0.25，變動幅度不具經濟意義。",
-      "tfss": "41.6 bp，較 5 個交易日前 +0.0 bp。120 日 z-score 0.68。",
-      "primarySecondary": "22.5 bp，較 5 個交易日前 +0.0 bp。120 日 z-score -1.28。",
+      "taiborSlope": "30.0 bp。目前未進入 TSS 合成：TAIBOR 斜率：120 日標準差 0.07 低於材料性門檻 0.25，變動幅度不具經濟意義。",
+      "tfss": "41.6 bp，較 5 個交易日前 +0.0 bp。120 日 z-score 0.67。",
+      "primarySecondary": "22.5 bp，較 5 個交易日前 +0.0 bp。120 日 z-score -1.30。",
       "taibirSlope": "33.5 bp。曲線偏陡，短天期相對便宜。",
-      "foreignNet": "近 5 個交易日淨賣超 540,912 百萬元。",
+      "foreignNet": "近 5 個交易日淨賣超 467,722 百萬元。",
       "sofr": "尚無資料。",
       "fxSpread": "資料不足，無法比較。",
-      "usdTwd": "32.882，20 日年化波動 4.7%。"
+      "usdTwd": "32.865，20 日年化波動 4.8%。"
     },
     "risksAndLimits": [
       "本區塊為規則式模板文字，依當日數據套用預寫規則產生，不經 AI 生成。",
@@ -166,12 +166,12 @@
       "外幣通道缺少換匯點，無法計算避險後的隱含台幣成本。",
       "公開資料可能有發布與擷取延遲，指標判讀不構成投資、融資或交易建議。"
     ],
-    "generatedAt": "2026-11-09T12:36:26.621Z"
+    "generatedAt": "2026-11-10T12:15:10.429Z"
   },
   "aiCommentary": {
-    "text": "資料日 11/09 燈號為 normal。TSS 綜合指數 5 日均 z 為 -0.06，當日 -0.32，較前一日變動 -0.10，仍遠低於 1.0 的偏緊門檻。綜合指數偏低主要受初級－次級利差（z -1.28）拉低；TFSS 溢酬（41.6 bp，z 0.68）與 1W–3M 斜率（z 0.77）則略高於均值。O/N 走廊位置因 120 日標準差低於材料性門檻，未納入合成。\n\n外資近 5 日淨賣超約 5,409 億元，NCD 近 5 日淨發行為負（z -0.35），未到期餘額 58,201 億元。隔夜拆款利率 0.813%、3M TAIBOR 1.684%，USD/TWD 32.882，20 日年化波動 4.7%。SOFR 90 日均無資料，無法比較。當日無事件旗標；新聞多為央行例行統計與開標公告標題，未附數值，無法與當日數據相互印證或矛盾。",
+    "text": "今日資金面為 normal 燈號。TSS 綜合指數（5 日均 z）為 -0.10，低於 1.0 的偏緊門檻，當日值 -0.26，較前一日下降 0.05。數據顯示綜合壓力未見升溫，主要反映 O/N 走廊位置（z -1.41）與初級－次級利差（z -1.30）位於 120 日歷史偏低區段；TFSS 溢酬（z 0.67）與 1W–3M 斜率（z 0.76）則位於中性偏高區段。\n\n留意資料一致性：O/N 走廊位置既列為子指標（z -1.41），又因 120 日標準差低於門檻而被標示為未納入合成，無法確認其是否計入綜合指數，建議核對。NCD 近 5 日淨發行為 -105,750 百萬元，外資近 5 日淨賣超 467,722 百萬元，兩者與綜合讀數的關聯資料無法判定。新聞僅有標題且未附數值，無法與當日數據互相印證或矛盾。SOFR 90 日均無資料，當日無事件旗標。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-11-09T12:36:26.620Z"
+    "generatedAt": "2026-11-10T12:15:10.429Z"
   },
   "news": [
     {
@@ -239,6 +239,13 @@
       "body": "本行彭前總裁名義遭冒用，特此澄清 頃發現有不明人士於 Threads 平台冒用本行彭前總裁名義設立帳號，發表不實言論，經查本行彭前總裁從未以個人名義設立任何社群媒體帳號，為免民眾受騙，特此澄清。 備註： 新聞聯繫單位：秘書處聯絡科 電話：（02）2357-1506"
     },
     {
+      "title": "挑戰市場最高 LINE Bank 台幣定存12、13個月年利率2.5% 不限新資金",
+      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBTNU1QV2UwQnVfQVJncnpFTEt5cTlKRzNsZktzWnM0Smlidjc1dUtxRS13WVNWXzhiMjQwcFNqS3BKN1AtMTRYSm9mcUstWGhY0gFWQVVfeXFMTXVqRUFPQlhjdS00SkZNN1dFbkJJb3hHOWM3SWwtcDBURFk3ejZWa3RJZURidnBhYnVYU01fWWhfNWt5RnhCMzh3WkoycmYzaGRLMjVDQmc?oc=5",
+      "source": "UDN",
+      "date": "2026-11-10",
+      "official": false
+    },
+    {
       "title": "台灣貨幣市場：資金續呈偏寬鬆狀態，拆款利率反映市況略走低",
       "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5ycWFwWHNyQ3QzM2RKN1N4NHUySTR0M1EyYjY3REdPUnhkM0E3a0pTcEtRc3VIaTdjUUVzYVV2bnlaSVZPcWNfMDdOX0JidUY4eHdIYV81MzVkdVFXOE10LUZMRkZiQzhwXzN0Zk5MOVEyX2xSTFRJ?oc=5",
       "source": "TradingView",
@@ -261,16 +268,16 @@
     },
     {
       "title": "台灣貨幣市場：月初資金充裕拆款利率略下滑，短票買氣佳利率持穩",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFA0LUp0Z3I5UzlwQWRmQ3VJU2NZU284X0V2ME1YS2tWUkRnQ3dWR0JSS05reXZ2eTdxYkpXWnhsamViS2FtN1JaeFdsM2o5blNTWXUycG9QNlBQajNVdDAxWFJsdXJwWkV2TTBmbGhVWnQ5YUF1SXYw?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBjQU1Qb24yMWM3ci0xNEVxc21wZTNiWjZxaHFObEVrbVI0ODRwSTRQeGNsOWx1OEUxQ3g3ckZVV002ejVZeW0tVU9mSGpwMkFwTzVSVWtUV1FrX21hOTk5RjNOcHFzd2ZOeWp6NUVaQV9Lc2NtT1Nv?oc=5",
       "source": "TradingView",
-      "date": "2026-11-03",
+      "date": "2026-11-02",
       "official": false
     }
   ],
   "newsDigest": {
-    "official": "10月隔夜拆款加權平均利率0.811%，降0.006個百分點；拆款交易量3兆3,237億元，增63.75%。10月底商業本票餘額4兆2,717億元，30天期初估利率1.95%，升0.03個百分點。10月底外匯存底5,964.37億美元，減43.08億美元。",
-    "media": "依標題（未取得內文）：報導多指資金續呈偏寬鬆，拆款利率反映市況略走低，短票利率大致持穩、買氣佳；364天期定存單利率跌破1.6%，銀行資金調度壓力緩和。",
+    "official": "10月隔夜拆款加權平均利率0.811%，降0.006個百分點；日均拆款餘額5,223億元，增17.00%。30天期商業本票全月平均初估值1.95%，升0.03個百分點。10月底外匯存底5,964.37億美元，減43.08億美元。",
+    "media": "僅依標題：資金續偏寬鬆，拆款利率略走低、短票利率持穩；央行364天期定存單利率跌破1.6%，銀行資金調度壓力緩和；LINE Bank挑戰市場最高，12、13個月台幣定存年利率2.5%。",
     "model": "haiku（Claude Code 訂閱）",
-    "generatedAt": "2026-11-09T12:36:19.809Z"
+    "generatedAt": "2026-11-10T12:15:06.250Z"
   }
 }
