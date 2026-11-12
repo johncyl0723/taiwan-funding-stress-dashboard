@@ -12744,5 +12744,66 @@
     "compositeZ": -0.443,
     "compositeZ5d": -0.22,
     "guardApplied": null
+  },
+  {
+    "date": "2026-11-12",
+    "status": "normal",
+    "eventFlags": [],
+    "tfssBp": 41.59,
+    "tfssChange5dBp": 0,
+    "taibir90Primary": 2.0997,
+    "taibir90Secondary": 1.875,
+    "primarySecondaryBp": 22.47,
+    "taibirSlopeBp": 33.5,
+    "taibor3m": 1.68378,
+    "taiborSlopeBp": 29.97,
+    "overnightRate": 0.811,
+    "corridorPosition": -0.0119,
+    "ncdNetIssuance": 32200,
+    "ncdNetIssuance5d": -92150,
+    "ncdOutstanding": 5775900,
+    "repoOperation": false,
+    "foreignNet": -685,
+    "foreignNet5d": -216812,
+    "usdTwd": 32.889,
+    "usdTwdVol20": 4.44,
+    "sofr90": null,
+    "fxNominalSpreadBp": null,
+    "stats": {
+      "percentile60": 60,
+      "percentile120": 77.5,
+      "zScore60": 0.8353222843737736,
+      "zScore120": 0.6584959285913672,
+      "sample60": 60,
+      "sample120": 120,
+      "provisional": false
+    },
+    "compositeInputs": {
+      "tfss": 0.6584959285913672,
+      "primarySecondary": -1.3185324613058005,
+      "taiborSlope": 0.7319935912025125,
+      "corridor": -1.4957271412786286,
+      "ncdNetIssuance": -0.07568410158209202
+    },
+    "compositeDispersion": {
+      "tfss": 1.5327859892655882,
+      "primarySecondary": 0.7938118304876947,
+      "taiborSlope": 0.07354344898690109,
+      "corridor": 0.005307340566506815,
+      "ncdNetIssuance": 209753.4312775176
+    },
+    "excludedInputs": [
+      {
+        "key": "taiborSlope",
+        "reason": "TAIBOR 斜率：120 日標準差 0.07 低於材料性門檻 0.25，變動幅度不具經濟意義"
+      },
+      {
+        "key": "corridor",
+        "reason": "O/N 走廊位置：120 日標準差 5.3e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
+      }
+    ],
+    "compositeZ": -0.245,
+    "compositeZ5d": -0.264,
+    "guardApplied": null
   }
 ]
