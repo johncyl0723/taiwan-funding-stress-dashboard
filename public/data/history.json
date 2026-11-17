@@ -12889,8 +12889,8 @@
     "foreignNet5d": -76920,
     "usdTwd": 32.886,
     "usdTwdVol20": 4.15,
-    "sofr90": null,
-    "fxNominalSpreadBp": null,
+    "sofr90": 3.82858,
+    "fxNominalSpreadBp": 214.48,
     "stats": {
       "percentile60": 58.333333333333336,
       "percentile120": 76.66666666666667,
@@ -12926,6 +12926,67 @@
     ],
     "compositeZ": -0.142,
     "compositeZ5d": -0.278,
+    "guardApplied": null
+  },
+  {
+    "date": "2026-11-17",
+    "status": "normal",
+    "eventFlags": [],
+    "tfssBp": 41.59,
+    "tfssChange5dBp": 0,
+    "taibir90Primary": 2.0997,
+    "taibir90Secondary": 1.88,
+    "primarySecondaryBp": 21.97,
+    "taibirSlopeBp": 33.5,
+    "taibor3m": 1.68378,
+    "taiborSlopeBp": 29.97,
+    "overnightRate": 0.811,
+    "corridorPosition": -0.0119,
+    "ncdNetIssuance": 23750,
+    "ncdNetIssuance5d": 74200,
+    "ncdOutstanding": 5821750,
+    "repoOperation": false,
+    "foreignNet": -38094,
+    "foreignNet5d": -80897,
+    "usdTwd": 32.85,
+    "usdTwdVol20": 4.1,
+    "sofr90": null,
+    "fxNominalSpreadBp": null,
+    "stats": {
+      "percentile60": 57.49999999999999,
+      "percentile120": 76.25,
+      "zScore60": 0.7599621623527079,
+      "zScore120": 0.6561204971107101,
+      "sample60": 60,
+      "sample120": 120,
+      "provisional": false
+    },
+    "compositeInputs": {
+      "tfss": 0.6561204971107101,
+      "primarySecondary": -1.9737014274063283,
+      "taiborSlope": 0.692565469048608,
+      "corridor": -1.424922580420749,
+      "ncdNetIssuance": 0.7196090961392704
+    },
+    "compositeDispersion": {
+      "tfss": 1.3062895262494019,
+      "primarySecondary": 0.7862131416903871,
+      "taiborSlope": 0.07159371286797653,
+      "corridor": 0.005371636867742356,
+      "ncdNetIssuance": 205177.0517068306
+    },
+    "excludedInputs": [
+      {
+        "key": "taiborSlope",
+        "reason": "TAIBOR 斜率：120 日標準差 0.07 低於材料性門檻 0.25，變動幅度不具經濟意義"
+      },
+      {
+        "key": "corridor",
+        "reason": "O/N 走廊位置：120 日標準差 5.4e-3 低於材料性門檻 0.01，變動幅度不具經濟意義"
+      }
+    ],
+    "compositeZ": -0.199,
+    "compositeZ5d": -0.266,
     "guardApplied": null
   }
 ]
