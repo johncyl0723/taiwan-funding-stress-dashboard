@@ -762,6 +762,10 @@
         {
           "period": "2026-09",
           "value": 1104
+        },
+        {
+          "period": "2026-10",
+          "value": 714
         }
       ]
     },
@@ -9083,7 +9087,7 @@
       "awardRate": 1.577
     }
   ],
-  "updatedAt": "2026-11-18T12:43:15.649Z",
+  "updatedAt": "2026-11-19T12:34:37.767Z",
   "sources": [
     {
       "label": "央行 OpenData 貨幣總計數與準備貨幣",
@@ -9093,7 +9097,7 @@
     {
       "label": "央行 OpenData 金融機構存款準備金",
       "url": "https://data.gov.tw/dataset/16900",
-      "asOf": "2026-09"
+      "asOf": "2026-10"
     },
     {
       "label": "央行 OpenData 五大銀行存放款利率",
